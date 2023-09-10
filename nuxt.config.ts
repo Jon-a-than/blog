@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   css: ['@unocss/reset/normalize.css', 'assets/styles/global.css'],
   devtools: { enabled: false },
 
-  modules: ['@nuxt/content', '@unocss/nuxt'],
+  modules: ['@vueuse/nuxt', '@nuxt/content', '@unocss/nuxt', 'nuxt-vitest'],
   content: {
     documentDriven: {
       layoutFallbacks: ['post']

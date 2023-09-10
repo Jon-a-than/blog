@@ -2,11 +2,17 @@
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "editor.formatOnSaveMode": "file",
   "prettier.enable": false,
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
+  "css.customData": [
+    "./.vscode/unocss.json"
+  ],
   "[vue]": {
     "editor.defaultFormatter": "Vue.volar"
-  }
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
 }

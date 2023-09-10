@@ -2,10 +2,21 @@ import {
   defineConfig,
   presetAttributify,
   presetIcons,
-  presetUno
+  presetUno,
+  transformerDirectives
 } from 'unocss'
 
+import { colors } from 'unocss/preset-mini'
+
 export default defineConfig({
+  content: {
+    pipeline: {
+      include: [
+        /\.(vue|[jt]sx|mdx?|html)($|\?)/,
+        'app.config.ts'
+      ]
+    }
+  },
   presets: [
     presetAttributify({ prefix: 'v:' }),
     presetIcons({
@@ -17,5 +28,16 @@ export default defineConfig({
   rules: [],
   safelist: [],
   shortcuts: {},
-  transformers: []
+  theme: {
+    colors: {
+      ...colors,
+      get primary (): typeof colors.gray {
+        return this.gray
+      },
+      get primaryDark (): typeof colors.slate {
+        return this.slate
+      }
+    }
+  },
+  transformers: [transformerDirectives()]
 })
