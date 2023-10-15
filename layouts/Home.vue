@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <NuxtLayout name="home">
-    <ContentDoc />
+  <NuxtLayout>
+    <slot />
   </NuxtLayout>
 </template>

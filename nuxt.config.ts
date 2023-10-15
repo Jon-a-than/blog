@@ -12,6 +12,12 @@ export default defineNuxtConfig({
     }
   },
 
+  routeRules: {
+    '/resume/**': {
+      swr: true
+    }
+  },
+
   typescript: { shim: true }
 
 })
