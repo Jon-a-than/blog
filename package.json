@@ -13,7 +13,7 @@
     "test:cov": "vitest --coverage"
   },
   "devDependencies": {
-    "@nuxt/content": "^2.8.5",
+    "@nuxt/content": "^2.9.0",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@unocss/nuxt": "^0.56.5",
     "@unocss/reset": "^0.56.5",
