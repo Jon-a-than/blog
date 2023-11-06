@@ -20,8 +20,8 @@ devDependencies:
     specifier: ^0.56.5
     version: 0.56.5(postcss@8.4.31)(vite@4.5.0)(webpack@5.89.0)
   '@unocss/reset':
-    specifier: ^0.56.5
-    version: 0.56.5
+    specifier: ^0.57.2
+    version: 0.57.2
   '@vueuse/core':
     specifier: ^10.5.0
     version: 10.5.0(vue@3.3.6)
@@ -2298,6 +2298,10 @@ packages:
 
   /@unocss/reset@0.56.5:
     resolution: {integrity: sha512-//Pv2ITAdnpWB9FIr0JiQVl1rL1XgISR8mu3OikhCfi6d/4OH+o6/WyE7evF1pOmk1JjsQlznOABIZXQlcpbHQ==}
+    dev: true
+
+  /@unocss/reset@0.57.2:
+    resolution: {integrity: sha512-e9N5R9ZqbBhePa5ehK63LhU57nlgP3MSG4zblXv61SzBm1xIoTuhj7HX3OVJaMeDsrgazRlndSYNhSfD/ziPxg==}
     dev: true
 
   /@unocss/rule-utils@0.56.5:
