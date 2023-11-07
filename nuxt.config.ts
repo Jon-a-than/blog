@@ -9,12 +9,25 @@ export default defineNuxtConfig({
   content: {
     documentDriven: {
       layoutFallbacks: ['post']
+    },
+    highlight: {
+      theme: 'vitesse-dark',
+      preload: ['ts', 'vue', 'json', 'bash']
+    },
+    markdown: {
+      toc: {
+        depth: 2,
+        searchDepth: 2
+      }
     }
   },
 
   routeRules: {
     '/resume/**': {
-      swr: true
+      prerender: true
+    },
+    '/posts/**': {
+      prerender: true
     }
   },
 

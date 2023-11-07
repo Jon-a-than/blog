@@ -28,7 +28,7 @@ const tableData = {
 </script>
 
 <template>
-  <main class="bg-slate-7 text-gray shadow-xl shadow-slate-7 pa-lg rounded-xl mx-auto max-w-4xl">
+  <main data-style="resume" class="bg-slate-7 text-gray shadow-xl shadow-slate-7 pa-lg rounded-xl mx-auto max-w-4xl">
     <header class="select-none">
       <h1 class="text-center">
         个人简历
@@ -119,7 +119,7 @@ const tableData = {
 </template>
 
 <style>
-html {
+html:has([data-style="resume"]) {
   --uno: lg:px-lg py-lg bg-slate-8;
   color-scheme: dark;
 }
