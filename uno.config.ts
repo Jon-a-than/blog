@@ -31,8 +31,8 @@ export default defineConfig({
   theme: {
     colors: {
       ...colors,
-      get primary (): typeof colors.gray {
-        return this.gray
+      get primary (): typeof colors.slate {
+        return this.slate
       },
       get primaryDark (): typeof colors.slate {
         return this.slate
