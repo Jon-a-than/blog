@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 const content = useContent()
-
+console.log(content)
 const route = useRoute()
 </script>
 
 <template>
-  <NuxtLayout name="post">
-    <TOC :path="$route.path" :navigation="content.navigation" />
+  <NuxtLayout>
+    <TOC :toc="content.toc" />
     <ContentDoc tag="article" />
   </NuxtLayout>
 </template>

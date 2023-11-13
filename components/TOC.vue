@@ -1,16 +1,24 @@
 <script lang="ts" setup>
-interface Navigation {
-  _path: string
-  title: string
-  children?: Navigation[]
+interface TocItem {
+  id: string
+  text: string
+  depth: number
+  children?: TocItem[]
 }
 
-defineProps<{ path: string; navigation: Navigation[] }>()
+interface Toc {
+  title: string
+  depth: number
+  searchDepth: number
+  links: TocItem[]
+}
+
+defineProps<{ toc: Toc }>()
 
 </script>
 
 <template>
   <ul>
-    <li />
+    {{ toc }}
   </ul>
 </template>
