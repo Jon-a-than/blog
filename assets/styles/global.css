@@ -3,7 +3,11 @@ body {
 }
 
 html {
-  --uno: text-primary-9 bg-primary-1;
+  --uno: text-primary-7 bg-primary-3;
+}
+
+html *::selection {
+  --uno: bg-primary-4;
 }
 
 html[class="dark"] {
