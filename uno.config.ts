@@ -27,7 +27,10 @@ export default defineConfig({
   ],
   rules: [],
   safelist: [],
-  shortcuts: {},
+  shortcuts: {
+    'scrollbar-slim':
+      'scrollbar:(w-2 h-2 bg-transparent) scrollbar-corner:bg-transparent scrollbar-thumb:(rounded bg-primary-4 h-2 w-2)'
+  },
   theme: {
     colors: {
       ...colors,
@@ -39,5 +42,28 @@ export default defineConfig({
       }
     }
   },
-  transformers: [transformerDirectives()]
+  transformers: [transformerDirectives()],
+  variants: [
+    (matcher) => {
+      if (!matcher.startsWith('scrollbar:')) { return matcher }
+      return {
+        matcher: matcher.slice(10),
+        selector: s => `${s}::-webkit-scrollbar`
+      }
+    },
+    (matcher) => {
+      if (!matcher.startsWith('scrollbar-thumb:')) { return matcher }
+      return {
+        matcher: matcher.slice(16),
+        selector: s => `${s}::-webkit-scrollbar-thumb`
+      }
+    },
+    (matcher) => {
+      if (!matcher.startsWith('scrollbar-corner:')) { return matcher }
+      return {
+        matcher: matcher.slice(17),
+        selector: s => `${s}::-webkit-scrollbar-corner`
+      }
+    }
+  ]
 })

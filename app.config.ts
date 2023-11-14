@@ -1,6 +1,6 @@
 export default defineAppConfig({
   navbar: {
-    subtitle: 'Nuxt.js',
+    subtitle: '🚧blog',
     navLinks: [
       {
         title: '首页',
