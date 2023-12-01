@@ -1,0 +1,16 @@
+body {
+  margin: 0;
+}
+
+html {
+  --uno: text-primary-7 bg-primary-1;
+}
+
+html *::selection {
+  --uno: bg-primary-4;
+}
+
+html[class="dark"] {
+  color-scheme: dark;
+  --uno: text-primary-1 bg-primary-dark-9;
+}

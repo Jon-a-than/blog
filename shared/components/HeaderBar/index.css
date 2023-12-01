@@ -1,0 +1,100 @@
+:host {
+  --primary-50: #f8fafc;
+  --primary-100: #f1f5f9;
+  --primary-200: #e2e8f0;
+  --primary-300: #cbd5e1;
+  --primary-400: #94a3b8;
+  --primary-500: #64748b;
+  --primary-600: #475569;
+  --primary-700: #334155;
+  --primary-800: #1e293b;
+  --primary-900: #0f172a;
+  --primary-950: #020617;
+}
+
+.inline-center {
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
+}
+
+.header_container {
+  padding-inline: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: solid 1px var(--primary-300);
+  background-color: var(--primary-200);
+}
+:host-context(html[class="dark"]) .header_container {
+  background-color: var(--primary-700);
+  border-bottom-color: var(--primary-500);
+}
+
+.title {
+  margin-block: 0.5rem;
+}
+.title_link {
+  font-weight: 800;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  color: var(--primary-800);
+  text-decoration: none;
+}
+:host-context(html[class="dark"]) .title_link {
+  color: var(--primary-100);
+}
+
+.list {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  list-style-type: none;
+}
+
+.nav_link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25em;
+  text-decoration: none;
+  font-weight: 700;
+  color: var(--primary-800);
+  transition: color 150ms;
+}
+.nav_link:hover {
+  color: var(--primary-500);
+}
+:host-context(html[class="dark"]) .nav_link {
+  color: var(--primary-100);
+}
+:host-context(html[class="dark"]) .nav_link:hover {
+  color: var(--primary-400);
+}
+.nav_link > i {
+  font-size: 1.2rem;
+}
+
+.switch[data-state="on"] {
+  background-color: var(--primary-800);
+  border-color: var(--primary-500);
+}
+.switch[data-state="on"] .switch-handle {
+  transform: translateX(0.75rem);
+  background-color: var(--primary-600);
+}
+.switch {
+  background-color: var(--primary-100);
+  border: 1px solid var(--primary-400);
+  border-radius: 0.75rem;
+  width: 3rem;
+  height: 1.5rem;
+}
+
+.switch-handle {
+  transition: color 150ms, transform 250ms;
+  background-color: var(--primary-300);
+  border-radius: 0.75rem;
+  transform: translateX(-0.75rem);
+  width: 1.125rem;
+  height: 1.125rem;
+}
