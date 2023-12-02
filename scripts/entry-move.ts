@@ -2,9 +2,7 @@ import { copyFileSync, rmSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-moveDistEntryToRoot()
-
-function moveDistEntryToRoot() {
+export function moveDistEntryToRoot() {
   const rootDir = fileURLToPath(new URL('..', import.meta.url))
   const source = resolve(rootDir, 'dist/index-dev.html')
 

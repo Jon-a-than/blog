@@ -1,6 +1,9 @@
 import unocss from 'unocss/vite'
 import { fileURLToPath } from 'node:url'
 import { defineConfig, mergeConfig, type UserConfig } from 'vite'
+import multiPagesPromise from './scripts/prerender'
+
+const multiPages = await multiPagesPromise
 
 export default defineConfig(({ command, isPreview }) => {
   const commonConfig = {
@@ -8,10 +11,11 @@ export default defineConfig(({ command, isPreview }) => {
       minify: false,
       emptyOutDir: true,
       rollupOptions: {
-        input: {
-          main: 'index-dev.html'
-        }
+        input: ['./index-dev.html', ...multiPages]
       }
+    },
+    css: {
+      transformer: 'lightningcss'
     },
     plugins: [unocss()],
     resolve: {
