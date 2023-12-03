@@ -24,7 +24,7 @@
     "@typescript-eslint/parser": "^6.13.1",
     "@unocss/reset": "^0.57.7",
     "esbuild": "^0.19.8",
-    "eslint": "^8.54.0",
+    "eslint": "^8.55.0",
     "eslint-plugin-prettier": "^5.0.1",
     "js-yaml": "^4.1.0",
     "lightningcss": "^1.22.1",
