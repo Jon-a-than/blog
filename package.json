@@ -13,7 +13,7 @@
   "dependencies": {
     "marked": "^11.0.0",
     "marked-highlight": "^2.0.8",
-    "msw": "^2.0.9",
+    "msw": "^2.0.10",
     "shiki": "^0.14.5",
     "unocss": "^0.57.7"
   },
