@@ -35,8 +35,8 @@ devDependencies:
     specifier: ^6.13.1
     version: 6.13.1(eslint@8.54.0)(typescript@5.3.2)
   '@unocss/reset':
-    specifier: ^0.57.7
-    version: 0.57.7
+    specifier: ^0.58.0
+    version: 0.58.0
   esbuild:
     specifier: ^0.19.8
     version: 0.19.8
@@ -1379,6 +1379,11 @@ packages:
 
   /@unocss/reset@0.57.7:
     resolution: {integrity: sha512-oN9024WVrMewGbornnAPIpzHeKPIfVmZ5IsZGilWR761TnI5jTjHUkswsVoFx7tZdpCN2/bqS3JK/Ah0aot3NQ==}
+    dev: false
+
+  /@unocss/reset@0.58.0:
+    resolution: {integrity: sha512-UVZ5kz37JGbwAA06k/gjKYcekcTwi6oIhev1EpTtCvHLL6XYcYqcwb/u4Wjzprd3L3lxDGYXvGdjREGm2u7vbQ==}
+    dev: true
 
   /@unocss/rule-utils@0.57.7:
     resolution: {integrity: sha512-gLqbKTIetvRynLkhonu1znr+bmWnw+Cl3dFVNgZPGjiqGHd78PGS0gXQKvzuyN0iO2ADub1A7GlCWs826iEHjA==}
