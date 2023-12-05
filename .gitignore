@@ -17,5 +17,4 @@ logs
 *.local
 
 config/post.json
-public/*.js
 posts
