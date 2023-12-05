@@ -1,0 +1,49 @@
+.markdown-article {
+  --uno: dark:text-primary-3;
+
+  pre {
+    --uno: mb-0;
+  }
+
+  .shiki {
+    overflow: auto;
+    --uno: pa-4 rounded font-500 text-base scrollbar-thumb:(bg-transparent !) scrollbar-slim;
+
+    &:hover {
+      --uno: scrollbar-thumb:(bg-primary-5 !);
+    }
+  }
+
+  .shiki *::selection {
+    --uno: bg-primary-950;
+  }
+
+  .inline-code {
+    --uno: mx-2 px-1 py-.5 bg-primary-3 dark:bg-primary-8 dark:text-stone-3 font-mono rounded;
+  }
+
+  .paragraph {
+    --uno: my-4 text-base line-height-7 font-bold;
+  }
+
+  .strong {
+    background-image: linear-gradient(transparent 75%, rgb(168 162 158) 75%);
+    --uno: font-extrabold;
+  }
+
+  .anchor {
+    --uno: decoration-none;
+  }
+
+  .header-link {
+    --uno: text-primary-5;
+  }
+
+  .link {
+    --uno: text-rose-3 font-bold;
+  }
+
+  .header {
+    --uno: py-0.5em;
+  }
+}
