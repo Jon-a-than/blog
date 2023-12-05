@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url'
 
 export function moveDistEntryToRoot() {
   const rootDir = fileURLToPath(new URL('..', import.meta.url))
-  const source = resolve(rootDir, 'dist/index-dev.html')
+  const source = resolve(rootDir, 'dist/index.html')
 
   copyFileSync(source, resolve(rootDir, 'index.html'))
   rmSync(source)

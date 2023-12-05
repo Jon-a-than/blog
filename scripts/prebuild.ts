@@ -1,2 +1,3 @@
-import './generate-post'
-import './worker-builder'
+import renderPromise from './generate-post'
+
+await renderPromise

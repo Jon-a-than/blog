@@ -1,32 +1,35 @@
 import { load } from 'js-yaml'
-import { buildMarkdownParser } from './markdown'
 
 import { extname } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { exec } from 'node:child_process'
 import { readFile, stat, readdir, writeFile } from 'node:fs/promises'
+
+const POST_PREFIX = '/posts/'
 
 interface PostMeta {
   title: string
-  updateAt: string
   tags: string[]
   categories: string[]
   description: string
 }
-interface Post {
+export interface Post {
   meta: PostMeta
-  html: string
+  path: string
+  link: string
+  updatedAt: string
+  createdAt: string
 }
 
-const marked = await buildMarkdownParser()
 export default parsePostMeta()
 
 // 该脚本生成文章信息，不要手动修改config/post.json 该文件在构建前生成,可在源码中使用
 async function parsePostMeta(
   output: string = fileURLToPath(new URL('../config/post.json', import.meta.url)),
   root: string = fileURLToPath(new URL('../content', import.meta.url))
-) {
+): Promise<Post[]> {
   const stack = [root]
-  const routerMeta: Record<string, Post> = {}
+  const routerMeta: Post[] = []
   while (stack.length) {
     const path = stack.pop()!
 
@@ -37,10 +40,21 @@ async function parsePostMeta(
       stack.push(...pathInfo)
       continue
     } else {
-      routerMeta[pathInfo.slice(root.length + 1)] = await parsePost(pathInfo)
+      const [meta, [updatedAt, createdAt]] = await Promise.all([
+        parsePost(pathInfo),
+        getPostDate(pathInfo)
+      ])
+      routerMeta.push({
+        meta,
+        path: pathInfo,
+        link: pathToLink(pathInfo.slice(root.length + 1)),
+        updatedAt,
+        createdAt
+      })
     }
   }
 
+  routerMeta.reverse()
   writeFile(output, JSON.stringify(routerMeta, null, 2))
   return routerMeta
 }
@@ -58,7 +72,7 @@ async function parsePath(path: string) {
   }
 }
 
-async function parsePost(path: string): Promise<Post> {
+async function parsePost(path: string): Promise<PostMeta> {
   const markdownFile = await readFile(path, 'utf-8')
   const yaml = markdownFile.match(/---\n([\s\S]+?)\n---/)?.[1]
   if (!yaml) {
@@ -68,9 +82,18 @@ async function parsePost(path: string): Promise<Post> {
 
   /** @todo 错误处理与测试 */
   const meta = load(yaml) as PostMeta
-  const html = await marked.parse(markdownFile.replace(/---\n([\s\S]+?)\n---/, ''))
 
-  return { meta, html }
+  return meta
+}
+
+function pathToLink(path: string) {
+  return (
+    POST_PREFIX +
+    path
+      .split('/')
+      .map((p) => p.replace(/^\d\./, '').replace(/\.md$/, '.html'))
+      .join('/')
+  )
 }
 
 async function isDirectory(path: string) {
@@ -80,4 +103,27 @@ async function isDirectory(path: string) {
   } catch (e) {
     return false
   }
+}
+
+async function getPostDate(path: string): Promise<[update: string, create: string]> {
+  return new Promise((res) => {
+    exec(`git log --pretty=format:"%ad" --date=iso ${path}`, async (e, dateListTxt) => {
+      const dateList = dateListTxt.split('\n')
+      if (dateList[0] === '') {
+        const now = new Date().toISOString()
+        res([now, now])
+      }
+
+      const updateAt = (await hasWithoutCommitChange(path)) ? new Date().toISOString() : dateList[0]
+      res([updateAt, dateList.at(-1)!])
+    })
+  })
+}
+
+async function hasWithoutCommitChange(path: string): Promise<boolean> {
+  return new Promise((res) => {
+    exec(`git status ${path}`, (e, txt) => {
+      res(txt.includes('.md'))
+    })
+  })
 }
