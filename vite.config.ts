@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url'
 import { defineConfig, mergeConfig, type UserConfig } from 'vite'
 import multiPagesPromise from './scripts/prerender'
 
-const multiPages = await multiPagesPromise
+const multiPages = multiPagesPromise
 
 export default defineConfig(({ command, isPreview }) => {
   const commonConfig = {
@@ -11,7 +11,7 @@ export default defineConfig(({ command, isPreview }) => {
       minify: false,
       emptyOutDir: true,
       rollupOptions: {
-        input: ['./index-dev.html', ...multiPages]
+        input: ['./index.html', ...multiPages]
       }
     },
     css: {
@@ -27,7 +27,7 @@ export default defineConfig(({ command, isPreview }) => {
 
   switch (command) {
     case 'build':
-      return mergeConfig(commonConfig, { base: isPreview ? '/' : '/dist/' })
+      return mergeConfig(commonConfig, { base: isPreview ? '/' : '/21081715/dist/' })
     case 'serve':
     default:
       return mergeConfig(commonConfig, {})

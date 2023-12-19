@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>实现迷你SSR - 服务端数据预取</title>
+    <script type="module" crossorigin src="/21081715/dist/assets/index-MQVGeJDe.js"></script>
+    <script type="module" crossorigin src="/21081715/dist/assets/index-A_9H3jJA.js"></script>
+    <link rel="stylesheet" crossorigin href="/21081715/dist/assets/index-FnwD_uIS.css">
+    <link rel="stylesheet" crossorigin href="/21081715/dist/assets/index-FJxq1wWu.css">
+  </head>
+  <body class="flex flex-col h-100vh overflow-hidden">
+    <header-bar></header-bar>
+
+    <div class="pt-4 flex flex-col flex-1 overflow-auto scrollbar-slim gap-4">
+      <div class="flex">
+        <aside class="hidden lg:block basis-72 pl-2">
+          <h2 class="text-lg">最新评论</h2>
+
+          <div class="flex gap-2 items-start">
+            <!-- <div class="pa-1 bg-lime-2 border-1 border-solid rounded-full">
+              <i class="i-uil-0-plus text-lg"></i>
+            </div>
+            <p class="my-0 bg-primary-2 dark:bg-primary-7 rounded-lg pa-2">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut eius repellendus molestiae
+              quia?
+            </p> -->
+          </div>
+        </aside>
+        <main class="md:mx-4 flex-1 rounded-xl overflow-hidden">
+          <header>
+            <h1 class="text-center">Title实现迷你SSR - 服务端数据预取</h1>
+          </header>
+          <article
+            class="markdown-article bg-primary-2 pa-4 rounded-xl dark:bg-primary-7 line-height-6"
+          >
+            <p class="paragraph">数据预取是指在服务端就对所需要的<code class="inline-code">API</code>请求数据完成，在服务端直接将请求数据渲染出来，服务端的请求一般都快于用户端(特别在后端部署在同一服务器，或直接使用该应用<code class="inline-code">node.js</code>服务端的<code class="inline-code">api</code>服务时)，可以获得更好的用户体验和 SEO 效果。</p><p class="paragraph"><code class="inline-code">Vue</code>给组合式写法直接提供了<code class="inline-code">onServerPrefetch</code>的生命周期钩子用于服务端数据预取（也有对应的选项式生命周期<code class="inline-code">serverPrefetch</code>），<code class="inline-code">renderToString</code>会等待该函数运行完成后再进行组件的渲染工作。数据预取对 SEO 虽好，但会加大服务端的压力，若数据对 SEO 影响较小或非关键信息，可以放在<code class="inline-code">onMounted</code>钩子中执行, 因为服务端只会执行<code class="inline-code">onServerPrefetch</code>(<code class="inline-code">serverPrefect</code>) ，<code class="inline-code">setup</code>(<code class="inline-code">created</code>和<code class="inline-code">beforeCreated</code>)这几个生命周期钩子，这样可以将请求数据处理的压力分摊到客户端处理。</p><p class="paragraph">不过该生命周期只在服务端渲染时存在，所以当是在客户端动态生成该组件时(如客户端从其它路由跳转到的路由组件有使用该生命周期，这时不会请求服务端来渲染组件)，还需要使用<code class="inline-code">onMounted</code>钩子来判断是否需要请求数据，若已经有数据则直接使用服务端的数据，反之则发起请求，若父组件是<code class="inline-code">Suspense</code>则相关代码可以都放在<code class="inline-code">setup</code>中而不使用<code class="inline-code">onMounted</code>和<code class="inline-code">serverPrefetch</code>。</p>
+          <h2 id="%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%A2%84%E5%8F%96" class="header h2">
+            <a name="服务端预取" data-level="2" class="anchor" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%A2%84%E5%8F%96">
+              <span class="header-link">#</span>
+            </a>
+            服务端预取
+          </h2><p class="paragraph">在服务端进行视图渲染前进行数据请求, 需要同步数据。所使用的响应式变量应定义在 Pinia 中而不是直接在组件中定义并使用，这样可以使用上文的方法统一进行数据同步而无需为每一个组件都添加数据同步的逻辑。若不使用响应式变量存储而使用普通变量，可以实现服务端渲染与客户端<code class="inline-code">hydration</code>, 但该方法无法在客户端路由导航时获取数据（客户端导航不请求服务端，普通变量没有响应式无法在客户端更新 DOM，若父组件使用 <code class="inline-code">Suspense</code>可在 setup 顶层使用 await 解决，否则因使用响应式变量，当然也可使用 MPA 的预渲染全都请求服务端的渲染结果）。</p><pre><code class="language-javascript"><pre class="shiki material-theme" style="background-color: #263238" tabindex="0"><code><span class="line"><span style="color: #C792EA">export</span><span style="color: #EEFFFF"> </span><span style="color: #82AAFF">defineComponent</span><span style="color: #EEFFFF">(</span><span style="color: #89DDFF">()</span><span style="color: #EEFFFF"> </span><span style="color: #C792EA">=&gt;</span><span style="color: #EEFFFF"> </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #89DDFF">    </span><span style="color: #546E7A; font-style: italic">// let article = &#39;&#39; ❌ 不支持客户端路由</span></span>
+<span class="line"><span style="color: #89DDFF">  </span><span style="color: #546E7A; font-style: italic">// const article = ref(&#39;&#39;) ❌ 数据同步麻烦</span></span>
+<span class="line"><span style="color: #F07178">  </span><span style="color: #C792EA">const</span><span style="color: #F07178"> </span><span style="color: #EEFFFF">articleStore</span><span style="color: #F07178"> </span><span style="color: #89DDFF">=</span><span style="color: #F07178"> </span><span style="color: #82AAFF">useArticleStore</span><span style="color: #F07178">() </span><span style="color: #546E7A; font-style: italic">// ✅</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #F07178">    </span><span style="color: #82AAFF">onServerPrefetch</span><span style="color: #F07178">(</span><span style="color: #C792EA">async</span><span style="color: #F07178"> </span><span style="color: #89DDFF">()</span><span style="color: #F07178"> </span><span style="color: #C792EA">=&gt;</span><span style="color: #F07178"> </span><span style="color: #89DDFF; font-style: italic">await</span><span style="color: #F07178"> </span><span style="color: #EEFFFF">articleStore</span><span style="color: #89DDFF">.</span><span style="color: #82AAFF">prefetch</span><span style="color: #F07178">())</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #F07178">  </span><span style="color: #89DDFF; font-style: italic">return</span><span style="color: #F07178"> </span><span style="color: #82AAFF">h</span><span style="color: #F07178">(</span><span style="color: #89DDFF">&#39;</span><span style="color: #C3E88D">p</span><span style="color: #89DDFF">&#39;</span><span style="color: #89DDFF">,</span><span style="color: #F07178"> </span><span style="color: #EEFFFF">articleStore</span><span style="color: #89DDFF">.</span><span style="color: #EEFFFF">article</span><span style="color: #F07178">)</span></span>
+<span class="line"><span style="color: #89DDFF">}</span><span style="color: #EEFFFF">)</span></span></code></pre>
+</code></pre><p class="paragraph">定义一个 api 接口, 并在<code class="inline-code">entry-server.js</code>中对请求方法与路径进行过滤，若请求路径有拓展符且为 GET 请求则为静态资源请求，若请求路径以<code class="inline-code">/api</code>开头则判定为<code class="inline-code">API</code>请求，都不匹配则交给 VueRouter 处理并返回服务端渲染结果。</p><pre><code class="language-javascript"><pre class="shiki material-theme" style="background-color: #263238" tabindex="0"><code><span class="line"><span style="color: #546E7A; font-style: italic">/**</span></span>
+<span class="line"><span style="color: #546E7A; font-style: italic"> * </span><span style="color: #89DDFF; font-style: italic">@</span><span style="color: #C792EA; font-style: italic">desc</span><span style="color: #546E7A; font-style: italic"> api 请求</span></span>
+<span class="line"><span style="color: #546E7A; font-style: italic"> * </span><span style="color: #89DDFF; font-style: italic">@</span><span style="color: #C792EA; font-style: italic">param</span><span style="color: #546E7A; font-style: italic"> </span><span style="color: #89DDFF; font-style: italic">{</span><span style="color: #FFCB6B; font-style: italic">string</span><span style="color: #89DDFF; font-style: italic">}</span><span style="color: #546E7A; font-style: italic"> </span><span style="color: #EEFFFF; font-style: italic">url</span><span style="color: #546E7A; font-style: italic"> </span></span>
+<span class="line"><span style="color: #546E7A; font-style: italic"> * </span><span style="color: #89DDFF; font-style: italic">@</span><span style="color: #C792EA; font-style: italic">param</span><span style="color: #546E7A; font-style: italic"> </span><span style="color: #89DDFF; font-style: italic">{</span><span style="color: #FFCB6B; font-style: italic">&#39;GET&#39; | &#39;POST&#39; | &#39;PUT&#39; | &#39;DELETE&#39; | &#39;PATCH&#39; | string</span><span style="color: #89DDFF; font-style: italic">}</span><span style="color: #546E7A; font-style: italic"> </span><span style="color: #EEFFFF; font-style: italic">method</span><span style="color: #546E7A; font-style: italic"> </span></span>
+<span class="line"><span style="color: #546E7A; font-style: italic"> * </span><span style="color: #89DDFF; font-style: italic">@</span><span style="color: #C792EA; font-style: italic">param</span><span style="color: #546E7A; font-style: italic"> </span><span style="color: #89DDFF; font-style: italic">{</span><span style="color: #FFCB6B; font-style: italic">import(&#39;node:http&#39;).IncomingMessage</span><span style="color: #89DDFF; font-style: italic">}</span><span style="color: #546E7A; font-style: italic"> </span><span style="color: #EEFFFF; font-style: italic">req</span></span>
+<span class="line"><span style="color: #546E7A; font-style: italic"> */</span></span>
+<span class="line"><span style="color: #89DDFF; font-style: italic">export</span><span style="color: #EEFFFF"> </span><span style="color: #C792EA">function</span><span style="color: #EEFFFF"> </span><span style="color: #82AAFF">apiHandler</span><span style="color: #89DDFF">(</span><span style="color: #EEFFFF; font-style: italic">url</span><span style="color: #89DDFF">,</span><span style="color: #EEFFFF"> </span><span style="color: #EEFFFF; font-style: italic">method</span><span style="color: #EEFFFF"> </span><span style="color: #89DDFF">=</span><span style="color: #EEFFFF"> </span><span style="color: #89DDFF">&#39;</span><span style="color: #C3E88D">GET</span><span style="color: #89DDFF">&#39;</span><span style="color: #89DDFF">,</span><span style="color: #EEFFFF"> </span><span style="color: #EEFFFF; font-style: italic">req</span><span style="color: #89DDFF">)</span><span style="color: #EEFFFF"> </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #F07178">  </span><span style="color: #89DDFF; font-style: italic">return</span><span style="color: #F07178"> </span><span style="color: #89DDFF">&#39;</span><span style="color: #C3E88D">this is article</span><span style="color: #89DDFF">&#39;</span></span>
+<span class="line"><span style="color: #89DDFF">}</span></span></code></pre>
+</code></pre><pre><code class="language-javascript"><pre class="shiki material-theme" style="background-color: #263238" tabindex="0"><code><span class="line"><span style="color: #89DDFF; font-style: italic">import</span><span style="color: #EEFFFF"> </span><span style="color: #89DDFF">{</span><span style="color: #F07178"> </span><span style="color: #EEFFFF">apiHandler</span><span style="color: #F07178"> </span><span style="color: #89DDFF">}</span><span style="color: #EEFFFF"> </span><span style="color: #89DDFF; font-style: italic">from</span><span style="color: #EEFFFF"> </span><span style="color: #89DDFF">&#39;</span><span style="color: #C3E88D">./apis</span><span style="color: #89DDFF">&#39;</span><span style="color: #EEFFFF"> </span></span>
+<span class="line"><span style="color: #546E7A; font-style: italic">// ...</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #546E7A; font-style: italic">/** </span><span style="color: #89DDFF; font-style: italic">@</span><span style="color: #C792EA; font-style: italic">desc</span><span style="color: #546E7A; font-style: italic"> 启动服务器 */</span></span>
+<span class="line"><span style="color: #C792EA">function</span><span style="color: #EEFFFF"> </span><span style="color: #82AAFF">startServer</span><span style="color: #89DDFF">()</span><span style="color: #EEFFFF"> </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #F07178">  </span><span style="color: #C792EA">const</span><span style="color: #F07178"> </span><span style="color: #EEFFFF">server</span><span style="color: #F07178"> </span><span style="color: #89DDFF">=</span><span style="color: #F07178"> </span><span style="color: #82AAFF">createServer</span><span style="color: #F07178">(</span><span style="color: #C792EA">async</span><span style="color: #F07178"> </span><span style="color: #89DDFF">(</span><span style="color: #EEFFFF; font-style: italic">req</span><span style="color: #89DDFF">,</span><span style="color: #F07178"> </span><span style="color: #EEFFFF; font-style: italic">res</span><span style="color: #89DDFF">)</span><span style="color: #F07178"> </span><span style="color: #C792EA">=&gt;</span><span style="color: #F07178"> </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #F07178">    </span><span style="color: #C792EA">const</span><span style="color: #F07178"> </span><span style="color: #EEFFFF">url</span><span style="color: #F07178"> </span><span style="color: #89DDFF">=</span><span style="color: #F07178"> </span><span style="color: #EEFFFF">req</span><span style="color: #89DDFF">.</span><span style="color: #EEFFFF">url</span><span style="color: #89DDFF">?.</span><span style="color: #82AAFF">replace</span><span style="color: #F07178">(</span><span style="color: #89DDFF; font-style: italic">import</span><span style="color: #89DDFF">.</span><span style="color: #EEFFFF">meta</span><span style="color: #89DDFF">.</span><span style="color: #EEFFFF">env</span><span style="color: #89DDFF">.</span><span style="color: #EEFFFF">BASE_URL</span><span style="color: #89DDFF">,</span><span style="color: #F07178"> </span><span style="color: #89DDFF">&#39;</span><span style="color: #C3E88D">/</span><span style="color: #89DDFF">&#39;</span><span style="color: #F07178">) </span><span style="color: #89DDFF">??</span><span style="color: #F07178"> </span><span style="color: #89DDFF">&#39;</span><span style="color: #C3E88D">/</span><span style="color: #89DDFF">&#39;</span></span>
+<span class="line"><span style="color: #F07178">    </span><span style="color: #C792EA">const</span><span style="color: #F07178"> </span><span style="color: #EEFFFF">method</span><span style="color: #F07178"> </span><span style="color: #89DDFF">=</span><span style="color: #F07178"> </span><span style="color: #EEFFFF">req</span><span style="color: #89DDFF">.</span><span style="color: #EEFFFF">method</span><span style="color: #F07178"> </span><span style="color: #89DDFF">||</span><span style="color: #F07178"> </span><span style="color: #89DDFF">&#39;</span><span style="color: #C3E88D">GET</span><span style="color: #89DDFF">&#39;</span></span>
+<span class="line"><span style="color: #F07178">    </span><span style="color: #EEFFFF">console</span><span style="color: #89DDFF">.</span><span style="color: #82AAFF">log</span><span style="color: #F07178">(</span><span style="color: #EEFFFF">url</span><span style="color: #F07178">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #F07178">    </span><span style="color: #89DDFF; font-style: italic">if</span><span style="color: #F07178"> (</span><span style="color: #82AAFF">extname</span><span style="color: #F07178">(</span><span style="color: #EEFFFF">url</span><span style="color: #F07178">) </span><span style="color: #89DDFF">!==</span><span style="color: #F07178"> </span><span style="color: #89DDFF">&#39;&#39;</span><span style="color: #F07178"> </span><span style="color: #89DDFF">&amp;&amp;</span><span style="color: #F07178"> </span><span style="color: #EEFFFF">method</span><span style="color: #F07178"> </span><span style="color: #89DDFF">===</span><span style="color: #F07178"> </span><span style="color: #89DDFF">&#39;</span><span style="color: #C3E88D">GET</span><span style="color: #89DDFF">&#39;</span><span style="color: #F07178">) </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #F07178">      </span><span style="color: #82AAFF">staticService</span><span style="color: #F07178">(</span><span style="color: #EEFFFF">url</span><span style="color: #89DDFF">,</span><span style="color: #F07178"> </span><span style="color: #EEFFFF">res</span><span style="color: #F07178">)</span></span>
+<span class="line"><span style="color: #F07178">    </span><span style="color: #89DDFF">}</span><span style="color: #F07178"> </span><span style="color: #89DDFF; font-style: italic">else</span><span style="color: #F07178"> </span><span style="color: #89DDFF; font-style: italic">if</span><span style="color: #F07178"> (</span><span style="color: #EEFFFF">url</span><span style="color: #89DDFF">.</span><span style="color: #82AAFF">startsWith</span><span style="color: #F07178">(</span><span style="color: #89DDFF">&#39;</span><span style="color: #C3E88D">/api</span><span style="color: #89DDFF">&#39;</span><span style="color: #F07178">)) </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #F07178">      </span><span style="color: #EEFFFF">res</span><span style="color: #89DDFF">.</span><span style="color: #82AAFF">end</span><span style="color: #F07178">(</span><span style="color: #82AAFF">apiHandler</span><span style="color: #F07178">(</span><span style="color: #EEFFFF">url</span><span style="color: #89DDFF">,</span><span style="color: #F07178"> </span><span style="color: #EEFFFF">method</span><span style="color: #89DDFF">,</span><span style="color: #F07178"> </span><span style="color: #EEFFFF">req</span><span style="color: #F07178">))</span></span>
+<span class="line"><span style="color: #F07178">    </span><span style="color: #89DDFF">}</span><span style="color: #F07178"> </span><span style="color: #89DDFF; font-style: italic">else</span><span style="color: #F07178"> </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #F07178">      </span><span style="color: #C792EA">const</span><span style="color: #F07178"> </span><span style="color: #EEFFFF">page</span><span style="color: #F07178"> </span><span style="color: #89DDFF">=</span><span style="color: #F07178"> </span><span style="color: #89DDFF; font-style: italic">await</span><span style="color: #F07178"> </span><span style="color: #82AAFF">render</span><span style="color: #F07178">(</span><span style="color: #EEFFFF">url</span><span style="color: #F07178">)</span></span>
+<span class="line"><span style="color: #F07178">      </span><span style="color: #EEFFFF">res</span><span style="color: #89DDFF">.</span><span style="color: #82AAFF">end</span><span style="color: #F07178">(</span><span style="color: #EEFFFF">page</span><span style="color: #F07178">)</span></span>
+<span class="line"><span style="color: #F07178">    </span><span style="color: #89DDFF">}</span></span>
+<span class="line"><span style="color: #F07178">  </span><span style="color: #89DDFF">}</span><span style="color: #F07178">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #89DDFF">  </span><span style="color: #546E7A; font-style: italic">// ...</span></span></code></pre>
+</code></pre><p class="paragraph">编写 <code class="inline-code">useArticleStore</code> 存储请求结果, 这里可以使用环境变量的方式来管理 api 根路径，不能直接使用<code class="inline-code">/api</code>,<code class="inline-code">/api/article</code>的请求路径，因为不止在客户端会发送请求，服务端也要调用，而服务端不会自动添加请求路径<code class="inline-code">BaseURL</code>。</p><pre><code class="language-javascript"><pre class="shiki material-theme" style="background-color: #263238" tabindex="0"><code><span class="line"><span style="color: #89DDFF; font-style: italic">import</span><span style="color: #EEFFFF"> </span><span style="color: #89DDFF">{</span><span style="color: #F07178"> </span><span style="color: #EEFFFF">ref</span><span style="color: #F07178"> </span><span style="color: #89DDFF">}</span><span style="color: #EEFFFF"> </span><span style="color: #89DDFF; font-style: italic">from</span><span style="color: #EEFFFF"> </span><span style="color: #89DDFF">&#39;</span><span style="color: #C3E88D">vue</span><span style="color: #89DDFF">&#39;</span></span>
+<span class="line"><span style="color: #89DDFF; font-style: italic">import</span><span style="color: #EEFFFF"> </span><span style="color: #89DDFF">{</span><span style="color: #F07178"> </span><span style="color: #EEFFFF">defineStore</span><span style="color: #F07178"> </span><span style="color: #89DDFF">}</span><span style="color: #EEFFFF"> </span><span style="color: #89DDFF; font-style: italic">from</span><span style="color: #EEFFFF"> </span><span style="color: #89DDFF">&#39;</span><span style="color: #C3E88D">pinia</span><span style="color: #89DDFF">&#39;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #89DDFF; font-style: italic">export</span><span style="color: #EEFFFF"> </span><span style="color: #C792EA">const</span><span style="color: #EEFFFF"> useArticleStore </span><span style="color: #89DDFF">=</span><span style="color: #EEFFFF"> </span><span style="color: #82AAFF">defineStore</span><span style="color: #EEFFFF">(</span><span style="color: #89DDFF">&#39;</span><span style="color: #C3E88D">article</span><span style="color: #89DDFF">&#39;</span><span style="color: #89DDFF">,</span><span style="color: #EEFFFF"> </span><span style="color: #89DDFF">()</span><span style="color: #EEFFFF"> </span><span style="color: #C792EA">=&gt;</span><span style="color: #EEFFFF"> </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #F07178">  </span><span style="color: #C792EA">const</span><span style="color: #F07178"> </span><span style="color: #EEFFFF">article</span><span style="color: #F07178"> </span><span style="color: #89DDFF">=</span><span style="color: #F07178"> </span><span style="color: #82AAFF">ref</span><span style="color: #F07178">(</span><span style="color: #89DDFF">&#39;&#39;</span><span style="color: #F07178">)</span></span>
+<span class="line"><span style="color: #F07178">  </span></span>
+<span class="line"><span style="color: #F07178">  </span><span style="color: #C792EA">async</span><span style="color: #F07178"> </span><span style="color: #C792EA">function</span><span style="color: #F07178"> </span><span style="color: #82AAFF">getArticle</span><span style="color: #89DDFF">()</span><span style="color: #F07178"> </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #F07178">    </span><span style="color: #C792EA">const</span><span style="color: #F07178"> </span><span style="color: #EEFFFF">res</span><span style="color: #F07178"> </span><span style="color: #89DDFF">=</span><span style="color: #F07178"> </span><span style="color: #89DDFF; font-style: italic">await</span><span style="color: #F07178"> </span><span style="color: #82AAFF">fetch</span><span style="color: #F07178">(</span><span style="color: #89DDFF">`${</span><span style="color: #89DDFF; font-style: italic">import</span><span style="color: #89DDFF">.</span><span style="color: #EEFFFF">meta</span><span style="color: #89DDFF">.</span><span style="color: #EEFFFF">env</span><span style="color: #89DDFF">.</span><span style="color: #EEFFFF">VITE_API_BASE_URL</span><span style="color: #89DDFF">}</span><span style="color: #C3E88D">/article</span><span style="color: #89DDFF">`</span><span style="color: #F07178">)</span></span>
+<span class="line"><span style="color: #F07178">    </span><span style="color: #EEFFFF">article</span><span style="color: #89DDFF">.</span><span style="color: #EEFFFF">value</span><span style="color: #F07178"> </span><span style="color: #89DDFF">=</span><span style="color: #F07178"> </span><span style="color: #89DDFF; font-style: italic">await</span><span style="color: #F07178"> </span><span style="color: #EEFFFF">res</span><span style="color: #89DDFF">.</span><span style="color: #82AAFF">text</span><span style="color: #F07178">()</span></span>
+<span class="line"><span style="color: #F07178">  </span><span style="color: #89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #F07178">  </span><span style="color: #89DDFF; font-style: italic">return</span><span style="color: #F07178"> </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #F07178">    </span><span style="color: #EEFFFF">article</span><span style="color: #89DDFF">,</span></span>
+<span class="line"><span style="color: #F07178">    </span><span style="color: #EEFFFF">getArticle</span></span>
+<span class="line"><span style="color: #F07178">  </span><span style="color: #89DDFF">}</span></span>
+<span class="line"><span style="color: #89DDFF">}</span><span style="color: #EEFFFF">)</span></span>
+<span class="line"></span></code></pre>
+</code></pre>
+          <h2 id="%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%BF%80%E6%B4%BB" class="header h2">
+            <a name="客户端激活" data-level="2" class="anchor" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%BF%80%E6%B4%BB">
+              <span class="header-link">#</span>
+            </a>
+            客户端激活
+          </h2><p class="paragraph">客户端激活处理由 Pinia 的数据同步托管。</p>
+          </article>
+
+          <section class="bg-primary-2 mt-4 pa-4 rounded-xl dark:bg-primary-7 line-height-6">
+            <h3 class="mt-0">评论</h3>
+            <form id="comment" action="/api/comment" class="flex flex-col gap-4">
+              <textarea
+                id="comment-textarea"
+                required
+                placeholder="写下你的评论 (友善的评论是交流的起点)"
+                text="base primary-7 dark:primary-1"
+                bg="primary-1/50 hover:primary-1 focus:primary-50 dark:primary-6/50 dark:hover:primary-6 dark:focus:primary-8"
+                class="pa-2 resize-y h-20 transition-background-color scrollbar-slim rounded border-none focus-visible:outline-none"
+              ></textarea>
+              <div class="flex justify-between">
+                <input
+                  id="comment-nickname"
+                  type="text"
+                  required
+                  placeholder="请输入昵称"
+                  text="base primary-7 dark:primary-1"
+                  bg="primary-1/50 hover:primary-1 focus:primary-50 dark:primary-6/50 dark:hover:primary-6 dark:focus:primary-8"
+                  class="pa-1 transition-background-color rounded border-none focus-visible:outline-none"
+                />
+                <button
+                  id="comment-submit"
+                  type="button"
+                  bg="hover:primary-4/50 active:primary-3 primary-3 dark:hover:primary-5/50 dark:active:primary-5 dark:primary-5"
+                  class="ml-auto border-none rounded font-bold py-2 px-4 transition-background-color"
+                >
+                  提交
+                </button>
+              </div>
+            </form>
+
+            <div id="comment-container" class="ml-2">
+              <div class="flex items-start gap-4">
+                <p class="flex flex-col items-center justify-center">
+                  <span class="font-bold block h-4 w-10 bg-primary-3 dark:bg-primary-6 animate-paused"></span>
+                </p>
+
+                <p class="flex flex-1 flex-col bg-primary-3 dark:bg-primary-6 rounded pa-2 animate-paused">
+                  <span class="block h-4"></span>
+                  <span class="ml-auto text-sm block h-4 text-primary-5 dark:bg-primary-3"
+                    ><time></time></span
+                  >
+                </p>
+              </div>
+            </div>
+          </section>
+        </main>
+        <aside class="hidden md:block basis-72">
+          <div class="sticky top-0">
+            <nav>
+              <ul>
+                <li>11</li>
+                <li>22</li>
+                <li>33</li>
+              </ul>
+            </nav>
+          </div>
+        </aside>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

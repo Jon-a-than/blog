@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vitest | 单元测试</title>
+    <script type="module" crossorigin src="/21081715/dist/assets/index-MQVGeJDe.js"></script>
+    <script type="module" crossorigin src="/21081715/dist/assets/index-A_9H3jJA.js"></script>
+    <link rel="stylesheet" crossorigin href="/21081715/dist/assets/index-FnwD_uIS.css">
+    <link rel="stylesheet" crossorigin href="/21081715/dist/assets/index-FJxq1wWu.css">
+  </head>
+  <body class="flex flex-col h-100vh overflow-hidden">
+    <header-bar></header-bar>
+
+    <div class="pt-4 flex flex-col flex-1 overflow-auto scrollbar-slim gap-4">
+      <div class="flex">
+        <aside class="hidden lg:block basis-72 pl-2">
+          <h2 class="text-lg">最新评论</h2>
+
+          <div class="flex gap-2 items-start">
+            <!-- <div class="pa-1 bg-lime-2 border-1 border-solid rounded-full">
+              <i class="i-uil-0-plus text-lg"></i>
+            </div>
+            <p class="my-0 bg-primary-2 dark:bg-primary-7 rounded-lg pa-2">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut eius repellendus molestiae
+              quia?
+            </p> -->
+          </div>
+        </aside>
+        <main class="md:mx-4 flex-1 rounded-xl overflow-hidden">
+          <header>
+            <h1 class="text-center">TitleVitest | 单元测试</h1>
+          </header>
+          <article
+            class="markdown-article bg-primary-2 pa-4 rounded-xl dark:bg-primary-7 line-height-6"
+          >
+            
+          <h1 id="Vitest" class="header h1">
+            <a name="Vitest" data-level="1" class="anchor" href="#Vitest">
+              <span class="header-link">#</span>
+            </a>
+            Vitest
+          </h1>
+          <h2 id="%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95" class="header h2">
+            <a name="单元测试" data-level="2" class="anchor" href="#%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95">
+              <span class="header-link">#</span>
+            </a>
+            单元测试
+          </h2>
+          <h3 id="1.%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E7%9A%84%E5%AE%9A%E4%B9%89" class="header h3">
+            <a name="1.单元测试的定义" data-level="3" class="anchor" href="#1.%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E7%9A%84%E5%AE%9A%E4%B9%89">
+              <span class="header-link">#</span>
+            </a>
+            1.单元测试的定义
+          </h3><p class="paragraph">单元测试是一种软件测试方法，用于测试软件中的最小可测试单元（通常是函数或方法）。它旨在验证每个单元的行为是否符合预期，并且在开发过程中可以帮助发现和修复错误。</p>
+          <h3 id="2.%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E7%9A%84%E4%BC%98%E7%82%B9" class="header h3">
+            <a name="2.单元测试的优点" data-level="3" class="anchor" href="#2.%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E7%9A%84%E4%BC%98%E7%82%B9">
+              <span class="header-link">#</span>
+            </a>
+            2.单元测试的优点
+          </h3><ol>
+<li>提高代码质量：单元测试可以帮助开发人员及时发现代码中的问题，从而提高代码质量。</li>
+<li>提高代码可维护性：单元测试可以帮助开发人员更好地理解代码，从而提高代码的可维护性。</li>
+<li>提高开发效率：单元测试可以帮助开发人员更快地发现和修复错误，从而提高开发效率。</li>
+<li>降低代码修改风险：单元测试可以帮助开发人员在修改代码时更加自信，从而降低代码修改风险。</li>
+<li>利于重构：单元测试可以帮助开发人员在重构代码时确保代码的正确性，从而支持重构。</li>
+</ol>
+
+          </article>
+
+          <section class="bg-primary-2 mt-4 pa-4 rounded-xl dark:bg-primary-7 line-height-6">
+            <h3 class="mt-0">评论</h3>
+            <form id="comment" action="/api/comment" class="flex flex-col gap-4">
+              <textarea
+                id="comment-textarea"
+                required
+                placeholder="写下你的评论 (友善的评论是交流的起点)"
+                text="base primary-7 dark:primary-1"
+                bg="primary-1/50 hover:primary-1 focus:primary-50 dark:primary-6/50 dark:hover:primary-6 dark:focus:primary-8"
+                class="pa-2 resize-y h-20 transition-background-color scrollbar-slim rounded border-none focus-visible:outline-none"
+              ></textarea>
+              <div class="flex justify-between">
+                <input
+                  id="comment-nickname"
+                  type="text"
+                  required
+                  placeholder="请输入昵称"
+                  text="base primary-7 dark:primary-1"
+                  bg="primary-1/50 hover:primary-1 focus:primary-50 dark:primary-6/50 dark:hover:primary-6 dark:focus:primary-8"
+                  class="pa-1 transition-background-color rounded border-none focus-visible:outline-none"
+                />
+                <button
+                  id="comment-submit"
+                  type="button"
+                  bg="hover:primary-4/50 active:primary-3 primary-3 dark:hover:primary-5/50 dark:active:primary-5 dark:primary-5"
+                  class="ml-auto border-none rounded font-bold py-2 px-4 transition-background-color"
+                >
+                  提交
+                </button>
+              </div>
+            </form>
+
+            <div id="comment-container" class="ml-2">
+              <div class="flex items-start gap-4">
+                <p class="flex flex-col items-center justify-center">
+                  <span class="font-bold block h-4 w-10 bg-primary-3 dark:bg-primary-6 animate-paused"></span>
+                </p>
+
+                <p class="flex flex-1 flex-col bg-primary-3 dark:bg-primary-6 rounded pa-2 animate-paused">
+                  <span class="block h-4"></span>
+                  <span class="ml-auto text-sm block h-4 text-primary-5 dark:bg-primary-3"
+                    ><time></time></span
+                  >
+                </p>
+              </div>
+            </div>
+          </section>
+        </main>
+        <aside class="hidden md:block basis-72">
+          <div class="sticky top-0">
+            <nav>
+              <ul>
+                <li>11</li>
+                <li>22</li>
+                <li>33</li>
+              </ul>
+            </nav>
+          </div>
+        </aside>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>
