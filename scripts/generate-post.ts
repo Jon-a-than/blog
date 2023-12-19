@@ -55,7 +55,7 @@ async function parsePostMeta(
   }
 
   routerMeta.reverse()
-  writeFile(output, JSON.stringify(routerMeta, null, 2))
+  await writeFile(output, JSON.stringify(routerMeta, null, 2))
   return routerMeta
 }
 

@@ -10,7 +10,7 @@ const postSlotRegExp = {
   Markdown: /<!-- POST_SLOT_START -->.*<!-- POST_SLOT_END -->/gs,
   PostCard: /<!-- POST_CARD_SLOT_START -->.*<!-- POST_CARD_SLOT_END -->/gs
 }
-export default prerender()
+export default await prerender()
 
 async function prerender() {
   const postMetaList = await postMetaPromise
@@ -24,15 +24,13 @@ async function prerender() {
 
 async function preRenderPosts(postMetaList: Post[]) {
   const marked = await buildMarkdownParser()
-  const viteMultiPages: string[] = []
 
   const postGenerateDir = fileURLToPath(new URL('../posts', import.meta.url))
   const postTemplate = fileURLToPath(new URL('../post/index.html', import.meta.url))
   const postTemplateContent = await readFile(postTemplate, 'utf-8')
 
-  postMetaList.forEach(async ({ path, meta, link }) => {
+  const viteMultiPages = postMetaList.map(async ({ path, meta, link }) => {
     const postPath = resolve(postGenerateDir, `..${link}`)
-    viteMultiPages.push(postPath)
 
     const post = await readFile(path, 'utf-8')
     const html = await marked.parse(post.replace(/---\n([\s\S]+?)\n---/, ''))
@@ -43,9 +41,11 @@ async function preRenderPosts(postMetaList: Post[]) {
 
     await mkdir(resolve(postPath, '..'), { recursive: true })
     writeFile(postPath, postContent)
+
+    return postPath
   })
 
-  return viteMultiPages
+  return Promise.all(viteMultiPages)
 }
 
 async function preRenderHome(postMetaList: Post[]) {
