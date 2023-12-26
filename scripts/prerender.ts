@@ -61,7 +61,7 @@ async function preRenderHome(postMetaList: Post[]) {
 
 function postCard({ meta, link, createdAt }: Post) {
   return `<div
-            data-post-link="/dist${link}"
+            data-post-link="${link}"
             rotate="-5 hover:0"
             border="solid 1 primary-3 dark:primary-6 rounded-lg"
             bg="primary-2 dark:primary-7 hover:primary-3 dark:hover:primary-6"

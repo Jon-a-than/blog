@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url'
 import { exec } from 'node:child_process'
 import { readFile, stat, readdir, writeFile } from 'node:fs/promises'
 
-const POST_PREFIX = '/posts/'
+const POST_PREFIX = 'posts/'
 
 interface PostMeta {
   title: string
