@@ -35,7 +35,7 @@ async function addComment(comment: string, author: string) {
   COMMENT_FORM.reset()
   const newComment = await res.json()
 
-  console.log(newComment)
+  renderComments()
 }
 
 COMMENT_FORM.addEventListener('submit', async (e) => {
@@ -55,11 +55,11 @@ COMMENT_SUBMIT!.addEventListener('click', async () => {
 
 function commentTemplate(comment: Comment) {
   return `
-<div class="flex items-start gap-4">
-  <p class="flex flex-col items-center justify-center">
+<div>
+  <p class="mb-0">
     <span class="font-bold after:content-[':']">${comment.author}</span>
   </p>
-  <p class="flex flex-1 flex-col bg-primary-3 dark:bg-primary-6 rounded pa-2">
+  <p class="mt-0 flex flex-1 flex-col bg-primary-3 dark:bg-primary-6 rounded pa-2">
     <span>${comment.comment}</span>
     <span class="ml-auto text-sm text-primary-5 dark:text-primary-2">
       ${comment.position}
