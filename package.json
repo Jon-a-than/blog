@@ -11,27 +11,27 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "marked": "^11.0.0",
-    "marked-highlight": "^2.0.8",
-    "msw": "^2.0.9",
-    "shiki": "^0.14.5",
-    "unocss": "^0.57.7"
+    "marked": "^11.1.0",
+    "marked-highlight": "^2.1.0",
+    "msw": "^2.0.11",
+    "shiki": "^0.14.7",
+    "unocss": "^0.58.0"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",
-    "@types/node": "^20.10.1",
-    "@typescript-eslint/eslint-plugin": "^6.13.1",
-    "@typescript-eslint/parser": "^6.13.1",
-    "@unocss/reset": "^0.57.7",
-    "esbuild": "^0.19.8",
-    "eslint": "^8.54.0",
-    "eslint-plugin-prettier": "^5.0.1",
+    "@types/node": "^20.10.5",
+    "@typescript-eslint/eslint-plugin": "^6.16.0",
+    "@typescript-eslint/parser": "^6.16.0",
+    "@unocss/reset": "^0.58.0",
+    "esbuild": "^0.19.10",
+    "eslint": "^8.56.0",
+    "eslint-plugin-prettier": "^5.1.2",
     "js-yaml": "^4.1.0",
     "lightningcss": "^1.22.1",
-    "prettier": "^3.1.0",
-    "tsx": "^4.6.1",
-    "typescript": "^5.3.2",
-    "vite": "^5.0.4"
+    "prettier": "^3.1.1",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.10"
   },
   "msw": {
     "workerDirectory": "public"
