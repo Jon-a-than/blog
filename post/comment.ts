@@ -4,18 +4,27 @@ import { getCurrentPostLink } from '@/shared/utils/postLink'
 const COMMENT_TEXTAREA = document.querySelector('#comment-textarea')
 const COMMENT_NICKNAME = document.querySelector('#comment-nickname')
 const COMMENT_SUBMIT = document.querySelector('#comment-submit')
+const POST_COMMENT_TEMPLATE: HTMLTemplateElement = document.querySelector('#postComment')!
 
 const COMMENT_FORM = document.querySelector('#comment') as HTMLFormElement
 
-setTimeout(renderComments, 500)
-async function renderComments() {
-  const res = await fetch('/api/comment?limit=100')
+export async function renderComments() {
+  const res = await fetch(
+    `/api/comment?limit=100&postLink=${getCurrentPostLink(location.pathname)}`
+  )
   const comments = (await res.json()) as Comment[]
-  console.log(comments)
 
-  const commentList = comments.reduce((acc, comment) => acc + commentTemplate(comment), '')
   const commentContainer = document.querySelector('#comment-container') as HTMLDivElement
-  commentContainer.innerHTML = commentList
+  comments.forEach(({ author, comment, position, date }) => {
+    const template = document.importNode(POST_COMMENT_TEMPLATE.content, true)
+    template.querySelector('[data-type="author"]')!.textContent = author
+    template.querySelector('[data-type="comment"]')!.textContent = comment
+    template.querySelector('[data-type="position"]')!.textContent = position
+    template.querySelector('[data-type="time"]')!.textContent = new Date(date).toLocaleString(
+      'zh-CN'
+    )
+    commentContainer.appendChild(template)
+  })
 }
 
 async function addComment(comment: string, author: string) {
@@ -33,7 +42,7 @@ async function addComment(comment: string, author: string) {
     } satisfies Omit<Comment, keyof BaseFields>)
   })
   COMMENT_FORM.reset()
-  const newComment = await res.json()
+  await res.json()
 
   renderComments()
 }
@@ -52,19 +61,3 @@ COMMENT_SUBMIT!.addEventListener('click', async () => {
 
   await addComment(comment, nickname)
 })
-
-function commentTemplate(comment: Comment) {
-  return `
-<div>
-  <p class="mb-0">
-    <span class="font-bold after:content-[':']">${comment.author}</span>
-  </p>
-  <p class="mt-0 flex flex-1 flex-col bg-primary-3 dark:bg-primary-6 rounded pa-2">
-    <span>${comment.comment}</span>
-    <span class="ml-auto text-sm text-primary-5 dark:text-primary-2">
-      ${comment.position}
-      <time>${new Date(comment.date).toLocaleString('zh-CN')}</time>
-    </span>
-  </p>
-</div>`
-}

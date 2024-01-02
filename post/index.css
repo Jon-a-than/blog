@@ -1,3 +1,7 @@
+:root {
+  scroll-behavior: smooth;
+}
+
 .markdown-article {
   --uno: dark:text-primary-3;
 

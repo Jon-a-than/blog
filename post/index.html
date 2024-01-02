@@ -14,17 +14,22 @@
     <div class="pt-4 flex flex-col flex-1 overflow-auto scrollbar-slim gap-4">
       <div class="flex">
         <aside class="hidden lg:block basis-72 pl-2">
-          <h2 class="text-lg">最新评论</h2>
+          <h2 class="text-lg">相关文章</h2>
 
-          <div class="flex gap-2 items-start">
-            <!-- <div class="pa-1 bg-lime-2 border-1 border-solid rounded-full">
-              <i class="i-uil-0-plus text-lg"></i>
-            </div>
-            <p class="my-0 bg-primary-2 dark:bg-primary-7 rounded-lg pa-2">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut eius repellendus molestiae
-              quia?
-            </p> -->
-          </div>
+          <ul
+            id="recommendPostContainer"
+            class="list-none bg-primary-2 dark:bg-primary-7 px-4 py-4 mx-4 rounded-lg"
+          >
+            <template id="recommendPostItem">
+              <li
+                class="text-base text-nowrap overflow-hidden text-ellipsis"
+              >
+                <a class="text-inherit font-bold decoration-none hover:text-rose-3" href="#"
+                  >{title}</a
+                >
+              </li>
+            </template>
+          </ul>
         </aside>
         <main class="md:mx-4 flex-1 rounded-xl overflow-hidden">
           <header>
@@ -72,28 +77,45 @@
             </form>
 
             <div id="comment-container" class="ml-2">
-              <div class="flex items-start gap-4">
-                <p class="flex flex-col items-center justify-center">
-                  <span class="font-bold block h-4 w-10 bg-primary-3 dark:bg-primary-6 animate-paused"></span>
-                </p>
-
-                <p class="flex flex-1 flex-col bg-primary-3 dark:bg-primary-6 rounded pa-2 animate-paused">
-                  <span class="block h-4"></span>
-                  <span class="ml-auto text-sm block h-4 text-primary-5 dark:bg-primary-3"
-                    ><time></time></span
-                  >
-                </p>
-              </div>
+              <template id="postComment">
+                <div>
+                  <p class="mb-0">
+                    <span data-type="author" class="font-bold after:content-[':']"
+                      >${comment.author}</span
+                    >
+                  </p>
+                  <p class="mt-0 flex flex-1 flex-col bg-primary-3 dark:bg-primary-6 rounded pa-2">
+                    <span data-type="comment">${comment.comment}</span>
+                    <span class="ml-auto text-sm text-primary-5 dark:text-primary-2">
+                      <span data-type="position">${comment.position}</span>
+                      <time data-type="time"
+                        >${new Date(comment.date).toLocaleString('zh-CN')}</time
+                      >
+                    </span>
+                  </p>
+                </div>
+              </template>
             </div>
           </section>
         </main>
         <aside class="hidden md:block basis-72">
           <div class="sticky top-0">
             <nav>
-              <ul>
-                <li>11</li>
-                <li>22</li>
-                <li>33</li>
+              <ul
+                id="tocContainer"
+                class="list-none bg-primary-2 dark:bg-primary-7 pl-0 py-4 mx-4 rounded-lg"
+              >
+                <template id="tocItem">
+                  <li
+                    class="text-base before:content-[''] text-rose-3 before:bg-rose-3 before:inline-block before:align-mid before:h-1em before:w-1 before:rounded"
+                  >
+                    <a
+                      class="ml-1em text-inherit font-bold decoration-none hover:text-rose-3"
+                      href="#"
+                      >{title}</a
+                    >
+                  </li>
+                </template>
               </ul>
             </nav>
           </div>
