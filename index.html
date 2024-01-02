@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <script type="module" crossorigin src="/21081715/dist/assets/index-zBeiv_Xc.js"></script>
-    <link rel="modulepreload" crossorigin href="/21081715/dist/assets/index-MQVGeJDe.js">
-    <link rel="stylesheet" crossorigin href="/21081715/dist/assets/index-FnwD_uIS.css">
+    <title>博客</title>
+    <script type="module" crossorigin src="/21081715/dist/assets/index-vAhE17SV.js"></script>
+    <link rel="modulepreload" crossorigin href="/21081715/dist/assets/index-I7noDNMX.js">
+    <link rel="stylesheet" crossorigin href="/21081715/dist/assets/index-XmuF-FyX.css">
   </head>
 
   <body class="flex flex-col h-100vh overflow-hidden">
@@ -16,21 +16,24 @@
         <aside class="hidden lg:block basis-72 pl-2">
           <h2 class="text-lg">最新评论</h2>
 
-          <div class="flex gap-2 items-start">
-            <div class="pa-1 bg-lime-2 border-1 border-solid rounded-full">
-              <i class="i-uil-0-plus text-lg"></i>
-            </div>
-            <p class="my-0 bg-primary-2 dark:bg-primary-7 rounded-lg pa-2">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut eius repellendus molestiae
-              quia?
-            </p>
+          <div id="latestComments" class="flex flex-col gap-2">
+            <template id="comment">
+              <div class="flex gap-2 items-start">
+                <div class="pa-1 bg-lime-2 border-1 border-solid rounded-full">
+                  <i class="i-uil-0-plus text-lg"></i>
+                </div>
+                <p class="my-0 bg-primary-2 dark:bg-primary-7 rounded-lg pa-2">
+                  <a href="./" class="decoration-none text-inherit">comment</a>
+                </p>
+              </div>
+            </template>
           </div>
         </aside>
         <main class="md:mx-4 flex-1 rounded-xl pa-4">
           <h2><time>2023 • 小雪</time></h2>
           <div class="flex gap-4 justify-between flex-wrap">
             <div
-            data-post-link="/dist/posts/markdown.html"
+            data-post-link="posts/markdown.html"
             rotate="-5 hover:0"
             border="solid 1 primary-3 dark:primary-6 rounded-lg"
             bg="primary-2 dark:primary-7 hover:primary-3 dark:hover:primary-6"
@@ -55,51 +58,7 @@
             </footer>
           </div>
 <div
-            data-post-link="/dist/posts/test/unit-test.html"
-            rotate="-5 hover:0"
-            border="solid 1 primary-3 dark:primary-6 rounded-lg"
-            bg="primary-2 dark:primary-7 hover:primary-3 dark:hover:primary-6"
-            class="dark:hover:shadow-primary-6 hover:shadow-lg transition-transform duration-300 cursor-pointer w-48 pa-2 flex flex-col gap-2"
-          >
-            <header>
-              <h3 class="my-0">Vitest | 单元测试</h3>
-            </header>
-            <section>
-              <p class="my-0">
-                
-              </p>
-              <p class="mb-0 mt-2 h-40 overflow-hidden dark:text-primary-2 text-primary-6 line-height-5 before:content-['摘要:'] before:font-bold">
-                
-              </p>
-            </section>
-            <footer class="text-end">
-              <time class="text-slate-5">2023-12-01 20:06:31 +0800</time>
-            </footer>
-          </div>
-<div
-            data-post-link="/dist/posts/test/e2e-test.html"
-            rotate="-5 hover:0"
-            border="solid 1 primary-3 dark:primary-6 rounded-lg"
-            bg="primary-2 dark:primary-7 hover:primary-3 dark:hover:primary-6"
-            class="dark:hover:shadow-primary-6 hover:shadow-lg transition-transform duration-300 cursor-pointer w-48 pa-2 flex flex-col gap-2"
-          >
-            <header>
-              <h3 class="my-0">端对端测试</h3>
-            </header>
-            <section>
-              <p class="my-0">
-                
-              </p>
-              <p class="mb-0 mt-2 h-40 overflow-hidden dark:text-primary-2 text-primary-6 line-height-5 before:content-['摘要:'] before:font-bold">
-                
-              </p>
-            </section>
-            <footer class="text-end">
-              <time class="text-slate-5">2023-12-01 20:06:31 +0800</time>
-            </footer>
-          </div>
-<div
-            data-post-link="/dist/posts/mini-ssr/base.html"
+            data-post-link="posts/mini-ssr/base.html"
             rotate="-5 hover:0"
             border="solid 1 primary-3 dark:primary-6 rounded-lg"
             bg="primary-2 dark:primary-7 hover:primary-3 dark:hover:primary-6"
@@ -124,7 +83,7 @@
             </footer>
           </div>
 <div
-            data-post-link="/dist/posts/mini-ssr/prefetch.html"
+            data-post-link="posts/mini-ssr/prefetch.html"
             rotate="-5 hover:0"
             border="solid 1 primary-3 dark:primary-6 rounded-lg"
             bg="primary-2 dark:primary-7 hover:primary-3 dark:hover:primary-6"
@@ -149,7 +108,7 @@
             </footer>
           </div>
 <div
-            data-post-link="/dist/posts/mini-ssr/router.html"
+            data-post-link="posts/mini-ssr/router.html"
             rotate="-5 hover:0"
             border="solid 1 primary-3 dark:primary-6 rounded-lg"
             bg="primary-2 dark:primary-7 hover:primary-3 dark:hover:primary-6"
@@ -174,7 +133,7 @@
             </footer>
           </div>
 <div
-            data-post-link="/dist/posts/mini-ssr/state.html"
+            data-post-link="posts/mini-ssr/state.html"
             rotate="-5 hover:0"
             border="solid 1 primary-3 dark:primary-6 rounded-lg"
             bg="primary-2 dark:primary-7 hover:primary-3 dark:hover:primary-6"

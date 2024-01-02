@@ -1,3 +1,7 @@
+:root {
+  scroll-behavior: smooth;
+}
+
 .markdown-article {
   ;
 }.dark .markdown-article{--un-text-opacity:1;color:rgb(203 213 225 / var(--un-text-opacity));}
@@ -41,7 +45,7 @@
 }
 
 .markdown-article .link {
-  font-weight:700;--un-text-opacity:1;color:rgb(253 164 175 / var(--un-text-opacity));;
+  --un-text-opacity:1;color:rgb(253 164 175 / var(--un-text-opacity));font-weight:700;;
 }
 
 .markdown-article .header {

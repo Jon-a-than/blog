@@ -89,16 +89,16 @@ var IconDataURL = /* @__PURE__ */ ((IconDataURL2) => {
   return IconDataURL2;
 })(IconDataURL || {});
 const styleSheet$1 = ':host {\n  --primary-50: #f8fafc;\n  --primary-100: #f1f5f9;\n  --primary-200: #e2e8f0;\n  --primary-300: #cbd5e1;\n  --primary-400: #94a3b8;\n  --primary-500: #64748b;\n  --primary-600: #475569;\n  --primary-700: #334155;\n  --primary-800: #1e293b;\n  --primary-900: #0f172a;\n  --primary-950: #020617;\n}\n\n.inline-center {\n  justify-content: center;\n  align-items: center;\n  display: inline-flex;\n}\n\n.header_container {\n  padding-inline: 1rem;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  border-bottom: solid 1px var(--primary-300);\n  background-color: var(--primary-200);\n}\n:host-context(html[class="dark"]) .header_container {\n  background-color: var(--primary-700);\n  border-bottom-color: var(--primary-500);\n}\n\n.title {\n  margin-block: 0.5rem;\n}\n.title_link {\n  font-weight: 800;\n  font-size: 1.25rem;\n  line-height: 1.75rem;\n  color: var(--primary-800);\n  text-decoration: none;\n}\n:host-context(html[class="dark"]) .title_link {\n  color: var(--primary-100);\n}\n\n.list {\n  display: flex;\n  gap: 0.75rem;\n  align-items: center;\n  list-style-type: none;\n}\n\n.nav_link {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.25em;\n  text-decoration: none;\n  font-weight: 700;\n  color: var(--primary-800);\n  transition: color 150ms;\n}\n.nav_link:hover {\n  color: var(--primary-500);\n}\n:host-context(html[class="dark"]) .nav_link {\n  color: var(--primary-100);\n}\n:host-context(html[class="dark"]) .nav_link:hover {\n  color: var(--primary-400);\n}\n.nav_link > i {\n  font-size: 1.2rem;\n}\n\n.switch[data-state="on"] {\n  background-color: var(--primary-800);\n  border-color: var(--primary-500);\n}\n.switch[data-state="on"] .switch-handle {\n  transform: translateX(0.75rem);\n  background-color: var(--primary-600);\n}\n.switch {\n  background-color: var(--primary-100);\n  border: 1px solid var(--primary-400);\n  border-radius: 0.75rem;\n  width: 3rem;\n  height: 1.5rem;\n}\n\n.switch-handle {\n  transition: color 150ms, transform 250ms;\n  background-color: var(--primary-300);\n  border-radius: 0.75rem;\n  transform: translateX(-0.75rem);\n  width: 1.125rem;\n  height: 1.125rem;\n}\n';
-const title = "Site Title";
+const title = "博客";
 const menu = [
   {
     title: "首页",
-    link: "/",
+    link: "",
     icon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGZpbGw9ImN1cnJlbnRDb2xvciIgZD0iTTIwLjE4IDEwLjE5QTExLjkgMTEuOSAwIDAgMCAxOCAxMGMtLjQyIDAtLjgzIDAtMS4yNC4wOGE1LjkxIDUuOTEgMCAwIDAtMS45MS0xLjY1YTMuODEgMy44MSAwIDAgMCAxLTIuNTdhMy44NiAzLjg2IDAgMCAwLTcuNzIgMGEzLjgxIDMuODEgMCAwIDAgMSAyLjU3YTYuMTEgNi4xMSAwIDAgMC0xLjkxIDEuNjRDNi44MyAxMCA2LjQyIDEwIDYgMTBhMTEuOSAxMS45IDAgMCAwLTIuMTguMjFhMSAxIDAgMCAwLS44MiAxdjguMjVhMSAxIDAgMCAwIC4zNi43N2ExIDEgMCAwIDAgLjgyLjIyQTkuNzUgOS43NSAwIDAgMSA2IDIwLjIzYTkuODkgOS44OSAwIDAgMSA1LjQ1IDEuNjNsLjEzLjA1QTEuMDkgMS4wOSAwIDAgMCAxMiAyMmEuODcuODcgMCAwIDAgLjI4LS4wNWguMDdsLjEzLS4wNUE5Ljg5IDkuODkgMCAwIDEgMTggMjAuMjNhOS43NSA5Ljc1IDAgMCAxIDEuODIuMThhMSAxIDAgMCAwIC44Mi0uMjJhMSAxIDAgMCAwIC4zNi0uNzd2LTguMjVhMSAxIDAgMCAwLS44Mi0uOThaTTEyIDRhMS44NiAxLjg2IDAgMCAxIDAgMy43MUExLjg2IDEuODYgMCAwIDEgMTIgNFptLTEgMTUuMzNhMTEuOTIgMTEuOTIgMCAwIDAtNS0xLjFjLS4zMyAwLS42NiAwLTEgLjA1VjEyYTkuNjMgOS42MyAwIDAgMSAyLjUyLjA1aC4xMUExMCAxMCAwIDAgMSAxMSAxMy4zM1ptMS03LjczYTExLjc3IDExLjc3IDAgMCAwLTEuMzgtLjY4aC0uMDZjLS4zMy0uMTMtLjY2LS4yNi0xLS4zNkE0IDQgMCAwIDEgMTIgOS42OWE0IDQgMCAwIDEgMi40NC44NUExMi40MyAxMi40MyAwIDAgMCAxMiAxMS42Wm03IDYuNjhhMTEuNiAxMS42IDAgMCAwLTYgMXYtNmE5Ljc2IDkuNzYgMCAwIDEgMy4zNy0xLjIyaC4yQTkuMzkgOS4zOSAwIDAgMSAxOSAxMloiLz48L3N2Zz4="
   },
   {
-    title: "归档",
-    link: "/archives/",
+    title: "关于 (作业一)",
+    link: "about/index.html",
     icon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGZpbGw9ImN1cnJlbnRDb2xvciIgZD0iTTE5IDUuNWgtNi4yOGwtLjMyLTFhMyAzIDAgMCAwLTIuODQtMkg1YTMgMyAwIDAgMC0zIDN2MTNhMyAzIDAgMCAwIDMgM2gxNGEzIDMgMCAwIDAgMy0zdi0xMGEzIDMgMCAwIDAtMy0zWm0xIDEzYTEgMSAwIDAgMS0xIDFINWExIDEgMCAwIDEtMS0xdi0xM2ExIDEgMCAwIDEgMS0xaDQuNTZhMSAxIDAgMCAxIC45NS42OGwuNTQgMS42NGExIDEgMCAwIDAgLjk1LjY4aDdhMSAxIDAgMCAxIDEgMVoiLz48L3N2Zz4="
   }
 ];
@@ -149,7 +149,7 @@ class HeaderBar extends HTMLElement {
   buildMenu() {
     return menu.map(({ title: title2, link }, index) => {
       const navLink = document.createElement("a");
-      navLink.href = link;
+      navLink.href = `${"/21081715/dist/"}${link}`;
       navLink.classList.add("nav_link");
       const i = document.createElement("i");
       i.classList.add(`icon-${index}`);
@@ -212,7 +212,7 @@ class BaseTag extends HTMLElement {
     this.shadow.adoptedStyleSheets.push(sheet);
   }
 }
-var POSITIONALS_EXP = /(%?)(%([sdjo]))/g;
+var POSITIONALS_EXP = /(%?)(%([sdijo]))/g;
 function serializePositional(positional, flag) {
   switch (flag) {
     case "s":
@@ -282,8 +282,13 @@ var invariant$1 = (predicate, message2, ...positionals) => {
 };
 invariant$1.as = (ErrorConstructor, predicate, message2, ...positionals) => {
   if (!predicate) {
-    const isConstructor = ErrorConstructor.prototype.name != null;
-    const error2 = isConstructor ? new ErrorConstructor(format(message2, positionals)) : ErrorConstructor(format(message2, positionals));
+    const formatMessage2 = positionals.length === 0 ? message2 : format(message2, positionals);
+    let error2;
+    try {
+      error2 = Reflect.construct(ErrorConstructor, [formatMessage2]);
+    } catch (err) {
+      error2 = ErrorConstructor(formatMessage2);
+    }
     throw error2;
   }
 };
@@ -835,6 +840,10 @@ class RequestHandler {
   }
   /**
    * Test if this handler matches the given request.
+   *
+   * This method is not used internally but is exposed
+   * as a convenience method for consumers writing custom
+   * handlers.
    */
   test(args) {
     return __async$8(this, null, function* () {
@@ -7532,9 +7541,9 @@ function requestIntegrityCheck(context, serviceWorker) {
     const { payload: actualChecksum } = yield context.events.once(
       "INTEGRITY_CHECK_RESPONSE"
     );
-    if (actualChecksum !== "0877fcdc026242810f5bfde0d7178db4") {
+    if (actualChecksum !== "c5f7f8e188b673ea4e677df7ea3c5a39") {
       throw new Error(
-        `Currently active Service Worker (${actualChecksum}) is behind the latest published one (${"0877fcdc026242810f5bfde0d7178db4"}).`
+        `Currently active Service Worker (${actualChecksum}) is behind the latest published one (${"c5f7f8e188b673ea4e677df7ea3c5a39"}).`
       );
     }
     return serviceWorker;
@@ -7562,7 +7571,16 @@ function createResponseListener(context) {
     if ((_a3 = responseJson.type) == null ? void 0 : _a3.includes("opaque")) {
       return;
     }
-    const response = responseJson.status === 0 ? Response.error() : new Response(responseJson.body, responseJson);
+    const response = responseJson.status === 0 ? Response.error() : new Response(
+      /**
+       * Responses may be streams here, but when we create a response object
+       * with null-body status codes, like 204, 205, 304 Response will
+       * throw when passed a non-null body, so ensure it's null here
+       * for those codes
+       */
+      isResponseWithoutBody(responseJson.status) ? null : responseJson.body,
+      responseJson
+    );
     context.emitter.emit(
       responseJson.isMockedResponse ? "response:mocked" : "response:bypass",
       {
@@ -7915,21 +7933,6 @@ var SetupWorkerApi = class extends SetupApi {
 function setupWorker(...handlers) {
   return new SetupWorkerApi(...handlers);
 }
-function getCurrentPostLink(pathname) {
-  var _a3;
-  const path = pathname.split("/");
-  if (path.at(-1) === "") {
-    if (path.length <= 2) {
-      return "/index";
-    } else if ((_a3 = path.at(-2)) == null ? void 0 : _a3.endsWith(".html")) {
-      return path.slice(0, -1).join("/").slice(0, -5);
-    } else {
-      return path.join("/") + "index";
-    }
-  }
-  const postLink = path.join("/");
-  return postLink.endsWith(".html") ? postLink.slice(0, -5) : postLink;
-}
 function promisifyRequest(request) {
   return new Promise((resolve, reject) => {
     request.oncomplete = request.onsuccess = () => resolve(request.result);
@@ -7989,14 +7992,10 @@ const commentHandlers = [
     const comments = await getComments();
     const searchParams = new URL(request.url).searchParams;
     const limit = +(searchParams.get("limit") || 10);
-    if (searchParams.has("home")) {
-      return HttpResponse.json(comments.sort(sortByDate).slice(0, limit));
-    } else {
-      const postLink = getCurrentPostLink(location.pathname);
-      return HttpResponse.json(
-        comments.filter((comment) => postLink === comment.postLink).sort(sortByDate)
-      );
-    }
+    const postLink = searchParams.get("postLink") ?? "home";
+    return HttpResponse.json(
+      postLink === "home" ? comments.sort(sortByDate).slice(0, limit) : comments.filter((comment) => postLink === comment.postLink).sort(sortByDate)
+    );
   }),
   http.post(`${location.origin}/api/comment`, async ({ request }) => {
     const body = await request.json();
@@ -8021,11 +8020,11 @@ async function getCityInfo() {
   const { location: location2 } = await res.json();
   return location2[0] ?? { name: "unknown", country: "unknown", adm1: "unknown", adm2: "unknown" };
 }
-setupWorker(...commentHandlers).start({
+const serviceWorkerPromise = setupWorker(...commentHandlers).start({
   onUnhandledRequest: "bypass"
 });
 customElements.define("base-tag", BaseTag);
 customElements.define("header-bar", HeaderBar);
 export {
-  getCurrentPostLink as g
+  serviceWorkerPromise as s
 };
