@@ -27,7 +27,7 @@ export default defineConfig(({ command, isPreview }) => {
 
   switch (command) {
     case 'build':
-      return mergeConfig(commonConfig, { base: isPreview ? '/' : '/21081715/dist/' })
+      return mergeConfig(commonConfig, {})
     case 'serve':
     default:
       return mergeConfig(commonConfig, {})
