@@ -11,7 +11,7 @@ export default defineConfig(({ command, isPreview }) => {
       minify: false,
       emptyOutDir: true,
       rollupOptions: {
-        input: ['./index.html', ...multiPages]
+        input: ['./index.html', './about/index.html', ...multiPages]
       }
     },
     css: {

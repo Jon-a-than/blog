@@ -2,11 +2,6 @@ import { Marked } from 'marked'
 import { getHighlighter } from 'shiki'
 import { markedHighlight } from 'marked-highlight'
 
-// const marked = await buildMarkdownParser()
-// console.log(
-//   await marked.parse('# Hello `tst` world!\n```js\nconsole.log("Hello world!")\n```\nblalala')
-// )
-
 export async function buildMarkdownParser() {
   const highlighter = await getHighlighter({
     theme: 'material-theme',

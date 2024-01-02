@@ -3,9 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="/shared/index.ts" type="module"></script>
     <script src="/home/index.ts" type="module"></script>
-    <title>Document</title>
+    <title>博客</title>
   </head>
 
   <body class="flex flex-col h-100vh overflow-hidden">
@@ -15,14 +14,17 @@
         <aside class="hidden lg:block basis-72 pl-2">
           <h2 class="text-lg">最新评论</h2>
 
-          <div class="flex gap-2 items-start">
-            <div class="pa-1 bg-lime-2 border-1 border-solid rounded-full">
-              <i class="i-uil-0-plus text-lg"></i>
-            </div>
-            <p class="my-0 bg-primary-2 dark:bg-primary-7 rounded-lg pa-2">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut eius repellendus molestiae
-              quia?
-            </p>
+          <div id="latestComments" class="flex flex-col gap-2">
+            <template id="comment">
+              <div class="flex gap-2 items-start">
+                <div class="pa-1 bg-lime-2 border-1 border-solid rounded-full">
+                  <i class="i-uil-0-plus text-lg"></i>
+                </div>
+                <p class="my-0 bg-primary-2 dark:bg-primary-7 rounded-lg pa-2">
+                  <a href="./" class="decoration-none text-inherit">comment</a>
+                </p>
+              </div>
+            </template>
           </div>
         </aside>
         <main class="md:mx-4 flex-1 rounded-xl pa-4">

@@ -1,4 +1,4 @@
-dist
+# dist
 .data
 .nuxt
 .nitro
@@ -18,3 +18,4 @@ logs
 
 config/post.json
 posts
+!dist/posts

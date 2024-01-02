@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "build": "vite build && tsx ./scripts/post-build.ts",
-    "build:pre": "tsx ./scripts/prebuild.ts",
+    "build:pre": "tsx ./scripts/prerender.ts",
     "dev": "vite dev",
     "lint": "eslint --ignore-path .gitignore --cache --fix --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts .",
     "preview": "vite preview"

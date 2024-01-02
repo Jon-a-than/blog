@@ -30,7 +30,7 @@ async function preRenderPosts(postMetaList: Post[]) {
   const postTemplateContent = await readFile(postTemplate, 'utf-8')
 
   const viteMultiPages = postMetaList.map(async ({ path, meta, link }) => {
-    const postPath = resolve(postGenerateDir, `..${link}`)
+    const postPath = resolve(postGenerateDir, `../${link}`)
 
     const post = await readFile(path, 'utf-8')
     const html = await marked.parse(post.replace(/---\n([\s\S]+?)\n---/, ''))
