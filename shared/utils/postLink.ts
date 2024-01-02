@@ -4,7 +4,7 @@ export function getCurrentPostLink(pathname: string): string {
   }
 
   /** 首页 */
-  if(pathname.startsWith(import.meta.env.VITE_SPECIAL_PREFIX_URL)) {
+  if (pathname.startsWith(import.meta.env.VITE_SPECIAL_PREFIX_URL)) {
     pathname = pathname.slice(import.meta.env.VITE_SPECIAL_PREFIX_URL.length)
   }
 

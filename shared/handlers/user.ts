@@ -12,7 +12,7 @@ export const userHandlers: HttpHandler[] = [
 
     await addUser({ ...user, password: globalThis.btoa(user.password) })
 
-    return HttpResponse.json({}, { status: 200 })
+    return HttpResponse.json({ token: generateToken({ username: user.username }) }, { status: 200 })
   }),
   http.post<never, User>(`${location.origin}/api/user/login`, async ({ request }) => {
     const user = await request.json()

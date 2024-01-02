@@ -4,7 +4,7 @@ body {
 
 html {
   background-image: url("../post/texture.png");
-  --uno: text-primary-7 bg-primary-1;
+  --uno: text-primary-7 bg-primary-1 scroll-smooth;
 }
 
 html *::selection {

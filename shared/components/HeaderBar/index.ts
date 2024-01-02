@@ -4,7 +4,7 @@ import styleSheet from './index.css?raw'
 
 import { title as siteTitle, menu } from '@/config/app.config.json'
 
-const enum Theme {
+export const enum Theme {
   Key = 'color-mode',
   Dark = 'dark',
   Light = 'light'
@@ -69,7 +69,7 @@ export class HeaderBar extends HTMLElement {
   buildMenu() {
     return menu.map(({ title, link }, index) => {
       const navLink = document.createElement('a')
-      navLink.href = link
+      navLink.href = `${import.meta.env.BASE_URL}${link}`
       navLink.classList.add('nav_link')
       const i = document.createElement('i')
       i.classList.add(`icon-${index}`)

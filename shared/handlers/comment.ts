@@ -1,4 +1,3 @@
-import { getCurrentPostLink } from '../utils/postLink'
 import { HttpResponse, http, type HttpHandler } from 'msw'
 import { addComment, getComments, type BaseFields, type Comment } from '../entity/comment'
 
@@ -16,16 +15,13 @@ export const commentHandlers: HttpHandler[] = [
     const comments = await getComments()
     const searchParams = new URL(request.url).searchParams
     const limit = +(searchParams.get('limit') || 10)
+    const postLink = searchParams.get('postLink') ?? 'home'
 
-    if (searchParams.has('home')) {
-      return HttpResponse.json(comments.sort(sortByDate).slice(0, limit))
-    } else {
-      const postLink = getCurrentPostLink(location.pathname)
-
-      return HttpResponse.json(
-        comments.filter((comment) => postLink === comment.postLink).sort(sortByDate)
-      )
-    }
+    return HttpResponse.json(
+      postLink === 'home'
+        ? comments.sort(sortByDate).slice(0, limit)
+        : comments.filter((comment) => postLink === comment.postLink).sort(sortByDate)
+    )
   }),
   http.post(`${location.origin}/api/comment`, async ({ request }) => {
     const body = (await request.json()) as Omit<Comment, keyof BaseFields>
