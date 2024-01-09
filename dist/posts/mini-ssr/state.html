@@ -3,13 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/21081715/dist/favicon.svg">
     <title>实现迷你SSR - C/S状态同步</title>
-    <script type="module" crossorigin src="/21081715/dist/assets/index-I7noDNMX.js"></script>
-    <script type="module" crossorigin src="/21081715/dist/assets/index-5fXF6huY.js"></script>
-    <link rel="stylesheet" crossorigin href="/21081715/dist/assets/index-XmuF-FyX.css">
+    <script type="module" crossorigin src="/21081715/dist/assets/index-5ozU-LZv.js"></script>
+    <script type="module" crossorigin src="/21081715/dist/assets/index-Lix7xzlY.js"></script>
+    <link rel="stylesheet" crossorigin href="/21081715/dist/assets/index-k4qIMmo2.css">
     <link rel="stylesheet" crossorigin href="/21081715/dist/assets/index-4qc_0Lwg.css">
   </head>
-  <body class="flex flex-col h-100vh overflow-hidden">
+  <body class="flex flex-col h-100vh h-100dvh overflow-hidden">
     <header-bar></header-bar>
 
     <div class="pt-4 flex flex-col flex-1 overflow-auto scrollbar-slim gap-4">
@@ -22,9 +23,7 @@
             class="list-none bg-primary-2 dark:bg-primary-7 px-4 py-4 mx-4 rounded-lg"
           >
             <template id="recommendPostItem">
-              <li
-                class="text-base text-nowrap overflow-hidden text-ellipsis"
-              >
+              <li class="text-base text-nowrap overflow-hidden text-ellipsis">
                 <a class="text-inherit font-bold decoration-none hover:text-rose-3" href="#"
                   >{title}</a
                 >
@@ -405,8 +404,9 @@
                     <a
                       class="ml-1em text-inherit font-bold decoration-none hover:text-rose-3"
                       href="#"
-                      >{title}</a
                     >
+                      {title}
+                    </a>
                   </li>
                 </template>
               </ul>

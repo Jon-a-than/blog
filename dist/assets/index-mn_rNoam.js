@@ -1,4 +1,4 @@
-import { s as serviceWorkerPromise } from "./index-I7noDNMX.js";
+import { s as serviceWorkerPromise } from "./index-5ozU-LZv.js";
 hydrate();
 async function hydrate() {
   const postCardList = document.querySelectorAll("div[data-post-link]");

@@ -819,7 +819,7 @@ var __async$8 = (__this, __arguments, generator) => {
     step((generator = generator.apply(__this, __arguments)).next());
   });
 };
-class RequestHandler {
+const _RequestHandler = class _RequestHandler2 {
   constructor(args) {
     this.resolver = args.resolver;
     this.options = args.options;
@@ -861,6 +861,18 @@ class RequestHandler {
   extendResolverArgs(_args) {
     return {};
   }
+  // Clone the request instance before it's passed to the handler phases
+  // and the response resolver so we can always read it for logging.
+  // We only clone it once per request to avoid unnecessary overhead.
+  cloneRequestOrGetFromCache(request) {
+    const existingClone = _RequestHandler2.cache.get(request);
+    if (typeof existingClone !== "undefined") {
+      return existingClone;
+    }
+    const clonedRequest = request.clone();
+    _RequestHandler2.cache.set(request, clonedRequest);
+    return clonedRequest;
+  }
   /**
    * Execute this request handler and produce a mocked response
    * using the given resolver function.
@@ -871,7 +883,7 @@ class RequestHandler {
       if (this.isUsed && ((_a3 = this.options) == null ? void 0 : _a3.once)) {
         return null;
       }
-      const mainRequestRef = args.request.clone();
+      const requestClone = this.cloneRequestOrGetFromCache(args.request);
       const parsedResult = yield this.parse({
         request: args.request,
         resolutionContext: args.resolutionContext
@@ -899,7 +911,7 @@ class RequestHandler {
       const executionResult = this.createExecutionResult({
         // Pass the cloned request to the result so that logging
         // and other consumers could read its body once more.
-        request: mainRequestRef,
+        request: requestClone,
         response: mockedResponse,
         parsedResult
       });
@@ -942,7 +954,9 @@ class RequestHandler {
       parsedResult: args.parsedResult
     };
   }
-}
+};
+_RequestHandler.cache = /* @__PURE__ */ new WeakMap();
+let RequestHandler = _RequestHandler;
 function isStringEqual(actual, expected) {
   return actual.toLowerCase() === expected.toLowerCase();
 }
@@ -5813,7 +5827,7 @@ function isDocumentNode(value) {
   }
   return typeof value === "object" && "kind" in value && "definitions" in value;
 }
-class GraphQLHandler extends RequestHandler {
+const _GraphQLHandler = class _GraphQLHandler2 extends RequestHandler {
   constructor(operationType, operationName, endpoint, resolver, options) {
     let resolvedOperationName = operationName;
     if (isDocumentNode(operationName)) {
@@ -5842,16 +5856,33 @@ class GraphQLHandler extends RequestHandler {
     });
     this.endpoint = endpoint;
   }
+  /**
+   * Parses the request body, once per request, cached across all
+   * GraphQL handlers. This is done to avoid multiple parsing of the
+   * request body, which each requires a clone of the request.
+   */
+  parseGraphQLRequestOrGetFromCache(request) {
+    return __async$3(this, null, function* () {
+      if (!_GraphQLHandler2.parsedRequestCache.has(request)) {
+        _GraphQLHandler2.parsedRequestCache.set(
+          request,
+          yield parseGraphQLRequest(request).catch((error2) => {
+            console.error(error2);
+            return void 0;
+          })
+        );
+      }
+      return _GraphQLHandler2.parsedRequestCache.get(request);
+    });
+  }
   parse(args) {
     return __async$3(this, null, function* () {
       const match2 = matchRequestUrl(new URL(args.request.url), this.endpoint);
-      if (!match2.matches)
+      if (!match2.matches) {
         return { match: match2 };
-      const parsedResult = yield parseGraphQLRequest(args.request).catch(
-        (error2) => {
-          console.error(error2);
-          return void 0;
-        }
+      }
+      const parsedResult = yield this.parseGraphQLRequestOrGetFromCache(
+        args.request
       );
       if (typeof parsedResult === "undefined") {
         return { match: match2 };
@@ -5908,7 +5939,9 @@ Consider naming this operation or using "graphql.operation()" request handler to
       console.groupEnd();
     });
   }
-}
+};
+_GraphQLHandler.parsedRequestCache = /* @__PURE__ */ new WeakMap();
+let GraphQLHandler = _GraphQLHandler;
 var __defProp$2 = Object.defineProperty;
 var __defProps$2 = Object.defineProperties;
 var __getOwnPropDescs$2 = Object.getOwnPropertyDescriptors;

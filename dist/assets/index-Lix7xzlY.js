@@ -1,4 +1,4 @@
-import { s as serviceWorkerPromise } from "./index-I7noDNMX.js";
+import { s as serviceWorkerPromise } from "./index-5ozU-LZv.js";
 function getCurrentPostLink(pathname) {
   var _a;
   if (pathname.startsWith("/21081715/dist/")) {
@@ -31,6 +31,7 @@ async function renderComments() {
   );
   const comments = await res.json();
   const commentContainer = document.querySelector("#comment-container");
+  commentContainer.innerHTML = "";
   comments.forEach(({ author, comment, position, date }) => {
     const template = document.importNode(POST_COMMENT_TEMPLATE.content, true);
     template.querySelector('[data-type="author"]').textContent = author;
