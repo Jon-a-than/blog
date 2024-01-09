@@ -15,6 +15,7 @@ export async function renderComments() {
   const comments = (await res.json()) as Comment[]
 
   const commentContainer = document.querySelector('#comment-container') as HTMLDivElement
+  commentContainer.innerHTML = ''
   comments.forEach(({ author, comment, position, date }) => {
     const template = document.importNode(POST_COMMENT_TEMPLATE.content, true)
     template.querySelector('[data-type="author"]')!.textContent = author

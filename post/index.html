@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/shared/global.css" />
     <link rel="stylesheet" href="/post/index.css" />
+    <link rel="icon" href="/favicon.svg">
     <script type="module" src="/post/index.ts"></script>
     <title><!-- POST_TITLE --></title>
   </head>
-  <body class="flex flex-col h-100vh overflow-hidden">
+  <body class="flex flex-col h-100vh h-100dvh overflow-hidden">
     <header-bar></header-bar>
 
     <div class="pt-4 flex flex-col flex-1 overflow-auto scrollbar-slim gap-4">
@@ -21,9 +22,7 @@
             class="list-none bg-primary-2 dark:bg-primary-7 px-4 py-4 mx-4 rounded-lg"
           >
             <template id="recommendPostItem">
-              <li
-                class="text-base text-nowrap overflow-hidden text-ellipsis"
-              >
+              <li class="text-base text-nowrap overflow-hidden text-ellipsis">
                 <a class="text-inherit font-bold decoration-none hover:text-rose-3" href="#"
                   >{title}</a
                 >
@@ -112,8 +111,9 @@
                     <a
                       class="ml-1em text-inherit font-bold decoration-none hover:text-rose-3"
                       href="#"
-                      >{title}</a
                     >
+                      {title}
+                    </a>
                   </li>
                 </template>
               </ul>
