@@ -5,5 +5,12 @@ updates:
     schedule:
       interval: 'weekly'
     commit-message:
-      prefix: '⬆️ build'
+      prefix: 'build'
+      include: scope
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+    commit-message:
+      prefix: 'build'
       include: scope
