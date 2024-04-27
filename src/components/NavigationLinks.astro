@@ -1,0 +1,21 @@
+---
+
+---
+
+<>
+  <a
+    class="decoration-none font-italic font-mono text-lg text-[#5E81AC]"
+    href="/posts"
+  >
+    Posts
+  </a>
+</>
+
+<script>
+  document
+    .querySelectorAll<HTMLAnchorElement>(`a[href='${location.pathname}']`)
+    .forEach((el) => {
+      el.classList.remove('decoration-none')
+      el.onclick = (e) => e.preventDefault()
+    })
+</script>

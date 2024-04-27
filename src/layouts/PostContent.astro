@@ -1,0 +1,24 @@
+---
+import BaseLayout from './BaseLayout.astro'
+---
+
+<BaseLayout title="posts">
+  <slot />
+</BaseLayout>
+<style is:global>
+  pre.astro-code {
+    background-color: var(--color-snow-4) !important;
+  }
+
+  html.dark .astro-code,
+  html.dark .astro-code span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+  }
+
+  article.markdown {
+    pre.astro-code {
+      --uno: pa-xs rounded;
+    }
+  }
+</style>

@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content'
+import PostContent from '../../layouts/PostContent.astro'
+// import MarkdownPostLayout from '../../layouts/MarkdownPostLayout.astro';
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection('posts')
+  return blogEntries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry }
+  }))
+}
+
+const { entry } = Astro.props
+const { Content } = await entry.render()
+---
+
+<PostContent>
+  <div
+    class="mb-xs grid cols-1 md:mx-xs md:cols-[1fr_20rem] lg:cols-[42rem_1fr] xl:cols-[1fr_42rem_1fr] gap-xs"
+  >
+    <aside class="hidden xl:block">
+      <ul>
+        <li>tests</li>
+        <li>tests</li>
+        <li>tests</li>
+        <li>tests</li>
+        <li>tests</li>
+      </ul>
+    </aside>
+    <main class="">
+      <header>
+        <h1>title</h1>
+      </header>
+      <article
+        class="markdown my-sm text-base pa-xs rounded-lg bg-snow-4/30 dark:bg-night-4/30 dark:[&_p]:color-snow-5 [&_p]:color-night-1"
+      >
+        <Content />
+      </article>
+
+      <footer>
+        <section class="text-base pa-xs rounded-lg bg-snow-4 dark:bg-night-4">
+          <h2 id="comments" class="text-lg font-bold my-0">comments</h2>
+        </section>
+      </footer>
+    </main>
+    <aside class="hidden md:block">
+      <ul>
+        <li>tests</li>
+        <li>tests</li>
+        <li>tests</li>
+        <li>tests</li>
+        <li>tests</li>
+      </ul>
+    </aside>
+  </div>
+</PostContent>

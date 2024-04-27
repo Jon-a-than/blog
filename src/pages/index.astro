@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content'
+import Home from '@/layouts/Home.astro'
+
+const allPosts = await getCollection('posts')
+---
+
+<Home title="qing shaner's blog">
+  <main class="">
+    <h2>Posts:</h2>
+    <ul>
+      {
+        allPosts.map((post) => (
+          <li>
+            <a href={`/posts/${post.slug}`}>{post.id}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</Home>
+
+<style></style>

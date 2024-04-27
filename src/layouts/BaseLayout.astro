@@ -1,0 +1,68 @@
+---
+import { ViewTransitions } from 'astro:transitions'
+import HeaderBar from '../components/HeaderBar.astro'
+
+interface Props {
+  title: string
+}
+
+const { title } = Astro.props
+---
+
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <script is:inline>
+      if (
+        localStorage.getItem('color-scheme') === 'dark' ||
+        window.matchMedia('(prefers-color-scheme: dark)').matches
+      ) {
+        document.documentElement.classList.add('dark')
+      }
+    </script>
+    <ViewTransitions />
+  </head>
+  <body class="ma-0 scrollbar-slim">
+    <HeaderBar />
+    <slot />
+    <style is:global>
+      :root {
+        color-scheme: light;
+        transition:
+          background-color 0.2s,
+          color 0.2s;
+
+        --color-text: #333;
+        --color-background: #fff;
+        --color-primary: #0070f3;
+
+        --color-snow-1: #ffffff;
+        --color-snow-2: #f2f4f8;
+        --color-snow-3: #eceff4;
+        --color-snow-4: #e5e9f0;
+        --color-snow-5: #d8dee9;
+        --color-snow-6: #c0c9d8;
+        --color-snow-7: #8f9bb3;
+        --color-snow-8: #2e3440;
+
+        --color-frost-1: #8fbcbb;
+        --color-forst-2: #88c0d0;
+        --color-forst-3: #81a1c1;
+        --color-forst-4: #5e81ac;
+
+        --uno: 'bg-[url(/texture.png)] bg-snow-2';
+
+        &[class*='dark'] {
+          color-scheme: dark;
+          --uno: bg-night-5;
+        }
+      }
+    </style>
+  </body>
+</html>
