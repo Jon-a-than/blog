@@ -1,8 +1,3 @@
-* eol=lf
+* text=auto eol=lf
 
-*.png -text
-*.jpg -text
-*.gif -text
-*.ico -text
-*.bmp -text
-*.webp -text
+*.{png,jpg,jpeg,gif,webp,woff,woff2} binary

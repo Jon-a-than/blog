@@ -1,11 +1,11 @@
 {
-  "files": [],
-  "references": [
-    {
-      "path": "tsconfig.node.json"
-    },
-    {
-      "path": "tsconfig.app.json"
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "strictNullChecks": true,
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
     }
-  ]
+  }
 }
