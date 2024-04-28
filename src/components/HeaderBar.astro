@@ -5,7 +5,7 @@ import Signature from './Signature.astro'
 ---
 
 <header
-  class="sticky top-0 right-0 left-0 px-xs dark:bg-night-4/50 backdrop-blur-md dark:border-night-2 bg-snow-3/50 border-b-solid border-b-1 border-b-[var(--color-snow-5)]"
+  class="sticky top-0 right-0 left-0 px-xs dark:bg-night-5/50 backdrop-blur-2 bg-snow-2/50 shadow-sm dark:shadow-night-4"
 >
   <div class="flex justify-between justify-between max-w-2xl mx-auto">
     <h1 title="qinshaner" class="my-1">
@@ -13,28 +13,8 @@ import Signature from './Signature.astro'
     </h1>
     <nav class="flex items-center gap-4">
       <NavigationLinks />
-      <!-- <a
-        class="decoration-none font-italic font-mono text-lg text-[#5E81AC]"
-        href="/posts"
-      >
-        Posts
-      </a>
-      <a
-        class="decoration-none font-italic font-mono text-lg text-[#5E81AC]"
-        href="/about"
-      >
-        About
-      </a> -->
 
       <NightSwitch />
     </nav>
   </div>
 </header>
-<!-- <script>
-  document
-    .querySelectorAll<HTMLAnchorElement>(`a[href='${location.pathname}']`)
-    .forEach((el) => {
-      el.classList.remove('decoration-none')
-      el.onclick = (e) => e.preventDefault()
-    })
-</script> -->

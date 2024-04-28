@@ -25,6 +25,12 @@ const { title } = Astro.props
       ) {
         document.documentElement.classList.add('dark')
       }
+
+      document.addEventListener('astro:before-swap', (e) => {
+        if (document.documentElement.classList.contains('dark')) {
+          e.newDocument.documentElement.classList.add('dark')
+        }
+      })
     </script>
     <ViewTransitions />
   </head>
@@ -38,10 +44,6 @@ const { title } = Astro.props
           background-color 0.2s,
           color 0.2s;
 
-        --color-text: #333;
-        --color-background: #fff;
-        --color-primary: #0070f3;
-
         --color-snow-1: #ffffff;
         --color-snow-2: #f2f4f8;
         --color-snow-3: #eceff4;
@@ -51,12 +53,24 @@ const { title } = Astro.props
         --color-snow-7: #8f9bb3;
         --color-snow-8: #2e3440;
 
-        --color-frost-1: #8fbcbb;
+        --color-night-1: #4c566a;
+        --color-night-2: #434c5e;
+        --color-night-3: #3b4252;
+        --color-night-4: #2e3440;
+        --color-night-5: #242933;
+
+        --color-forst-1: #8fbcbb;
         --color-forst-2: #88c0d0;
         --color-forst-3: #81a1c1;
         --color-forst-4: #5e81ac;
 
-        --uno: 'bg-[url(/texture.png)] bg-snow-2';
+        --color-aurora-1: #bf616a;
+        --color-aurora-2: #d08770;
+        --color-aurora-3: #ebcb8b;
+        --color-aurora-4: #a3be8c;
+        --color-aurora-5: #b48ead;
+
+        --uno: 'bg-[url(/texture.png)] bg-snow-1';
 
         &[class*='dark'] {
           color-scheme: dark;

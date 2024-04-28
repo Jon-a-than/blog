@@ -15,6 +15,7 @@ export default defineConfig({
   rules: [],
   safelist: [],
   shortcuts: {
+    link: 'decoration-none current:capitalize current:decoration-underline',
     'scrollbar-slim':
       'scrollbar:(w-2 h-2 bg-transparent) scrollbar-corner:bg-transparent scrollbar-thumb:(rounded bg-snow-5 dark:bg-night-4 h-2 w-2)'
   },
@@ -39,11 +40,25 @@ export default defineConfig({
         2: '#88C0D0',
         3: '#81A1C1',
         4: '#5E81AC'
+      },
+      aurora: {
+        1: '#BF616A',
+        2: '#D08770',
+        3: '#EBCB8B',
+        4: '#A3BE8C',
+        5: '#B48EAD'
       }
     }
   },
   transformers: [transformerDirectives()],
   variants: [
+    (matcher) => {
+      if (!matcher.startsWith('current:')) return matcher
+      return {
+        matcher: matcher.slice(8),
+        selector: (s) => `${s}[data-current=true]`
+      }
+    },
     (matcher) => {
       if (!matcher.startsWith('scrollbar:')) return matcher
       return {
