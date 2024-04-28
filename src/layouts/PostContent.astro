@@ -7,7 +7,7 @@ import BaseLayout from './BaseLayout.astro'
 </BaseLayout>
 <style is:global>
   pre.astro-code {
-    background-color: var(--color-snow-4) !important;
+    background-color: var(--color-snow-2) !important;
   }
 
   html.dark .astro-code,
@@ -17,8 +17,30 @@ import BaseLayout from './BaseLayout.astro'
   }
 
   article.markdown {
+    --uno: 'text-base bg-transparent mx-xs lg:mx-0';
+
+    :is(h1, h2, h3, h4, h5, h6) {
+      --uno: text-frost-4 cursor-pointer;
+
+      &::before {
+        content: '# ';
+        --uno: text-aurora-3 -ml-1em opacity-0 transition-opacity;
+      }
+      &:hover::before {
+        --uno: opacity-100;
+      }
+    }
+
     pre.astro-code {
-      --uno: pa-xs rounded;
+      --uno: 'pa-xs rounded';
+    }
+
+    & p {
+      color: var(--color-night-1);
+    }
+
+    .dark & p {
+      color: var(--color-snow-6);
     }
   }
 </style>
