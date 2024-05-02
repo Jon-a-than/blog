@@ -1,0 +1,50 @@
+---
+import { getCollection } from 'astro:content'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import PostCategoriesHeader from '@/components/PostCategoriesHeader.astro'
+
+const posts = await getCollection('notes')
+---
+
+<BaseLayout title="posts">
+  <main class="max-w-2xl mx-auto px-xs">
+    <PostCategoriesHeader />
+    <ul class="list-none px-sm">
+      {
+        posts.map(({ collection, data, slug, body }, i) => (
+          <a
+            class="text-night-1/80 hover:text-night-5 dark:hover:text-snow-1 decoration-none dark:text-snow-5/80 transition-color"
+            href={`/${collection}/${slug}`}
+          >
+            <li
+              class="flex flex-col lg:flex-row justify-between lg:items-center opacity-0 animate-fade-in-up animate-fill-forwards animate-duration-300"
+              style={`animation-delay: ${i * 50}ms;`}
+            >
+              <h3 class="text-lg mb-0 lg:mb-lg font-normal">
+                <i class="i-uil-cloud-rain-sun" />
+                {data.title}
+                <sup class="text-sm opacity-70 font-mono">
+                  {~~(body.length / 200)}m
+                </sup>
+              </h3>
+              <p class="opacity-80">
+                {/* {data.tags.map((tag: string) => (
+                  <span class="inline-block transition-background-color bg-snow-3 dark:bg-night-4 rounded px-2 py-.5 color-frost-4 dark:text-frost-1">
+                    {tag}
+                  </span>
+                ))} */}
+                <span class="font-italic">
+                  {data.pubDate.toLocaleDateString('zh-CN', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })}
+                </span>
+              </p>
+            </li>
+          </a>
+        ))
+      }
+    </ul>
+  </main>
+</BaseLayout>

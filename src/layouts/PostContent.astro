@@ -6,8 +6,8 @@ import BaseLayout from './BaseLayout.astro'
   <slot />
 </BaseLayout>
 <style is:global>
-  pre.astro-code {
-    background-color: var(--color-snow-2) !important;
+  .astro-code {
+    --uno: 'bg-snow-2! scrollbar-slim dark:scrollbar-thumb:bg-night-1';
   }
 
   html.dark .astro-code,
@@ -31,15 +31,44 @@ import BaseLayout from './BaseLayout.astro'
       }
     }
 
+    :not(.astro-code) > code {
+      padding: 1px 0.3em;
+      border: dashed 1px;
+      --uno: 'text-sm rounded transition-background-color dark:bg-night-2 bg-snow-2';
+    }
+
     pre.astro-code {
       --uno: 'pa-xs rounded';
     }
 
     & p {
       color: var(--color-night-1);
+      line-height: 1.8;
     }
 
     .dark & p {
+      color: var(--color-snow-6);
+    }
+
+    & a {
+      &:hover {
+        background-size: 100% 2px;
+      }
+
+      --uno: text-frost-1 decoration-none;
+      background-image: linear-gradient(currentColor, var(--color-forst-1));
+      background-size: 0% 2px;
+      transition: background-size 0.3s;
+      background-position: 0 100%;
+      background-repeat: no-repeat;
+    }
+
+    & ul {
+      --uno: text-base text-night-1;
+      line-height: 1.8;
+    }
+
+    .dark & ul {
       color: var(--color-snow-6);
     }
   }

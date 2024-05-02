@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url'
 import unocss from 'unocss/astro'
 
 export default defineConfig({
+  site: 'https://beta.qingshaner.com',
   integrations: [
     unocss({
       injectReset: '@unocss/reset/normalize.css'
@@ -11,7 +12,7 @@ export default defineConfig({
   markdown: {
     shikiConfig: {
       themes: {
-        light: 'solarized-light',
+        light: 'vitesse-light',
         dark: 'nord'
       }
     }

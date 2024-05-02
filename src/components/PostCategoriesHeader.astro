@@ -1,0 +1,19 @@
+---
+import { appConfig } from '@/config'
+---
+
+<header class="my-4xl">
+  <h2 class="text-3xl font-normal font-italic font-mono">
+    {
+      appConfig.postCategories.map(({ link, name }, i) => (
+        <a
+          href={link}
+          style={`color: var(--color-snow-7)`}
+          class="link current:opacity-100 inline-block mx-xs text-frost-2 opacity-50 hover:opacity-100 transition-opacity"
+        >
+          {name}
+        </a>
+      ))
+    }
+  </h2>
+</header>

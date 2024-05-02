@@ -3,7 +3,7 @@ import { defineConfig, presetIcons, presetUno, transformerDirectives } from 'uno
 export default defineConfig({
   content: {
     pipeline: {
-      include: [/\.([jt]sx|mdx?|html|astro)($|\?)/]
+      include: [/\.([jt]sx|mdx?|html|astro)($|\?)/, './src/config.ts']
     }
   },
   presets: [

@@ -1,10 +1,10 @@
 ---
 import { getCollection } from 'astro:content'
 import PostContent from '../../layouts/PostContent.astro'
-import { weatherIcons } from '@/config'
+// import MarkdownPostLayout from '../../layouts/MarkdownPostLayout.astro';
 
 export async function getStaticPaths() {
-  const blogEntries = await getCollection('posts')
+  const blogEntries = await getCollection('notes')
   return blogEntries.map((entry) => ({
     params: { slug: entry.slug },
     props: { entry }
@@ -12,7 +12,6 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props
-
 const { Content } = await entry.render()
 ---
 
@@ -30,24 +29,12 @@ const { Content } = await entry.render()
       </ul>
     </aside>
     <main>
-      <header class="my-16 text-frost-4 mx-xs lg:mx-0">
-        <h1>
-          <span>{entry.data.title}</span>
-        </h1>
-        <span class="text-lg font-normal inline-flex items-center gap-xs">
-          <i class={`${weatherIcons[entry.data.weather]} text-xl`}></i>
-          <time>
-            {
-              entry.data.pubDate.toLocaleDateString('zh-CN', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              })
-            }
-          </time>
-        </span>
+      <header>
+        <h1 class="text-frost-4 text-center"><i class="i-uil-cloud-moon-rain"></i> title</h1>
       </header>
-      <article class="markdown">
+      <article
+        class="markdown"
+      >
         <Content />
       </article>
 

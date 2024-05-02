@@ -1,82 +1,64 @@
 ---
 import { getCollection } from 'astro:content'
+import { postCategoryMap } from '@/config'
+
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import PostCategoriesHeader from '@/components/PostCategoriesHeader.astro'
 
 const posts = await getCollection('posts')
 
-const blogCategories = [
-  {
-    link: '/posts',
-    name: 'blog'
-  },
-  {
-    link: '/post',
-    name: 'post'
-  },
-  {
-    link: '/note',
-    name: 'note'
-  },
-  {
-    link: '/link',
-    name: 'link'
+const groupByCategories = posts.reduce<
+  Map<string, Array<(typeof posts)[number]>>
+>((acc, post) => {
+  const { data } = post
+  const { categories } = data
+
+  for (const category of categories) {
+    if (!acc.has(category)) {
+      acc.set(category, [])
+    }
+
+    // biome-ignore lint/style/noNonNullAssertion: is checked above
+    acc.set(category, [...acc.get(category)!, post])
   }
-]
+
+  return acc
+}, new Map())
 ---
 
 <BaseLayout title="posts">
-  <main class="max-w-2xl mx-auto px-xs">
-    <header class="my-4xl">
-      <h2 class="text-3xl font-normal font-italic font-mono">
-        {
-          blogCategories.map(({ link, name }, i) => (
-            <a
-              href={link}
-              style={`color: var(--color-snow-7)`}
-              class="link current:opacity-100 inline-block mx-xs text-frost-2 opacity-50 hover:opacity-100 transition-opacity"
-            >
-              {name}
-            </a>
-          ))
-        }
-      </h2>
-    </header>
-    <ul class="list-none px-sm">
+  <main class="max-w-2xl mx-auto">
+    <PostCategoriesHeader />
+    <ul class="list-none px-0 md:px-sm text-night-1/80 dark:text-snow-5/80">
       {
-        posts.map(({ collection, data, slug, body }, i) => (
-          <a
-            class="text-night-1/80 hover:text-night-5 dark:hover:text-snow-1 decoration-none dark:text-snow-5/80 transition-color"
-            href={`/${collection}/${slug}`}
-          >
-            <li
-              class="flex flex-col lg:flex-row justify-between lg:items-center opacity-0 animate-fade-in-up animate-fill-forwards animate-duration-300"
-              style={`animation-delay: ${i * 50}ms;`}
-            >
-              <h3 class="text-lg mb-0 lg:mb-lg font-normal">
-                <i class="i-uil-cloud-rain-sun" />
-                {data.title}
-                <sup class="text-sm opacity-70 font-mono">
-                  {~~(body.length / 200)}m
-                </sup>
-              </h3>
-              <p class="opacity-80">
-                {/* {data.tags.map((tag: string) => (
-                  <span class="inline-block transition-background-color bg-snow-3 dark:bg-night-4 rounded px-2 py-.5 color-frost-4 dark:text-frost-1">
-                    {tag}
-                  </span>
-                ))} */}
-                <span class="font-italic">
-                  {data.pubDate.toLocaleDateString('zh-CN', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                  })}
-                </span>
-              </p>
-            </li>
-          </a>
+        postCategoryMap.map(({ tag, name, icon, description }) => (
+          <li class="flex items-center justify-between mb-sm backdrop-blur-2 animate-flip-in-x">
+            <section class="w-full border-1 border-dashed border-frost-4 border-x-transparent md:border-x-frost-4 rounded px-xs">
+              <header>
+                <h3 class="text-lg font-normal">
+                  <i class={`${icon} text-xl`} /> {name}
+                </h3>
+              </header>
+
+              <p>{description}</p>
+              <ul class="text-sm opacity-80 pl-0 mb-xs list-none">
+                {groupByCategories.get(tag)?.map((post) => {
+                  const { data, slug } = post
+                  return (
+                    <a
+                      class="text-inherit hover:text-night-5 dark:hover:text-snow-1 decoration-none transition-color"
+                      href={`/${post.collection}/${slug}`}
+                    >
+                      <li class="text-lg  before:content-[''] before:i-uil-angle-double-right">
+                        {data.title}
+                      </li>
+                    </a>
+                  )
+                })}
+              </ul>
+            </section>
+          </li>
         ))
       }
-    </ul>
   </main>
 </BaseLayout>
