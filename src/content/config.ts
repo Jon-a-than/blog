@@ -1,20 +1,38 @@
+import { weathers } from '@/config'
 import { z, defineCollection } from 'astro:content'
 
-const postsCollection = defineCollection({
+const baseSchema = {
+  title: z.string(),
+  pubDate: z.date(),
+  description: z.string()
+}
+
+const blogCollection = defineCollection({
+  type: 'content',
+  schema: z.object(baseSchema)
+})
+
+const postCollection = defineCollection({
   type: 'content',
   schema: z.object({
-    title: z.string(),
-    pubDate: z.date(),
-    description: z.string(),
+    ...baseSchema,
     author: z.string(),
-    image: z.object({
-      url: z.string(),
-      alt: z.string()
-    }),
+    categories: z.array(z.string()),
+    tags: z.array(z.string()),
+    weather: z.enum(weathers)
+  })
+})
+
+const noteCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    ...baseSchema,
     tags: z.array(z.string())
   })
 })
 
 export const collections = {
-  posts: postsCollection
+  blogs: blogCollection,
+  posts: postCollection,
+  notes: noteCollection
 }
