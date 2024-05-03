@@ -5,7 +5,7 @@ import { appConfig } from '@/config'
 <header class="my-4xl">
   <h2 class="text-3xl font-normal font-italic font-mono">
     {
-      appConfig.postCategories.map(({ link, name }, i) => (
+      appConfig.postCategories.map(({ link, name }) => (
         <a
           href={link}
           style={`color: var(--color-snow-7)`}

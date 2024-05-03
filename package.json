@@ -22,22 +22,23 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.5.10",
+    "@astrojs/rss": "^4.0.5",
+    "@astrojs/sitemap": "^3.1.4",
+    "@unocss/reset": "^0.59.4",
+    "@yulania/progress": "^0.1.0",
     "astro": "^4.7.1",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "unocss": "^0.59.4"
   },
   "devDependencies": {
-    "@astrojs/rss": "^4.0.5",
     "@biomejs/biome": "^1.7.2",
     "@iconify-json/file-icons": "^1.1.8",
     "@iconify-json/logos": "^1.1.42",
     "@iconify-json/uil": "^1.1.8",
     "@types/node": "^20.12.8",
-    "@unocss/reset": "^0.59.4",
-    "@yulania/progress": "^0.1.0",
     "lightningcss": "^1.24.1",
     "lint-staged": "^15.2.2",
-    "simple-git-hooks": "^2.11.1",
-    "unocss": "^0.59.4"
+    "simple-git-hooks": "^2.11.1"
   },
   "lint-staged": {
     "*.{js,jsx,cjs,mjs,ts,tsx,cts,mts,astro}": "pnpm format & pnpm lint"

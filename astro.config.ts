@@ -1,13 +1,15 @@
 import { defineConfig } from 'astro/config'
 import { fileURLToPath } from 'node:url'
 import unocss from 'unocss/astro'
+import sitemap from '@astrojs/sitemap'
 
 export default defineConfig({
   site: 'https://beta.qingshaner.com',
   integrations: [
     unocss({
       injectReset: '@unocss/reset/normalize.css'
-    })
+    }),
+    sitemap()
   ],
   markdown: {
     shikiConfig: {
