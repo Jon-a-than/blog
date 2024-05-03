@@ -31,34 +31,58 @@ const groupByCategories = posts.reduce<
     <PostCategoriesHeader />
     <ul class="list-none px-0 md:px-sm text-night-1/80 dark:text-snow-5/80">
       {
-        postCategoryMap.map(({ tag, name, icon, description }) => (
-          <li class="flex items-center justify-between mb-sm backdrop-blur-2 animate-flip-in-x">
-            <section class="w-full border-1 border-dashed border-frost-4 border-x-transparent md:border-x-frost-4 rounded px-xs">
-              <header>
-                <h3 class="text-lg font-normal">
-                  <i class={`${icon} text-xl`} /> {name}
-                </h3>
-              </header>
+        postCategoryMap.map(({ tag, name, icon, description }, i) => (
+          <>
+            <li class="flex items-center justify-between mb-sm backdrop-blur-2">
+              <section class="w-full border-frost-4 border-x-transparent md:border-x-frost-4 rounded px-xs">
+                <header>
+                  <h3 class="text-lg font-normal inline-flex items-center gap-xs">
+                    <i class={`${icon} text-xl`} /> {name}
+                  </h3>
+                </header>
 
-              <p>{description}</p>
-              <ul class="text-sm opacity-80 pl-0 mb-xs list-none">
-                {groupByCategories.get(tag)?.map((post) => {
-                  const { data, slug } = post
-                  return (
-                    <a
-                      class="text-inherit hover:text-night-5 dark:hover:text-snow-1 decoration-none transition-color"
-                      href={`/${post.collection}/${slug}`}
-                    >
-                      <li class="text-lg  before:content-[''] before:i-uil-angle-double-right">
-                        {data.title}
-                      </li>
-                    </a>
-                  )
-                })}
-              </ul>
-            </section>
-          </li>
+                <p>{description}</p>
+                <ul class="text-sm opacity-80 pl-0 mb-xs list-none">
+                  {groupByCategories.get(tag)?.map((post, j) => {
+                    const { data, slug } = post
+                    return (
+                      <a
+                        class="text-inherit hover:text-night-5 dark:hover:text-snow-1 decoration-none transition-color"
+                        href={`/${post.collection}/${slug}`}
+                      >
+                        <li class="text-lg before:content-[''] before:i-uil-angle-double-right ">
+                          <span
+                            style={`animation-delay: ${(i + j) * 50}ms;`}
+                            class="animate-[fade-in-left-small] inline-block animate-fill-forwards animate-duration-300 opacity-0"
+                          >
+                            {data.title}
+                          </span>
+                        </li>
+                      </a>
+                    )
+                  })}
+                </ul>
+              </section>
+            </li>
+
+            {i !== postCategoryMap.length - 1 && (
+              <hr class="border-snow-4 dark:border-night-1 border-dashed border-x-transparent" />
+            )}
+          </>
         ))
       }
+    </ul>
   </main>
 </BaseLayout>
+<style>
+  @keyframes fade-in-left-small {
+    from {
+      opacity: 0;
+      transform: translate3d(-1em, 0, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+</style>
