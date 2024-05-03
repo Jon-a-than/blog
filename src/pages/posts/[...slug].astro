@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content'
 import PostContent from '../../layouts/PostContent.astro'
 import { weatherIcons } from '@/config'
+import ContentTOC from '@/components/ContentTOC.astro'
 
 export async function getStaticPaths() {
   const blogEntries = await getCollection('posts')
@@ -13,21 +14,25 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props
 
-const { Content } = await entry.render()
+const { Content, headings } = await entry.render()
 ---
 
 <PostContent>
   <div
-    class="mb-xs grid cols-1 md:mx-xs md:cols-[1fr_20rem] lg:cols-[42rem_1fr] xl:cols-[1fr_42rem_1fr] gap-xs"
+    class="mb-xs grid cols-1 md:mx-xs md:cols-[32rem_1fr] lg:cols-[48rem_1fr] xl:cols-[1fr_42rem_1fr] gap-xs"
   >
     <aside class="hidden xl:block">
-      <ul>
-        <!-- <li>tests</li>
-        <li>tests</li>
-        <li>tests</li>
-        <li>tests</li>
-        <li>tests</li> -->
-      </ul>
+      <!-- <ul class="text-night-1 line-height-6">
+        {
+          headings.map(({ depth, text }) => {
+            return (
+              <li style={`margin-left: ${depth * 1}em`} class="">
+                {text}
+              </li>
+            )
+          })
+        }
+      </ul> -->
     </aside>
     <main>
       <header class="my-16 text-frost-4 mx-xs lg:mx-0">
@@ -58,13 +63,7 @@ const { Content } = await entry.render()
       </footer>
     </main>
     <aside class="hidden md:block">
-      <ul>
-        <!-- <li>tests</li>
-        <li>tests</li>
-        <li>tests</li>
-        <li>tests</li>
-        <li>tests</li> -->
-      </ul>
+      <ContentTOC title={entry.data.title} headings={headings} />
     </aside>
   </div>
 </PostContent>

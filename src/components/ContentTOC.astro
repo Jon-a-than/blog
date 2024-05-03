@@ -1,0 +1,74 @@
+---
+interface Props {
+  title: string
+  headings: { depth: number; slug: string; text: string }[]
+}
+
+const { title, headings } = Astro.props
+---
+
+<details class="sticky top-18 ml-lg text-snow-5 dark:text-night-1 select-none">
+  <summary
+    class="hover:text-frost-4 cursor-pointer list-none before:text-lg before:content-[''] before:i-uil-pricetag-alt"
+  >
+    {title}
+  </summary>
+
+  <ul
+    id="toc"
+    class="line-height-6 pl-0 list-none scrollbar-slim h-[calc(100dvh-7.4rem)] overflow-y-auto"
+  >
+    {
+      headings.map(({ depth, slug, text }) => {
+        return (
+          <li
+            style={`margin-left: ${depth - 2}em`}
+            class="before:content-[''] before:i-uil-angle-double-right [&:has([data-current=true])]:before:i-uil-anchor [&:has([data-current=true])]:before:text-aurora-3"
+          >
+            <a
+              href={`#${slug}`}
+              class="text-snow-5 dark:text-night-1 current:before:text-frost-4 current:text-frost-4! current:bg-[length:100%_2] outline-animation to-frost-4"
+            >
+              {text}
+            </a>
+          </li>
+        )
+      })
+    }
+  </ul>
+  <script>
+    import { hydrate } from '@/utils/hydrate'
+    const headingsMap = new Map<string, HTMLAnchorElement>()
+    let currentHeading: HTMLAnchorElement | null = null
+
+    hydrate(() => {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries
+            .filter((entry) => entry.isIntersecting)
+            .forEach(({ target }) => {
+              if (currentHeading !== null) {
+                if (currentHeading.id === target.id) {
+                  return
+                }
+                currentHeading.dataset.current = 'false'
+              }
+
+              currentHeading = headingsMap.get(target.id)!
+              currentHeading.dataset.current = 'true'
+            })
+        },
+        { threshold: 1 }
+      )
+
+      const headings = document.querySelectorAll('.markdown>:is(h2,h3,h4)')
+      headings.forEach((el) => {
+        headingsMap.set(
+          el.id,
+          document.querySelector<HTMLAnchorElement>(`#toc a[href="#${el.id}"]`)!
+        )
+        observer.observe(el)
+      })
+    })
+  </script>
+</details>

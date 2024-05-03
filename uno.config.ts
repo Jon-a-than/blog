@@ -12,12 +12,30 @@ export default defineConfig({
     }),
     presetUno()
   ],
-  rules: [],
+  rules: [
+    [
+      'transition-background-size',
+      {
+        'transition-property': 'background-size',
+        'transition-timing-function': 'cubic-bezier(0.4, 0, 0.2, 1)',
+        'transition-duration': '150ms'
+      },
+      { autocomplete: 'transition-background-size' }
+    ]
+  ],
   safelist: [],
   shortcuts: {
+    'outline-animation': [
+      'decoration-none bg-gradient-to-b from-[currentColor] to-frost-1',
+      'bg-[length:0_2] hover:bg-[length:100%_2] bg-no-repeat bg-left-bottom',
+      'transition-300 transition-background-size ease-linear'
+    ].join(' '),
     link: 'decoration-none current:capitalize current:decoration-underline',
-    'scrollbar-slim':
-      'scrollbar:(w-2 h-2 bg-transparent) scrollbar-corner:bg-transparent scrollbar-thumb:(rounded bg-snow-5 dark:bg-night-4 h-2 w-2)'
+    'scrollbar-slim': [
+      'scrollbar:(w-2 h-2 bg-transparent)',
+      'scrollbar-corner:bg-transparent',
+      'scrollbar-thumb:(rounded bg-snow-5 dark:bg-night-4 h-2 w-2)'
+    ].join(' ')
   },
   theme: {
     colors: {
