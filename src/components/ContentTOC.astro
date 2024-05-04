@@ -16,7 +16,7 @@ const { title, headings } = Astro.props
 
   <ul
     id="toc"
-    class="line-height-6 pl-0 list-none scrollbar-slim h-[calc(100dvh-7.4rem)] overflow-y-auto"
+    class="line-height-6 pl-0 list-none scrollbar-slim max-h-[calc(100dvh-7.4rem)] overflow-y-auto"
   >
     {
       headings.map(({ depth, slug, text }) => {

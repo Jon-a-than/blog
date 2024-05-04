@@ -1,12 +1,14 @@
 ---
 import { getCollection } from 'astro:content'
 import PostContent from '../../layouts/PostContent.astro'
-import { weatherIcons } from '@/config'
+import { postCategoryMap, weatherIcons } from '@/config'
 import ContentTOC from '@/components/ContentTOC.astro'
+import PostCategory from '@/components/PostCategory.astro'
 
 export async function getStaticPaths() {
-  const blogEntries = await getCollection('posts')
-  return blogEntries.map((entry) => ({
+  const postEntries = await getCollection('posts')
+
+  return postEntries.map((entry) => ({
     params: { slug: entry.slug },
     props: { entry }
   }))
@@ -17,7 +19,7 @@ const { entry } = Astro.props
 const { Content, headings } = await entry.render()
 ---
 
-<PostContent>
+<PostContent title={entry.data.title}>
   <div
     class="mb-xs grid cols-1 md:mx-xs md:cols-[32rem_1fr] lg:cols-[48rem_1fr] xl:cols-[1fr_42rem_1fr] gap-xs"
   >
@@ -52,9 +54,16 @@ const { Content, headings } = await entry.render()
           </time>
         </span>
       </header>
+
       <article class="markdown">
         <Content />
       </article>
+
+      <hr class="divider" />
+      <ul class="pl-0 list-none text-night-1/80 dark:text-snow-5/80">
+        <PostCategory category={entry.data.categories[0]} />
+      </ul>
+      <hr class="divider" />
 
       <footer>
         <section class="text-base pa-xs rounded-lg bg-snow-4 dark:bg-night-4">

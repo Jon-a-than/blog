@@ -1,0 +1,59 @@
+---
+import { postCategoryMap } from '@/config'
+import { groupedPosts } from '@/utils/groupedPosts'
+
+interface Props {
+  category: string
+  postAnimateDelay?: number
+}
+
+const { category, postAnimateDelay = 0 } = Astro.props
+const categoryInfo = postCategoryMap.find(({ tag }) => tag === category)
+const posts = groupedPosts.get(category)
+---
+
+{
+  categoryInfo && (
+    <section class="w-full border-frost-4 border-x-transparent md:border-x-frost-4 rounded px-xs">
+      <header>
+        <h3 class="text-lg font-normal inline-flex items-center gap-xs">
+          <i class={`${categoryInfo.icon} text-xl`} /> {categoryInfo.name}
+        </h3>
+      </header>
+
+      <p>{categoryInfo.description}</p>
+      <ul class="text-sm opacity-80 pl-0 mb-xs list-none">
+        {posts?.map((post, i) => {
+          const { data, slug } = post
+          return (
+            <a
+              class="current:text-frost-1  text-inherit hover:text-night-5 dark:hover:text-snow-1 decoration-none transition-color"
+              href={`/${post.collection}/${slug}`}
+            >
+              <li class="text-lg before:content-[''] before:i-uil-angle-double-right ">
+                <span
+                  style={`animation-delay: ${(postAnimateDelay + i) * 50}ms;`}
+                  class="animate-[fade-in-left-small] inline-block animate-fill-forwards animate-duration-300 opacity-0"
+                >
+                  {data.title}
+                </span>
+              </li>
+            </a>
+          )
+        })}
+      </ul>
+    </section>
+  )
+}
+<style>
+  @keyframes fade-in-left-small {
+    from {
+      opacity: 0;
+      transform: translate3d(-1em, 0, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+</style>
