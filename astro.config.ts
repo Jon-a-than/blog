@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config'
 import { fileURLToPath } from 'node:url'
 import unocss from 'unocss/astro'
 import sitemap from '@astrojs/sitemap'
+import mdx from '@astrojs/mdx'
 
 export default defineConfig({
   site: 'https://beta.qingshaner.com',
@@ -9,7 +10,8 @@ export default defineConfig({
     unocss({
       injectReset: '@unocss/reset/normalize.css'
     }),
-    sitemap()
+    sitemap(),
+    mdx()
   ],
   markdown: {
     shikiConfig: {

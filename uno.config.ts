@@ -25,6 +25,7 @@ export default defineConfig({
   ],
   safelist: [],
   shortcuts: {
+    divider: 'border-snow-4 dark:border-night-1 border-dashed border-x-transparent',
     'outline-animation': [
       'decoration-none bg-gradient-to-b from-[currentColor] to-frost-1',
       'bg-[length:0_2] hover:bg-[length:100%_2] bg-no-repeat bg-left-bottom',
@@ -89,6 +90,13 @@ export default defineConfig({
       return {
         matcher: matcher.slice(16),
         selector: (s) => `${s}::-webkit-scrollbar-thumb`
+      }
+    },
+    (matcher) => {
+      if (!matcher.startsWith('scrollbar-corner:')) return matcher
+      return {
+        matcher: matcher.slice(17),
+        selector: (s) => `${s}::-webkit-scrollbar-corner`
       }
     }
   ]
