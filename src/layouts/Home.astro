@@ -8,8 +8,11 @@ interface Props {
 const { title } = Astro.props
 ---
 
+<style is:global>
+  @import url('../styles/markdown.css');
+</style>
 <BaseLayout title={title}>
-  <main>
+  <main class="markdown max-w-2xl mx-auto! mt-16 px-xs">
     <slot />
   </main>
 </BaseLayout>

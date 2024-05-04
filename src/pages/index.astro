@@ -1,23 +1,54 @@
 ---
-import { getCollection } from 'astro:content'
 import Home from '@/layouts/Home.astro'
+import { getEntryBySlug } from 'astro:content'
 
-const allPosts = await getCollection('posts')
+const about = await getEntryBySlug('index', 'index')
+const { Content } = await about.render()
+
+const projects = [
+  {
+    logo: 'i-logos-npm-2',
+    name: '@yulania/progress',
+    description: '一个简单的页面切换进度条组件 (本站使用)',
+    link: 'https://www.npmjs.com/package/@yulania/progress'
+  },
+  {
+    logo: 'i-logos-npm-2',
+    name: '@qingshaner/nest',
+    description: '一系列用于 NestJS 的组件',
+    link: 'https://www.npmjs.com/package/@qingshaner/nest'
+  },
+  {
+    logo: 'i-logos-npm-2',
+    name: '@qingshaner/mojito',
+    description: '一个提供 propmt 的 git commit CLI 工具',
+    link: 'https://www.npmjs.com/package/@qingshaner/mojito'
+  },
+  {
+    logo: 'i-logos-npm-2',
+    name: '@depazer/cli',
+    description: '一个用于查看依赖包关系的 CLI 工具',
+    link: 'https://www.npmjs.com/package/@depazer/cli'
+  }
+]
 ---
 
 <Home title="qing shaner's blog">
-  <main class="">
-    <h2>Posts:</h2>
-    <ul>
+  <Content />
+
+  <section class="markdown">
+    <h2 class="text-lg!">一些我制作的工具</h2>
+
+    <ul class="list-none pl-xs">
       {
-        allPosts.map((post) => (
-          <li>
-            <a href={`/posts/${post.slug}`}>{post.id}</a>
+        projects.map((project) => (
+          <li class={`before:content-[''] before:${project.logo}`}>
+            <a target="_blank" href={project.link}>
+              <strong>{project.name}</strong> {project.description}
+            </a>
           </li>
         ))
       }
     </ul>
-  </main>
+  </section>
 </Home>
-
-<style></style>

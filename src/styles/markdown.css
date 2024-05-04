@@ -1,0 +1,63 @@
+.astro-code {
+  --uno: 'bg-snow-2! scrollbar-slim dark:scrollbar-thumb:bg-night-1';
+}
+
+html.dark .astro-code,
+html.dark .astro-code span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+}
+
+.markdown {
+  --uno: 'text-base bg-transparent mx-xs lg:mx-0';
+
+  & :not(.astro-code)>code {
+    padding: 1px 0.3em;
+    border: dashed 1px;
+    --uno: 'text-sm rounded transition-background-color dark:bg-night-2 bg-snow-2';
+  }
+
+  &>pre.astro-code {
+    --uno: 'pa-xs rounded';
+  }
+
+  &>p {
+    color: var(--color-night-1);
+    line-height: 1.8;
+  }
+
+  .dark & p {
+    color: var(--color-snow-6);
+  }
+
+  & a {
+    --uno: 'text-frost-1 outline-animation';
+  }
+
+  & ul {
+    --uno: 'text-base text-night-1';
+    line-height: 1.8;
+  }
+
+  & strong {
+    --uno: 'text-aurora-2 dark:text-aurora-3';
+  }
+
+  .dark & ul {
+    color: var(--color-snow-6);
+  }
+
+  &> :is(h1, h2, h3, h4, h5, h6) {
+    --uno: 'text-frost-4 cursor-pointer';
+
+    &::before {
+      content: '# ';
+      --uno: 'text-aurora-3 -ml-1em opacity-0 transition-opacity';
+    }
+
+    &:hover::before {
+      --uno: 'opacity-100';
+
+    }
+  }
+}

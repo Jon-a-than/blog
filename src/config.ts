@@ -20,10 +20,11 @@ export const appConfig = {
   }[]
 }
 
-export const weathers = ['sunny', 'cloudy'] as const
+export const weathers = ['sunny', 'cloudy', 'moonRain'] as const
 export const weatherIcons = {
   sunny: 'i-uil-bright',
-  cloudy: 'i-uil-clouds'
+  cloudy: 'i-uil-clouds',
+  moonRain: 'i-uil-cloud-moon-rain'
 } as const satisfies Record<(typeof weathers)[number], string>
 
 interface PostCategory {

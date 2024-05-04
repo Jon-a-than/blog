@@ -1,0 +1,66 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+
+const friendLinks = [
+  {
+    name: "Guo Le's Blog",
+    avatar: 'https://blog.guole.fun/img/gl.jpg',
+    description: '生命是独立是自由是爱与和平',
+    url: 'https://guole.fun/'
+  },
+  {
+    name: 'itsNeko',
+    avatar: 'https://dyfa.top/usr/themes/Nabo-theme-typecho-main/image/logo.jpg',
+    description: '有源源就有我！',
+    url: 'https://dyfa.top/'
+  },
+  {
+    name: '小U',
+    avatar: 'https://blog.starysky.top/img/blog_avatar.jpg',
+    description: 'Science lights up the world',
+    url: 'https://blog.starysky.top/'
+  },
+  {
+    name: "Marvin's Blog",
+    avatar: 'https://assets.marvin.nz/photo.jpeg',
+    description: '时见幽人独往来，缥缈孤鸿影',
+    url: 'https://marvin.nz'
+  }
+] as const satisfies {
+  name: string
+  avatar: string
+  description: string
+  url: string
+}[]
+---
+
+<BaseLayout title="Friend Links">
+  <main class="max-w-2xl mx-auto px-xs">
+    <header>
+      <h1 class="text-frost-4">Friend Links</h1>
+    </header>
+
+    <ul class="list-none pl-0 grid gap-xs cols-1 sm:cols-2">
+      {
+        friendLinks.map((link) => (
+          <li>
+            <a
+              class="w-full box-border transition-background-color link inline-flex gap-xs dark:hover:bg-night-3 hover:bg-snow-2 pa-xs rounded-xl"
+              target="_blank"
+              href={link.url}
+            >
+              <img
+                class="border-solid border-4 border-snow-5 dark:border-night-1 w-12 h-12 overflow-clip rounded-full"
+                src={link.avatar}
+              />
+              <div class="text-night-1 dark:text-snow-5 flex justify-center flex-col gap-1">
+                <span>{link.name}</span>
+                <p class="my-0">{link.description}</p>
+              </div>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</BaseLayout>

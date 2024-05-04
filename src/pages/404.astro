@@ -1,0 +1,19 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+---
+
+<BaseLayout title="404">
+  <main
+    class="select-none text-aurora-1 max-w-2xl mx-auto h-[calc(100dvh-12rem)] flex flex-col justify-center"
+  >
+    <h1>Oops!</h1>
+    <h2>404 Not Found</h2>
+    <p class="font-bold"> Sorry, an error has occured, Requested page not found!</p>
+    <p>
+      <a href="/" class="link outline-animation text-frost-3 text-lg">
+        <span class="glyphicon glyphicon-home"></span>
+        Take Me Home
+      </a>
+    </p>
+  </main>
+</BaseLayout>
