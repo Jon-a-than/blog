@@ -20,6 +20,9 @@ importers:
       '@astrojs/sitemap':
         specifier: ^3.1.4
         version: 3.1.4
+      '@iconify-json/vscode-icons':
+        specifier: ^1.1.33
+        version: 1.1.33
       '@unocss/reset':
         specifier: ^0.59.4
         version: 0.59.4
@@ -490,6 +493,9 @@ packages:
 
   '@iconify-json/uil@1.1.8':
     resolution: {integrity: sha512-zkWB8XImzb1gfi5kN9xAfDXF5OqzxbKvtZq9xRUplEWEJYOoDB1RpbbQpCwJQ41j8Nf0ag0LFJr++qhYmvxftQ==}
+
+  '@iconify-json/vscode-icons@1.1.33':
+    resolution: {integrity: sha512-Aj1SoViQ5dw9hrYc4PHK8/vHpZREUA158jhnyNsD95uhN40mmeLuq+4o9OxiSakgLlac9R5OKpnp8tHTCgMhCA==}
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -1040,8 +1046,8 @@ packages:
     resolution: {integrity: sha512-xlx1yCK2Oc1APsPXDL2LdlNP6+uu8OCDdhOBSVT279M/S+y75O30C2VuD8T2ogdePBBl7PfPF4504tnLgX3zfw==}
     engines: {node: '>=14.16'}
 
-  caniuse-lite@1.0.30001615:
-    resolution: {integrity: sha512-1IpazM5G3r38meiae0bHRnPhz+CBQ3ZLqbQMtrg+AsTPKAXgW38JNsXkyZ+v8waCsDmPq87lmfun5Q2AGysNEQ==}
+  caniuse-lite@1.0.30001616:
+    resolution: {integrity: sha512-RHVYKov7IcdNjVHJFNY/78RdG4oGVjbayxv8u5IO74Wv7Hlq4PnJE6mo/OjFijjVFNy5ijnCt6H3IIo4t+wfEw==}
 
   ccount@2.0.1:
     resolution: {integrity: sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg==}
@@ -1219,8 +1225,8 @@ packages:
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
 
-  electron-to-chromium@1.4.754:
-    resolution: {integrity: sha512-7Kr5jUdns5rL/M9wFFmMZAgFDuL2YOnanFH4OI4iFzUqyh3XOL7nAGbSlSMZdzKMIyyTpNSbqZsWG9odwLeKvA==}
+  electron-to-chromium@1.4.756:
+    resolution: {integrity: sha512-RJKZ9+vEBMeiPAvKNWyZjuYyUqMndcP1f335oHqn3BEQbs2NFtVrnK5+6Xg5wSM9TknNNpWghGDUCKGYF+xWXw==}
 
   emmet@2.4.7:
     resolution: {integrity: sha512-O5O5QNqtdlnQM2bmKHtJgyChcrFMgQuulI+WdiOw2NArzprUqqxUW6bgYtKvzKgrsYpuLWalOkdhNP+1jluhCA==}
@@ -2401,8 +2407,8 @@ packages:
       vite:
         optional: true
 
-  update-browserslist-db@1.0.14:
-    resolution: {integrity: sha512-JixKH8GR2pWYshIPUg/NujK3JO7JiqEEUiNArE86NQyrgUuZeTlZQN3xuS/yiV5Kb48ev9K6RqNkaJjXsdg7Jw==}
+  update-browserslist-db@1.0.15:
+    resolution: {integrity: sha512-K9HWH62x3/EalU1U6sjSZiylm9C8tgq2mSvshZpqc7QE69RaA2qjhkW2HlNA0tFpEbtyFz7HTqbSdN4MSwUodA==}
     hasBin: true
     peerDependencies:
       browserslist: '>= 4.21.0'
@@ -3078,6 +3084,10 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
+  '@iconify-json/vscode-icons@1.1.33':
+    dependencies:
+      '@iconify/types': 2.0.0
+
   '@iconify/types@2.0.0': {}
 
   '@iconify/utils@2.1.23':
@@ -3720,16 +3730,16 @@ snapshots:
 
   browserslist@4.23.0:
     dependencies:
-      caniuse-lite: 1.0.30001615
-      electron-to-chromium: 1.4.754
+      caniuse-lite: 1.0.30001616
+      electron-to-chromium: 1.4.756
       node-releases: 2.0.14
-      update-browserslist-db: 1.0.14(browserslist@4.23.0)
+      update-browserslist-db: 1.0.15(browserslist@4.23.0)
 
   cac@6.7.14: {}
 
   camelcase@7.0.1: {}
 
-  caniuse-lite@1.0.30001615: {}
+  caniuse-lite@1.0.30001616: {}
 
   ccount@2.0.1: {}
 
@@ -3878,7 +3888,7 @@ snapshots:
 
   eastasianwidth@0.2.0: {}
 
-  electron-to-chromium@1.4.754: {}
+  electron-to-chromium@1.4.756: {}
 
   emmet@2.4.7:
     dependencies:
@@ -5509,7 +5519,7 @@ snapshots:
       - rollup
       - supports-color
 
-  update-browserslist-db@1.0.14(browserslist@4.23.0):
+  update-browserslist-db@1.0.15(browserslist@4.23.0):
     dependencies:
       browserslist: 4.23.0
       escalade: 3.1.2

@@ -60,15 +60,15 @@ const { Content, headings } = await entry.render()
       </article>
 
       <hr class="divider" />
-      <ul class="pl-0 list-none text-night-1/80 dark:text-snow-5/80">
-        <PostCategory category={entry.data.categories[0]} />
-      </ul>
-      <hr class="divider" />
 
       <footer>
-        <section class="text-base pa-xs rounded-lg bg-snow-4 dark:bg-night-4">
+        <ul class="pl-0 list-none text-night-1/80 dark:text-snow-5/80">
+          <PostCategory category={entry.data.categories[0]} />
+        </ul>
+
+        <!-- <section class="text-base pa-xs rounded-lg bg-snow-4 dark:bg-night-4">
           <h2 id="comments" class="text-lg font-bold my-0">comments</h2>
-        </section>
+        </section> -->
       </footer>
     </main>
     <aside class="hidden md:block">

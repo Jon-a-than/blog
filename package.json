@@ -25,6 +25,7 @@
     "@astrojs/mdx": "^2.3.1",
     "@astrojs/rss": "^4.0.5",
     "@astrojs/sitemap": "^3.1.4",
+    "@iconify-json/vscode-icons": "^1.1.33",
     "@unocss/reset": "^0.59.4",
     "@yulania/progress": "^0.1.0",
     "astro": "^4.7.1",

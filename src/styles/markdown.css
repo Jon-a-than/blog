@@ -1,11 +1,84 @@
 .astro-code {
-  --uno: 'bg-snow-2! scrollbar-slim dark:scrollbar-thumb:bg-night-1';
+  --uno: 'my-0 pb-xs bg-snow-2! scrollbar-slim dark:scrollbar-thumb:bg-night-1';
 }
 
 html.dark .astro-code,
 html.dark .astro-code span {
   color: var(--shiki-dark) !important;
   background-color: var(--shiki-dark-bg) !important;
+}
+
+.shiki-code-block {
+  --uno: 'bg-snow-2 dark:bg-night-4 rounded pa-xs pb-0 my-lg';
+}
+
+.shiki-filename {
+  --uno: 'items-center line-height-0 flex mb-xs text-sm text-[#A0ADA0] dark:text-[#616E88]';
+
+  &[data-lang='package.json'] {
+    --uno: after:i-vscode-icons-file-type-node;
+  }
+
+  &[data-lang=html] {
+    --uno: after:i-vscode-icons-file-type-html;
+  }
+
+  &[data-lang=css] {
+    --uno: after:i-vscode-icons-file-type-css;
+  }
+
+  &[data-lang=js] {
+    --uno: after:i-vscode-icons-file-type-js-official;
+  }
+
+  &[data-lang=ts] {
+    --uno: after:i-vscode-icons-file-type-typescript-official;
+  }
+
+  &[data-lang=jsx] {
+    --uno: after:i-vscode-icons-file-type-reactjs;
+  }
+
+  &[data-lang=tsx] {
+    --uno: after:i-vscode-icons-file-type-reactts;
+  }
+
+  &[data-lang=json] {
+    --uno: after:i-vscode-icons-file-type-light-json;
+  }
+
+  &[data-lang=go] {
+    --uno: after:i-vscode-icons-file-type-go;
+  }
+
+  &[data-type=vue] {
+    --uno: after:i-vscode-icons-file-type-vue;
+  }
+
+  &[data-lang=astro] {
+    --uno: after:i-vscode-icons-file-type-light-astro;
+  }
+
+  &[data-lang=bash] {
+    --uno: after:i-logos-bash-icon;
+  }
+
+  &::after {
+    --uno: "mr-1 ml-auto content-['']";
+  }
+
+  &:not(.no-filename)::before {
+    content: '';
+    --uno: 'i-uil-angle-right-b text-aurora-2 mt-2px';
+  }
+
+  &.no-filename {
+    --uno: mb-0;
+
+    &::after {
+      --uno: '-mt-xl top-xl align-top relative';
+    }
+  }
 }
 
 .markdown {
@@ -15,10 +88,6 @@ html.dark .astro-code span {
     padding: 1px 0.3em;
     border: dashed 1px;
     --uno: 'text-sm rounded transition-background-color dark:bg-night-2 bg-snow-2';
-  }
-
-  &>pre.astro-code {
-    --uno: 'pa-xs rounded';
   }
 
   &>p {

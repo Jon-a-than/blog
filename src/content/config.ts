@@ -34,5 +34,8 @@ const noteCollection = defineCollection({
 export const collections = {
   blogs: blogCollection,
   posts: postCollection,
-  notes: noteCollection
+  notes: noteCollection,
+  index: defineCollection({
+    type: 'content'
+  })
 }
