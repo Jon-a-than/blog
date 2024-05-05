@@ -31,17 +31,14 @@ export default defineConfig({
         {
           postprocess(html, options) {
             console.log(html, options)
-            const filename =
-              this.options.meta?.__raw?.match(shikiFilenameReg)?.[1] || ''
+            const filename = this.options.meta?.__raw?.match(shikiFilenameReg)?.[1] || ''
 
             const specialFilenameLang = specialFilenameReg.find(({ reg }) => {
               return reg.test(filename)
             })?.lang
 
             return `<div class="shiki-code-block">
-            <span data-lang="${
-              specialFilenameLang ?? options.lang
-            }" class="shiki-filename${
+            <span data-lang="${specialFilenameLang ?? options.lang}" class="shiki-filename${
               filename === '' ? ' no-filename' : ''
             }">${filename}</span>
             ${html}

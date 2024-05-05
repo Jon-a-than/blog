@@ -10,7 +10,7 @@ weather: sunny
 
 ## 路由功能
 
-一个 `Vue` 单页应用通常会使用 `vue-router` 来处理不同页面间的跳转, 同 `vue` 一样我们也要在 `Node.js` 服务端运行`vue-router`，所以也将 `vue-router` 安装到生产依赖中。
+一个 Vue 单页应用通常会使用 `vue-router` 来处理不同页面间的跳转, 同 `vue` 一样我们也要在 Node.js 服务端运行`vue-router`，所以也将 `vue-router` 安装到生产依赖中。
 
 ```bash
 pnpm i vue-router -P
@@ -18,19 +18,17 @@ pnpm i vue-router -P
 
 先写几个页面用于测试，注意 `RouterLink` 组件使用 `h` 函数会提示需要提供一个默认的插槽函数而不是字符串。
 
-**关于页样式**
+关于页样式
 
-```css
-/* src/views/about.module.css */
+```css filename=src/views/about.module.css
 .title {
   color: #787;
 }
 ```
 
-**关于页**
+- 关于页
 
-```js
-// src/views/AboutView.js
+```js filename=src/views/AboutView.js
 import { defineComponent, h } from 'vue'
 import { RouterLink } from 'vue-router'
 
@@ -46,10 +44,9 @@ export default defineComponent(() => {
 })
 ```
 
-**首页**
+- 首页
 
-```js
-// src/views/HomeView.js
+```js filename=src/views/HomeView.js
 import { defineComponent, h, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 
@@ -71,10 +68,9 @@ export default defineComponent(() => {
 })
 ```
 
-**404 页**
+- 404 页
 
-```js
-// src/views/NotFound.js
+```js filename=src/views/NotFound.js
 import { defineComponent, h } from 'vue'
 import { RouterLink } from 'vue-router'
 
@@ -89,11 +85,10 @@ export default defineComponent(() => {
 
 ### 路由表
 
-路由表配置同 `CSR` 模式配置相同, 路由懒加载也无需多余的配置，但路由模式在服务端因 `Node.js` 没有 `History API` 所以需要配置为内存模式。由于使用了 `vite` 作为打包工具，内置拓展了 `import.meta.env` 作为环境变量,使用其它工具可以自行在打包工具的类似 `define` 配置项中将环境变量指定为常量。
+路由表配置同 CSR 模式配置相同, 路由懒加载也无需多余的配置，但路由模式在服务端因 Node.js 没有 `History API` 所以需要配置为内存模式。由于使用了 Vite 作为打包工具，内置拓展了 `import.meta.env` 作为环境变量,使用其它工具可以自行在打包工具的类似 `define` 配置项中将环境变量指定为常量。
 对于服务端路由模式 `createMemoryHistory` 若没有 `prerender` 的需求传与不传基础路径的效果是一样的。
 
-```js
-// src/router.js
+```js filename=src/router.js
 import { createRouter, createMemoryHistory, createWebHistory } from 'vue-router'
 
 import HomeView from './views/HomeView'
@@ -127,10 +122,9 @@ export default () => {
 }
 ```
 
-在根组件处导入路由插槽，并在初始化函数中导出路由与应用实例。导出的 `router` 用于在服务端将请求的 `url` 传给 `vue-router` 去处理需要渲染的组件。
+在根组件处导入路由插槽，并在初始化函数中导出路由与应用实例。导出的 `router` 用于在服务端将请求的 url 传给 `vue-router` 去处理需要渲染的组件。
 
-```js
-// src/App.js
+```js filename=src/App.js
 import { createSSRApp, defineComponent, h } from 'vue'
 import { RouterView } from 'vue-router'
 
@@ -154,8 +148,7 @@ export default () => {
 
 客户端的部分十分简单，`vue-router` 会自动工具当前路径进行路由的匹配，在注水前需要先等待路由解析完毕，否则会提示注水失败而回退到重新进行客户端渲染而造成额外的性能消耗。
 
-```js
-// src/entry-client.js
+```js filename=src/entry-client.js
 import createApp from './App'
 
 startHydration()
@@ -175,8 +168,7 @@ async function startHydration() {
 
 在服务端我们需要将请求路径传给 `vue-router` 去处理，另外若路由配置了 `base` 则还需要将请求的 `url` 前缀给除去。另外重构一下 `render` 函数，改为接受请求路径来渲染。
 
-```js
-// src/entry-server.js
+```js filename=src/entry-server.js
 // ... 压缩一下
 
 startServer()
@@ -227,4 +219,4 @@ async function staticService(filePath, res) {
 }
 ```
 
-大功告成，`pnpm dev` 后打开浏览器 `localhost:4936`，即可看到路由功能可以正常使用了。
+大功告成，`pnpm dev` 后打开浏览器 http://localhost:4936 ，即可看到路由功能可以正常使用了。

@@ -112,6 +112,10 @@ html.dark .astro-code span {
     --uno: 'text-aurora-2 dark:text-aurora-3';
   }
 
+  & blockquote {
+    --uno: 'border-l-solid border-frost-4 ml-xs pa-xs my-lg text-night-1 dark:text-snow-5 bg-snow-2 dark:bg-night-4 rounded-r';
+  }
+
   .dark & ul {
     color: var(--color-snow-6);
   }
