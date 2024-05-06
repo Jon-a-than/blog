@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "version": "0.0.1",
+  "license": "ISC",
   "scripts": {
     "prepare": "simple-git-hooks",
     "dev": "astro dev",
