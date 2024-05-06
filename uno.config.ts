@@ -3,7 +3,7 @@ import { defineConfig, presetIcons, presetUno, transformerDirectives } from 'uno
 export default defineConfig({
   content: {
     pipeline: {
-      include: [/\.([jt]sx|mdx?|html|astro)($|\?)/, './src/config.ts']
+      include: [/\.([jt]sx|mdx?|html|astro)($|\?)/, './blog.config.ts']
     }
   },
   presets: [
@@ -40,6 +40,12 @@ export default defineConfig({
   },
   theme: {
     colors: {
+      bg: {
+        1: 'var(--color-bg-1)',
+        2: 'var(--color-bg-2)',
+        3: 'var(--color-bg-3)'
+      },
+
       night: {
         1: '#4C566A',
         2: '#434C5E',

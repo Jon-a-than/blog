@@ -1,11 +1,11 @@
 ---
-import { appConfig } from '@/config'
+import { blogConfig } from '#'
 ---
 
 <header class="my-4xl">
   <h2 class="text-3xl font-normal font-italic font-mono">
     {
-      appConfig.postCategories.map(({ link, name }) => (
+      blogConfig.pages.post.navigation.map(({ link, name }) => (
         <a
           href={link}
           style={`color: var(--color-snow-7)`}

@@ -1,5 +1,5 @@
 ---
-import { postCategoryMap } from '@/config'
+import { blogConfig } from '#'
 import { groupedPosts } from '@/utils/groupedPosts'
 
 interface Props {
@@ -8,13 +8,13 @@ interface Props {
 }
 
 const { category, postAnimateDelay = 0 } = Astro.props
-const categoryInfo = postCategoryMap.find(({ tag }) => tag === category)
+const categoryInfo = blogConfig.pages.post.categories.find(({ tag }) => tag === category)
 const posts = groupedPosts.get(category)
 ---
 
 {
   categoryInfo && (
-    <section class="w-full border-frost-4 border-x-transparent md:border-x-frost-4 rounded px-xs">
+    <section class="w-full border-frost-4 border-x-transparent md:border-x-frost-4 rounded">
       <header>
         <h3 class="text-lg font-normal inline-flex items-center gap-xs">
           <i class={`${categoryInfo.icon} text-xl`} /> {categoryInfo.name}

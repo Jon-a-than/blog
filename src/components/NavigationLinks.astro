@@ -1,37 +1,21 @@
 ---
-
+import { blogConfig } from '#'
+import { isExternalLink } from '@/utils/link'
 ---
 
 <>
-  <a
-    title="blog & posts"
-    class="line-height-4 link opacity-80 current:opacity-100 hover:opacity-100 transition-color font-italic font-mono text-lg text-frost-3"
-    href="/blogs"
-  >
-    <span class="<lg:i-uil-blogger-alt">blog</span>
-  </a>
-  <a
-    title="Friend Links"
-    class="line-height-4 link opacity-80 current:opacity-100 hover:opacity-100 transition-color font-italic text-xl text-frost-3"
-    href="/friend-links"
-  >
-    <i class="i-uil-link-alt"></i>
-  </a>
-  <a
-    title="GitHub"
-    class="line-height-4 opacity-80 current:opacity-100 hover:opacity-100 transition-color text-xl text-frost-3"
-    href="https://github.com/Jon-a-than"
-    target="_blank"
-  >
-    <i class="i-uil-github-alt"></i>
-  </a>
-  <a
-    title="RSS"
-    class="<md:hidden line-height-4 link opacity-80 current:opacity-100 hover:opacity-100 transition-color font-italic text-xl text-frost-3"
-    href="/rss.xml"
-  >
-    <i class="i-uil-rss"></i>
-  </a>
+  {
+    blogConfig.blog.navbarLinks.map(({ title, link, icon, name, target }) => (
+      <a
+        target={target ?? isExternalLink(link) ? '_blank' : '_self'}
+        title={title}
+        class="line-height-4 link opacity-80 current:opacity-100 hover:opacity-100 transition-color font-italic font-mono text-lg text-frost-3"
+        href={link}
+      >
+        <span class={icon}>{name}</span>
+      </a>
+    ))
+  }
 </>
 
 <script>
