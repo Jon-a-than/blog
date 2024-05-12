@@ -39,7 +39,8 @@ export const blogConfig = {
     weathers: {
       sunny: 'i-uil-bright',
       cloudy: 'i-uil-clouds',
-      moonRain: 'i-uil-cloud-moon-rain'
+      moonRain: 'i-uil-cloud-moon-rain',
+      showers: 'i-uil-cloud-showers'
     }
   },
 

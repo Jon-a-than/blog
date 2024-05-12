@@ -1,4 +1,4 @@
-import { weathers } from '@/config'
+import { blogConfig } from '#'
 import { z, defineCollection } from 'astro:content'
 
 const baseSchema = {
@@ -19,7 +19,7 @@ const postCollection = defineCollection({
     author: z.string(),
     categories: z.array(z.string()),
     tags: z.array(z.string()),
-    weather: z.enum(weathers)
+    weather: z.enum(Reflect.ownKeys(blogConfig.markdown.weathers) as [string, ...string[]])
   })
 })
 
