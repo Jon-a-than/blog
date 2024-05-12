@@ -9,7 +9,7 @@ import { isExternalLink } from '@/utils/link'
       <a
         target={target ?? isExternalLink(link) ? '_blank' : '_self'}
         title={title}
-        class="line-height-4 link opacity-80 current:opacity-100 hover:opacity-100 transition-color font-italic font-mono text-lg text-frost-3"
+        class="line-height-4 link opacity-80 current:opacity-100 hover:opacity-100 transition-color font-italic font-mono text-lg text-var-link-top-nav"
         href={link}
       >
         <span class={icon}>{name}</span>

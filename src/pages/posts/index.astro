@@ -1,24 +1,25 @@
 ---
-import { postCategoryMap } from '@/config'
+import { blogConfig } from '#'
 
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import PostCategoriesHeader from '@/components/PostCategoriesHeader.astro'
-import { groupedPosts } from '@/utils/groupedPosts'
 import PostCategory from '@/components/PostCategory.astro'
 ---
 
 <BaseLayout title="posts">
-  <main class="max-w-2xl mx-auto">
+  <main class="max-w-2xl mx-auto px-xs">
     <PostCategoriesHeader />
-    <ul class="list-none px-0 md:px-sm text-night-1/80 dark:text-snow-5/80">
+    <ul class="list-none px-0 md:px-sm text-var-font-primary/80">
       {
-        postCategoryMap.map(({ tag }, i) => (
+        blogConfig.pages.post.categories.map(({ tag }, i) => (
           <>
             <li class="flex items-center justify-between mb-sm backdrop-blur-2">
               <PostCategory category={tag} postAnimateDelay={i} />
             </li>
 
-            {i !== postCategoryMap.length - 1 && <hr class="divider" />}
+            {i !== blogConfig.pages.post.categories.length - 1 && (
+              <hr class="divider" />
+            )}
           </>
         ))
       }

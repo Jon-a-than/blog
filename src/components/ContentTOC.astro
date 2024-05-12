@@ -7,9 +7,9 @@ interface Props {
 const { title, headings } = Astro.props
 ---
 
-<details class="sticky top-18 ml-lg text-snow-5 dark:text-night-1 select-none">
+<details class="sticky top-18 ml-lg text-var-font-secondary select-none">
   <summary
-    class="hover:text-frost-4 cursor-pointer list-none before:text-lg before:content-[''] before:i-uil-pricetag-alt"
+    class="hover:text-var-primary cursor-pointer list-none before:text-lg before:content-[''] before:i-uil-pricetag-alt"
   >
     {title}
   </summary>
@@ -23,11 +23,11 @@ const { title, headings } = Astro.props
         return (
           <li
             style={`margin-left: ${depth - 2}em`}
-            class="before:content-[''] before:i-uil-angle-double-right [&:has([data-current=true])]:before:i-uil-anchor [&:has([data-current=true])]:before:text-aurora-3"
+            class="before:content-[''] before:i-uil-angle-double-right [&:has([data-current=true])]:before:i-uil-anchor [&:has([data-current=true])]:before:text-var-md-anchor"
           >
             <a
               href={`#${slug}`}
-              class="text-snow-5 dark:text-night-1 current:before:text-frost-4 current:text-frost-4! current:bg-[length:100%_2] outline-animation to-frost-4"
+              class="text-var-font-secondary current:before:text-var-primary current:text-var-primary! current:bg-[length:100%_2] outline-animation to-[rgb(var(--color-primary))]"
             >
               {text}
             </a>

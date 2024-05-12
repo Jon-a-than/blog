@@ -20,6 +20,14 @@ const { title } = Astro.props
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@yulania/progress@0.1.3/dist/classic.css"
+    />
+    <script
+      async
+      src="https://cdn.jsdelivr.net/npm/@yulania/progress@0.1.3/dist/astro.global.js"
+    ></script>
     <script is:inline>
       if (
         localStorage.getItem('color-scheme') === 'dark' ||
@@ -39,10 +47,11 @@ const { title } = Astro.props
   <ViewTransitions />
   <body class="ma-0 scrollbar-slim scroll-smooth">
     <style is:global>
-      @import url('node_modules/@yulania/progress/themes/classic.css');
+      /* @import url('node_modules/@yulania/progress/themes/classic.css'); */
+      @import url('../styles/colors.css');
 
       .yulania-progress {
-        --yulania-primary: var(--color-snow-7);
+        --yulania-primary: rgb(var(--color-snow-7));
       }
 
       :root {
@@ -51,45 +60,17 @@ const { title } = Astro.props
           background-color 0.2s,
           color 0.2s;
 
-        --color-snow-1: #ffffff;
-        --color-snow-2: #f2f4f8;
-        --color-snow-3: #eceff4;
-        --color-snow-4: #e5e9f0;
-        --color-snow-5: #d8dee9;
-        --color-snow-6: #c0c9d8;
-        --color-snow-7: #8f9bb3;
-        --color-snow-8: #2e3440;
-
-        --color-night-1: #4c566a;
-        --color-night-2: #434c5e;
-        --color-night-3: #3b4252;
-        --color-night-4: #2e3440;
-        --color-night-5: #242933;
-
-        --color-forst-1: #8fbcbb;
-        --color-forst-2: #88c0d0;
-        --color-forst-3: #81a1c1;
-        --color-forst-4: #5e81ac;
-
-        --color-aurora-1: #bf616a;
-        --color-aurora-2: #d08770;
-        --color-aurora-3: #ebcb8b;
-        --color-aurora-4: #a3be8c;
-        --color-aurora-5: #b48ead;
-
-        --uno: 'bg-[url(/texture.png)] bg-snow-1';
+        --uno: 'bg-[url(/texture.png)] bg-var-paper-secondary';
 
         &[class*='dark'] {
           color-scheme: dark;
-          --uno: bg-night-5;
         }
       }
 
       ::selection {
-        --uno: 'dark:bg-night-2 bg-snow-4';
+        --uno: 'bg-var-selection';
       }
     </style>
-    <script src="@yulania/progress/astro"></script>
     <HeaderBar />
     <slot />
 

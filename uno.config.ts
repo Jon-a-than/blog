@@ -21,6 +21,24 @@ export default defineConfig({
         'transition-duration': '150ms'
       },
       { autocomplete: 'transition-background-size' }
+    ],
+    [
+      /^(border|bg|text|shadow)-var-([^\/]+)\/?(\d+)?$/,
+      ([, type, variant, opacity]) => {
+        const opt = +opacity
+        const value = `rgb(var(--color-${variant})${opt > 0 && opt < 100 ? ` / ${opt}%` : ''})`
+
+        switch (type as 'bg' | 'border' | 'text' | 'shadow') {
+          case 'bg':
+            return { 'background-color': value }
+          case 'border':
+            return { 'border-color': value }
+          case 'text':
+            return { color: value }
+          case 'shadow':
+            return { 'box-shadow': `0 0 0 1px ${value}` }
+        }
+      }
     ]
   ],
   safelist: [],
@@ -35,15 +53,27 @@ export default defineConfig({
     'scrollbar-slim': [
       'scrollbar:(w-2 h-2 bg-transparent)',
       'scrollbar-corner:bg-transparent',
-      'scrollbar-thumb:(rounded bg-snow-5 dark:bg-night-4 h-2 w-2)'
+      'scrollbar-thumb:(rounded bg-var-scrollbar-thumb h-2 w-2)'
     ].join(' ')
   },
   theme: {
     colors: {
+      font: {
+        primary: 'var(--color-font-primary)',
+        secondary: 'var(--color-font-secondary)'
+      },
+      link: {
+        base: 'var(--color-link-base)',
+        hovered: 'var(--color-link-hovered)'
+      },
       bg: {
         1: 'var(--color-bg-1)',
         2: 'var(--color-bg-2)',
         3: 'var(--color-bg-3)'
+      },
+
+      md: {
+        anchor: 'var(--color-md-anchor)'
       },
 
       night: {

@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content'
 import PostContent from '../../layouts/PostContent.astro'
-import { postCategoryMap, weatherIcons } from '@/config'
+import { blogConfig } from '#'
 import ContentTOC from '@/components/ContentTOC.astro'
 import PostCategory from '@/components/PostCategory.astro'
 
@@ -16,6 +16,16 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props
 
+const weatherIcon =
+  blogConfig.markdown.weathers[
+    entry.data.weather as keyof typeof blogConfig.markdown.weathers
+  ]
+const pubDate = entry.data.pubDate.toLocaleDateString('zh-CN', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+})
+
 const { Content, headings } = await entry.render()
 ---
 
@@ -23,35 +33,15 @@ const { Content, headings } = await entry.render()
   <div
     class="mb-xs grid cols-1 md:mx-xs md:cols-[32rem_1fr] lg:cols-[48rem_1fr] xl:cols-[1fr_42rem_1fr] gap-xs"
   >
-    <aside class="hidden xl:block">
-      <!-- <ul class="text-night-1 line-height-6">
-        {
-          headings.map(({ depth, text }) => {
-            return (
-              <li style={`margin-left: ${depth * 1}em`} class="">
-                {text}
-              </li>
-            )
-          })
-        }
-      </ul> -->
-    </aside>
+    <aside class="hidden xl:block"></aside>
     <main>
-      <header class="my-16 text-frost-4 mx-xs lg:mx-0">
+      <header class="my-16 text-var-md-heading mx-xs lg:mx-0">
         <h1>
           <span>{entry.data.title}</span>
         </h1>
         <span class="text-lg font-normal inline-flex items-center gap-xs">
-          <i class={`${weatherIcons[entry.data.weather]} text-xl`}></i>
-          <time>
-            {
-              entry.data.pubDate.toLocaleDateString('zh-CN', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              })
-            }
-          </time>
+          <i class={`${weatherIcon} text-xl`}></i>
+          <time>{pubDate}</time>
         </span>
       </header>
 
@@ -61,14 +51,10 @@ const { Content, headings } = await entry.render()
 
       <hr class="divider" />
 
-      <footer>
-        <ul class="pl-0 list-none text-night-1/80 dark:text-snow-5/80">
+      <footer class="px-xs">
+        <ul class="pl-0 list-none text-var-font-primary/80">
           <PostCategory category={entry.data.categories[0]} />
         </ul>
-
-        <!-- <section class="text-base pa-xs rounded-lg bg-snow-4 dark:bg-night-4">
-          <h2 id="comments" class="text-lg font-bold my-0">comments</h2>
-        </section> -->
       </footer>
     </main>
     <aside class="hidden md:block">

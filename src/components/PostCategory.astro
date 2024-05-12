@@ -14,7 +14,7 @@ const posts = groupedPosts.get(category)
 
 {
   categoryInfo && (
-    <section class="w-full border-frost-4 border-x-transparent md:border-x-frost-4 rounded">
+    <section class="w-full rounded">
       <header>
         <h3 class="text-lg font-normal inline-flex items-center gap-xs">
           <i class={`${categoryInfo.icon} text-xl`} /> {categoryInfo.name}
@@ -27,7 +27,7 @@ const posts = groupedPosts.get(category)
           const { data, slug } = post
           return (
             <a
-              class="current:text-frost-1  text-inherit hover:text-night-5 dark:hover:text-snow-1 decoration-none transition-color"
+              class="current:text-var-link-base  text-inherit hover:text-var-font-primary decoration-none transition-color"
               href={`/${post.collection}/${slug}`}
             >
               <li class="text-lg before:content-[''] before:i-uil-angle-double-right ">
