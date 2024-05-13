@@ -1,24 +1,24 @@
 ---
 const themesMap = {
   light: {
-    name: 'Polar Day',
+    name: '极昼',
     icon: 'text-var-snow-5'
   },
   dark: {
-    name: 'Polar Night',
+    name: '极夜',
     icon: 'text-var-night-5'
   },
   spring: {
-    name: 'Spring',
+    name: '原野',
     icon: 'text-var-spring-3'
   },
   autumn: {
-    name: 'Autumn',
+    name: '戈壁',
     icon: 'text-var-autumn-3'
   }
 } as const
 
-const themes = ['light', 'dark', 'spring', 'autumn'] as const
+const themes = ['light', 'dark', 'spring', 'autumn']
 ---
 
 <script is:inline define:vars={{ themes }}>
@@ -26,7 +26,7 @@ const themes = ['light', 'dark', 'spring', 'autumn'] as const
   function initTheme() {
     let userColorScheme = localStorage.getItem('color-scheme')
 
-    if (!themes.includes(userColorScheme)) {
+    if (!userColorScheme || !themes.includes(userColorScheme)) {
       userColorScheme = window.matchMedia('(prefers-color-scheme: dark)')
         .matches
         ? 'dark'
@@ -38,6 +38,7 @@ const themes = ['light', 'dark', 'spring', 'autumn'] as const
 
     document.addEventListener('astro:before-swap', ({ newDocument }) => {
       const theme = document.documentElement.dataset.theme
+      // @ts-ignore
       newDocument.documentElement.classList.add(theme)
       newDocument.documentElement.dataset.theme = theme
     })
@@ -82,17 +83,18 @@ const themes = ['light', 'dark', 'spring', 'autumn'] as const
       document.documentElement.classList.add(theme)
       document.documentElement.dataset.theme = theme
       localStorage.setItem('color-scheme', theme)
-      THEME_OPTIONS.classList.remove('visible!')
+      THEME_OPTIONS.classList.add('hidden')
     }
 
     let timer = 0 as unknown as ReturnType<typeof setTimeout>
     THEME_SELECTOR.addEventListener('mouseenter', () => {
-      THEME_OPTIONS.classList.add('visible!')
+      clearTimeout(timer)
+      THEME_OPTIONS.classList.remove('hidden')
     })
 
-    THEME_SELECTOR.addEventListener('mouseleave', () => {
+    THEME_SELECTOR.addEventListener('mouseleave', (e) => {
       clearTimeout(timer)
-      timer = setTimeout(() => THEME_OPTIONS?.classList.remove('visible!'), 800)
+      timer = setTimeout(() => THEME_OPTIONS?.classList.add('hidden'), 800)
     })
 
     THEME_OPTIONS.addEventListener(
@@ -125,13 +127,14 @@ const themes = ['light', 'dark', 'spring', 'autumn'] as const
 
   <ul
     id="theme-options"
-    class="shadow-sm absolute pa-1 list-none rounded bg-var-paper-secondary"
+    class="hidden shadow-sm absolute pa-1 list-none rounded bg-var-paper-secondary"
   >
     {
       Object.entries(themesMap).map(([theme, { name, icon }]) => (
         <li
           class={`outline-animation cursor-pointer text-sm pa-1 text-var-primary`}
           data-value={theme}
+          title={theme}
         >
           <i class={`i-uil-spin ${icon}`} />
           {name}
@@ -143,8 +146,7 @@ const themes = ['light', 'dark', 'spring', 'autumn'] as const
 
 <style is:global>
   #theme-options {
-    visibility: hidden;
-    --uno: 'hover:visible -translate-x-2/5 -translate-y-xs border-dashed border-1 border-var-primary';
+    --uno: 'w-14 -translate-x-10 -translate-y-xs border-dashed border-1 border-var-primary';
   }
 
   ::view-transition-old(root),

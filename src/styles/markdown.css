@@ -28,7 +28,7 @@
   }
 
   & blockquote {
-    --uno: 'border-l-solid border-frost-4 ml-xs pa-xs my-lg text-font-primary bg-snow-2 dark:bg-night-4 rounded-r';
+    --uno: 'border-l-solid border-var-primary ml-xs pa-xs my-lg text-font-primary bg-var-md-pre rounded-r';
   }
 
   .dark & ul {

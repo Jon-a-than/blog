@@ -43,7 +43,7 @@ export default defineConfig({
   ],
   safelist: [],
   shortcuts: {
-    divider: 'border-snow-4 dark:border-night-1 border-dashed border-x-transparent',
+    divider: 'border-var-primary/30 border-dashed border-x-transparent',
     'outline-animation': [
       'decoration-none bg-gradient-to-b from-[currentColor] to-frost-1',
       'bg-[length:0_2] hover:bg-[length:100%_2] bg-no-repeat bg-left-bottom',

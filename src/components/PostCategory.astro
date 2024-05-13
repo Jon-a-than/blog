@@ -27,7 +27,7 @@ const posts = groupedPosts.get(category)
           const { data, slug } = post
           return (
             <a
-              class="current:text-var-link-base  text-inherit hover:text-var-font-primary decoration-none transition-color"
+              class="current:text-var-link-base  text-inherit hover:text-var-link-base decoration-none transition-color"
               href={`/${post.collection}/${slug}`}
             >
               <li class="text-lg before:content-[''] before:i-uil-angle-double-right ">
