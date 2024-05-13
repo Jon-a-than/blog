@@ -58,24 +58,6 @@ export default defineConfig({
   },
   theme: {
     colors: {
-      font: {
-        primary: 'var(--color-font-primary)',
-        secondary: 'var(--color-font-secondary)'
-      },
-      link: {
-        base: 'var(--color-link-base)',
-        hovered: 'var(--color-link-hovered)'
-      },
-      bg: {
-        1: 'var(--color-bg-1)',
-        2: 'var(--color-bg-2)',
-        3: 'var(--color-bg-3)'
-      },
-
-      md: {
-        anchor: 'var(--color-md-anchor)'
-      },
-
       night: {
         1: '#4C566A',
         2: '#434C5E',

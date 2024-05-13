@@ -1,0 +1,155 @@
+---
+const themesMap = {
+  light: {
+    name: 'Polar Day',
+    icon: 'text-var-snow-5'
+  },
+  dark: {
+    name: 'Polar Night',
+    icon: 'text-var-night-5'
+  },
+  spring: {
+    name: 'Spring',
+    icon: 'text-var-spring-3'
+  },
+  autumn: {
+    name: 'Autumn',
+    icon: 'text-var-autumn-3'
+  }
+} as const
+
+const themes = ['light', 'dark', 'spring', 'autumn'] as const
+---
+
+<script is:inline define:vars={{ themes }}>
+  initTheme()
+  function initTheme() {
+    let userColorScheme = localStorage.getItem('color-scheme')
+
+    if (!themes.includes(userColorScheme)) {
+      userColorScheme = window.matchMedia('(prefers-color-scheme: dark)')
+        .matches
+        ? 'dark'
+        : 'light'
+    }
+
+    document.documentElement.classList.add(userColorScheme)
+    document.documentElement.dataset.theme = userColorScheme
+
+    document.addEventListener('astro:before-swap', ({ newDocument }) => {
+      const theme = document.documentElement.dataset.theme
+      newDocument.documentElement.classList.add(theme)
+      newDocument.documentElement.dataset.theme = theme
+    })
+  }
+</script>
+
+<script>
+  import { hydrate } from '@/utils/hydrate'
+
+  const useViewTransitionAnimate = async (
+    transition: ViewTransition,
+    x: number,
+    y: number
+  ) => {
+    const endRadius = Math.hypot(
+      Math.max(x, innerWidth - x),
+      Math.max(y, innerHeight - y)
+    )
+
+    await transition.ready
+
+    const clipPath = [
+      `circle(0px at ${x}px ${y}px)`,
+      `circle(${endRadius}px at ${x}px ${y}px)`
+    ]
+    document.documentElement.animate(
+      { clipPath },
+      {
+        duration: 500,
+        easing: 'ease-in',
+        pseudoElement: '::view-transition-new(root)'
+      }
+    )
+  }
+
+  hydrate(() => {
+    const THEME_SELECTOR = document.getElementById('theme-selector')!
+    const THEME_OPTIONS = document.getElementById('theme-options')!
+    const themes = ['light', 'dark', 'spring', 'autumn'] as const
+    const toggleTheme = (theme: (typeof themes)[number]) => {
+      document.documentElement.classList.remove(...themes)
+      document.documentElement.classList.add(theme)
+      document.documentElement.dataset.theme = theme
+      localStorage.setItem('color-scheme', theme)
+      THEME_OPTIONS.classList.remove('visible!')
+    }
+
+    let timer = 0 as unknown as ReturnType<typeof setTimeout>
+    THEME_SELECTOR.addEventListener('mouseenter', () => {
+      THEME_OPTIONS.classList.add('visible!')
+    })
+
+    THEME_SELECTOR.addEventListener('mouseleave', () => {
+      clearTimeout(timer)
+      timer = setTimeout(() => THEME_OPTIONS?.classList.remove('visible!'), 800)
+    })
+
+    THEME_OPTIONS.addEventListener(
+      'click',
+      async ({ target, clientX, clientY }) => {
+        const theme = (target as HTMLElement).dataset
+          .value as (typeof themes)[number]
+        if (!theme || theme === document.documentElement.dataset.theme) return
+        if (document.startViewTransition === undefined) {
+          toggleTheme(theme)
+          return
+        }
+
+        const transition = document.startViewTransition(() => {
+          toggleTheme(theme)
+        })
+
+        useViewTransitionAnimate(transition, clientX, clientY)
+      }
+    )
+  })
+</script>
+
+<div id="theme-selector" title="theme" class="line-height-4 transition-color">
+  <span>
+    <i
+      class="i-uil-paint-tool text-lg text-var-link-top-nav/80 hover:text-var-link-top-nav"
+    ></i>
+  </span>
+
+  <ul
+    id="theme-options"
+    class="shadow-sm absolute pa-1 list-none rounded bg-var-paper-secondary"
+  >
+    {
+      Object.entries(themesMap).map(([theme, { name, icon }]) => (
+        <li
+          class={`outline-animation cursor-pointer text-sm pa-1 text-var-primary`}
+          data-value={theme}
+        >
+          <i class={`i-uil-spin ${icon}`} />
+          {name}
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style is:global>
+  #theme-options {
+    visibility: hidden;
+    --uno: 'hover:visible -translate-x-2/5 -translate-y-xs border-dashed border-1 border-var-primary';
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+</style>

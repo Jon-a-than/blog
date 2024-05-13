@@ -79,7 +79,7 @@
     --color-paper-primary: var(--color-night-5);
     --color-paper-secondary: var(--color-night-5);
     --color-selection: var(--color-night-2);
-    --color-scrollbar-thumb: var(--color-night-4);
+    --color-scrollbar-thumb: var(--color-night-3);
 
     --color-md-code: var(--color-night-2);
 
@@ -94,14 +94,14 @@
     --color-primary: var(--color-spring-5);
     --color-secondary: var(--color-spring-1);
 
-    --color-paper-primary: var(--color-spring-2);
+    --color-paper-primary: var(--color-spring-1);
     --color-paper-secondary: var(--color-spring-1);
     --color-selection: var(--color-spring-2);
     --color-scrollbar-thumb: var(--color-spring-2);
 
     --color-md-heading: var(--color-spring-4);
     --color-md-anchor: var(--color-aurora-2);
-    --color-md-code: var(--color-spring-2);
+    --color-md-code: var(--color-spring-1);
     --color-md-pre: var(--color-spring-1);
 
     --color-font-secondary: var(--color-spring-3);

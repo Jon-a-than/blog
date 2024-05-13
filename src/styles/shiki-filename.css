@@ -1,5 +1,5 @@
 .astro-code {
-  --uno: 'my-0 pb-xs bg-var-md-pre! scrollbar-slim dark:scrollbar-thumb:bg-night-1';
+  --uno: 'my-0 pb-xs bg-var-md-pre! scrollbar-slim';
 }
 
 html.dark .astro-code,
@@ -32,50 +32,50 @@ html.dark .astro-code span {
   }
 
   &[data-lang='package.json'] {
-    --uno: after:i-vscode-icons-file-type-node;
+    --uno: 'after:i-vscode-icons-file-type-node';
   }
 
   &[data-lang=html] {
-    --uno: after:i-vscode-icons-file-type-html;
+    --uno: 'after:i-vscode-icons-file-type-html';
   }
 
   &[data-lang=css] {
-    --uno: after:i-vscode-icons-file-type-css;
+    --uno: 'after:i-vscode-icons-file-type-css';
   }
 
   &[data-lang=js] {
-    --uno: after:i-vscode-icons-file-type-js-official;
+    --uno: 'after:i-vscode-icons-file-type-js-official';
   }
 
   &[data-lang=ts] {
-    --uno: after:i-vscode-icons-file-type-typescript-official;
+    --uno: 'after:i-vscode-icons-file-type-typescript-official';
   }
 
   &[data-lang=jsx] {
-    --uno: after:i-vscode-icons-file-type-reactjs;
+    --uno: 'after:i-vscode-icons-file-type-reactjs';
   }
 
   &[data-lang=tsx] {
-    --uno: after:i-vscode-icons-file-type-reactts;
+    --uno: 'after:i-vscode-icons-file-type-reactts';
   }
 
   &[data-lang=json] {
-    --uno: after:i-vscode-icons-file-type-light-json;
+    --uno: 'after:i-vscode-icons-file-type-light-json';
   }
 
   &[data-lang=go] {
-    --uno: after:i-vscode-icons-file-type-go;
+    --uno: 'after:i-vscode-icons-file-type-go';
   }
 
   &[data-type=vue] {
-    --uno: after:i-vscode-icons-file-type-vue;
+    --uno: 'after:i-vscode-icons-file-type-vue';
   }
 
   &[data-lang=astro] {
-    --uno: after:i-vscode-icons-file-type-light-astro;
+    --uno: 'after:i-vscode-icons-file-type-light-astro';
   }
 
   &[data-lang=bash] {
-    --uno: after:i-logos-bash-icon;
+    --uno: 'after:i-logos-bash-icon';
   }
 }
