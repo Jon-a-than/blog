@@ -92,7 +92,7 @@ const themes = ['light', 'dark', 'spring', 'autumn']
       THEME_OPTIONS.classList.remove('hidden')
     })
 
-    THEME_SELECTOR.addEventListener('mouseleave', (e) => {
+    THEME_SELECTOR.addEventListener('mouseleave', () => {
       clearTimeout(timer)
       timer = setTimeout(() => THEME_OPTIONS?.classList.add('hidden'), 800)
     })
