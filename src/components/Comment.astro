@@ -6,12 +6,15 @@
   @import url('../styles/comment.css');
 </style>
 <div id="comment"></div>
-<script is:inline type="module">
-  import { init } from 'https://cdn.jsdelivr.net/npm/@waline/client@v3/dist/waline.js'
+<script>
+  import { hydrate } from '@/utils/hydrate'
+  import { init } from '@waline/client'
 
-  init({
-    el: '#comment',
-    serverURL: 'https://blog-comment.qingshaner.com',
-    pageview: true
-  })
+  hydrate(() =>
+    init({
+      el: '#comment',
+      serverURL: 'https://blog-comment.qingshaner.com',
+      pageview: true
+    })
+  )
 </script>
