@@ -321,6 +321,7 @@
 }
 .wl-preview .wl-content {
   min-height: 1.25em;
+  margin-inline-start: 0;
   word-break: break-word;
   hyphens: auto;
 }
