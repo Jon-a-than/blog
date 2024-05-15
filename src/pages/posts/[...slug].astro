@@ -4,6 +4,7 @@ import PostContent from '../../layouts/PostContent.astro'
 import { blogConfig } from '#'
 import ContentTOC from '@/components/ContentTOC.astro'
 import PostCategory from '@/components/PostCategory.astro'
+import Comment from '@/components/Comment.astro'
 
 export async function getStaticPaths() {
   const postEntries = await getCollection('posts')
@@ -39,23 +40,35 @@ const { Content, headings } = await entry.render()
         <h1>
           <span>{entry.data.title}</span>
         </h1>
-        <span class="text-lg font-normal inline-flex items-center gap-xs">
+        <p class="text-lg font-normal flex items-center">
           <i class={`${weatherIcon} text-xl`}></i>
-          <time>{pubDate}</time>
-        </span>
+          <time class="mx-xs">{pubDate}</time>
+          <i class="i-uil-eye mr-1"></i>
+          <span
+            title="阅读量"
+            class="waline-pageview-count"
+            data-path={`/posts/${entry.slug}`}
+          >
+            -
+          </span>
+        </p>
       </header>
 
       <article class="markdown">
         <Content />
       </article>
 
-      <hr class="divider" />
-
-      <footer class="px-xs">
+      <section
+        class="px-xs md:px-0 border-t-dashed border-var-primary border-1"
+      >
         <ul class="pl-0 list-none text-var-font-primary/80">
           <PostCategory category={entry.data.categories[0]} />
         </ul>
-      </footer>
+      </section>
+
+      <section class="px-xs md:px-0">
+        <Comment />
+      </section>
     </main>
     <aside class="hidden md:block">
       <ContentTOC title={entry.data.title} headings={headings} />

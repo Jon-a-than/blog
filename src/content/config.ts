@@ -3,7 +3,19 @@ import { z, defineCollection } from 'astro:content'
 
 const baseSchema = {
   title: z.string(),
-  pubDate: z.date(),
+  pubDate: z.union([
+    z
+      .string()
+      .trim()
+      .transform((str) => {
+        const date = new Date(str)
+        if (Number.isNaN(date.getTime())) {
+          throw new Error(`Invalid date: ${str}`)
+        }
+        return date
+      }),
+    z.date()
+  ]),
   description: z.string()
 }
 

@@ -1,0 +1,17 @@
+---
+
+---
+
+<style is:global>
+  @import url('../styles/comment.css');
+</style>
+<div id="comment"></div>
+<script is:inline type="module">
+  import { init } from 'https://cdn.jsdelivr.net/npm/@waline/client@v3/dist/waline.js'
+
+  init({
+    el: '#comment',
+    serverURL: 'https://blog-comment.qingshaner.com',
+    pageview: true
+  })
+</script>

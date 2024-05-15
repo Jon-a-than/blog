@@ -1,6 +1,7 @@
 @import url('./shiki-filename.css');
 
-.markdown {
+.markdown,
+.wl-content > div {
   --uno: 'text-base bg-transparent mx-xs lg:mx-0';
 
   & :not(.astro-code) > code {
@@ -29,6 +30,10 @@
 
   & blockquote {
     --uno: 'border-l-solid border-var-primary ml-xs pa-xs my-lg text-font-primary bg-var-md-pre rounded-r';
+  }
+
+  & hr {
+    --uno: divider;
   }
 
   .dark & ul {
