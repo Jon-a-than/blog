@@ -8,9 +8,7 @@ interface Props {
 }
 
 const { category, postAnimateDelay = 0 } = Astro.props
-const categoryInfo = blogConfig.pages.post.categories.find(
-  ({ tag }) => tag === category
-)
+const categoryInfo = blogConfig.pages.post.categories.find(({ tag }) => tag === category)
 const posts = groupedPosts.get(category)
 ---
 

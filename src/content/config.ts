@@ -1,21 +1,24 @@
 import { blogConfig } from '#'
 import { z, defineCollection } from 'astro:content'
 
+const dateScheme = z.union([
+  z
+    .string()
+    .trim()
+    .transform((str) => {
+      const date = new Date(str)
+      if (Number.isNaN(date.getTime())) {
+        throw new Error(`Invalid date: ${str}`)
+      }
+      return date
+    }),
+  z.date()
+])
+
 const baseSchema = {
   title: z.string(),
-  pubDate: z.union([
-    z
-      .string()
-      .trim()
-      .transform((str) => {
-        const date = new Date(str)
-        if (Number.isNaN(date.getTime())) {
-          throw new Error(`Invalid date: ${str}`)
-        }
-        return date
-      }),
-    z.date()
-  ]),
+  pubDate: z.optional(dateScheme),
+  patchDate: z.optional(dateScheme),
   description: z.string()
 }
 

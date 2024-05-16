@@ -10,11 +10,14 @@
   import { hydrate } from '@/utils/hydrate'
   import { init } from '@waline/client'
 
-  hydrate(() =>
-    init({
-      el: '#comment',
-      serverURL: 'https://blog-comment.qingshaner.com',
-      pageview: true
-    })
-  )
+  hydrate(() => {
+    const el = document.getElementById('comment')
+
+    el &&
+      init({
+        el,
+        serverURL: 'https://blog-comment.qingshaner.com',
+        pageview: true
+      })
+  })
 </script>
