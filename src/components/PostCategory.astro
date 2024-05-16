@@ -1,6 +1,6 @@
 ---
 import { blogConfig } from '#'
-import { groupedPosts } from '@/utils/groupedPosts'
+import { groupedPosts } from '@/utils/grouped-posts'
 
 interface Props {
   category: string
@@ -8,7 +8,9 @@ interface Props {
 }
 
 const { category, postAnimateDelay = 0 } = Astro.props
-const categoryInfo = blogConfig.pages.post.categories.find(({ tag }) => tag === category)
+const categoryInfo = blogConfig.pages.post.categories.find(
+  ({ tag }) => tag === category
+)
 const posts = groupedPosts.get(category)
 ---
 
@@ -26,19 +28,19 @@ const posts = groupedPosts.get(category)
         {posts?.map((post, i) => {
           const { data, slug } = post
           return (
-            <a
-              class="current:text-var-link-base  text-inherit hover:text-var-link-base decoration-none transition-color"
-              href={`/${post.collection}/${slug}`}
-            >
-              <li class="text-lg before:content-[''] before:i-uil-angle-double-right ">
+            <li class="text-lg before:content-[''] before:i-uil-angle-double-right ">
+              <a
+                class="current:text-var-link-base  text-inherit hover:text-var-link-base decoration-none transition-color"
+                href={`/${post.collection}/${slug}`}
+              >
                 <span
                   style={`animation-delay: ${(postAnimateDelay + i) * 50}ms;`}
                   class="animate-[fade-in-left-small] inline-block animate-fill-forwards animate-duration-300 opacity-0"
                 >
                   {data.title}
                 </span>
-              </li>
-            </a>
+              </a>
+            </li>
           )
         })}
       </ul>

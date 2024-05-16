@@ -7,7 +7,9 @@ import { blogConfig } from '#'
   xmlns:cc="http://creativecommons.org/ns#"
 >
   <span property="cc:attributionName">{blogConfig.blog.author}</span>
-  <time>2022-PRESENT</time>
+  <time datetime="2022">2022</time>-<time
+    datetime={new Date().getFullYear().toString()}>PRESENT</time
+  >
   <i class="i-uil-copyright"></i>
   <a
     href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1"
