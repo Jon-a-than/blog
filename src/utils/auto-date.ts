@@ -48,18 +48,16 @@ async function buildContentDateMap(
 }
 
 function execAsync(command: string): Promise<string> {
-  const { promise, reject, resolve } = Promise.withResolvers<string>()
+  return new Promise((resolve, reject) => {
+    exec(command, (error, stdout, stderr) => {
+      if (error) {
+        reject(new GitExecError(error, stderr))
+        return
+      }
 
-  exec(command, (error, stdout, stderr) => {
-    if (error) {
-      reject(new GitExecError(error, stderr))
-      return
-    }
-
-    resolve(stdout.trim())
+      resolve(stdout.trim())
+    })
   })
-
-  return promise
 }
 
 async function loadContentDateFromGit(filepath: string): Promise<ContentDate> {
