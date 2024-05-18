@@ -1,26 +1,38 @@
-import rss from '@astrojs/rss'
+import rss, { type RSSFeedItem } from '@astrojs/rss'
+import { blogConfig } from '#'
 import { getCollection } from 'astro:content'
+import { collectionKeys } from '@/content/config'
+import { collectionDateMap } from '@/utils/auto-date'
 
 export async function GET(context: Request) {
-  const posts = await Promise.all([
-    getCollection('posts'),
-    getCollection('blogs'),
-    getCollection('notes')
-  ])
+  const dateMap = await collectionDateMap
+  const items = await Promise.all(
+    collectionKeys.map(async (collection) => {
+      const date = dateMap.get(collection)
+      const contents = await getCollection(collection)
+
+      return contents.map<RSSFeedItem>((content) => ({
+        title: content.data.title,
+        pubDate: date?.get(content.id)?.patchDate ?? new Date(),
+        description: content.data.description,
+        link: `/${collection}/${content.slug}`
+      }))
+    })
+  )
+
+  const { title, description, customData } = {
+    ...blogConfig.rss
+  }
 
   return rss({
-    title: 'QingShaner | Blog',
-    description: '一个博客站点',
+    title,
+    description,
     site: context.url,
-    items: posts.flat().map((post) => ({
-      title: post.data.title,
-      pubDate: post.data.pubDate,
-      description: post.data.description,
-      link: `/posts/${post.slug}/`
-    })),
+    items: items.flat(),
     customData: customDataHelper({
       language: 'zh-CN',
-      lastBuildDate: new Date().toUTCString()
+      lastBuildDate: new Date().toUTCString(),
+      ...customData
     })
   })
 }

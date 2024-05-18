@@ -34,6 +34,8 @@ export interface BlogConfig {
       links: FriendLink[]
     }
   }
+
+  rss: RSS
 }
 
 interface FriendLink {
@@ -48,4 +50,15 @@ interface PostCategory {
   name: string
   icon: string
   description: string
+}
+
+interface RSS {
+  title: string
+  description: string
+  customData?: Partial<{
+    /** @link https://www.rssboard.org/rss-language-codes */
+    language: string
+    copyright: string
+    [key: string]: string
+  }>
 }

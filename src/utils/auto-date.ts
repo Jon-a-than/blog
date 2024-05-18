@@ -1,6 +1,6 @@
 import { exec, type ExecException } from 'node:child_process'
 import { getCollection, type CollectionKey } from 'astro:content'
-import { collections } from '@/content/config'
+import { collectionKeys } from '@/content/config'
 
 interface ContentDate {
   pubDate: Date
@@ -19,9 +19,7 @@ class GitExecError extends Error {
   }
 }
 
-export const collectionDateMap = buildCollectionsDateMap(
-  Reflect.ownKeys(collections) as CollectionKey[]
-)
+export const collectionDateMap = buildCollectionsDateMap(collectionKeys)
 
 async function buildCollectionsDateMap(collections: CollectionKey[]): Promise<CollectionDateMap> {
   const collectionsDateMapEntries = await Promise.all(

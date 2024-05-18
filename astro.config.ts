@@ -4,10 +4,11 @@ import unocss from 'unocss/astro'
 import sitemap from '@astrojs/sitemap'
 import mdx from '@astrojs/mdx'
 
+import { blogConfig } from './blog.config'
 import { filenameTransformer } from './plugins/shiki-filename'
 
 export default defineConfig({
-  site: 'https://beta.qingshaner.com',
+  site: blogConfig.blog.site,
   integrations: [
     unocss({
       injectReset: '@unocss/reset/normalize.css'
@@ -25,6 +26,11 @@ export default defineConfig({
     }
   },
   vite: {
+    define: {
+      __VUE_OPTIONS_API__: false,
+      __VUE_PROD_DEVTOOLS__: false,
+      __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false
+    },
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),

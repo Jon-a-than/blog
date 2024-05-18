@@ -2,7 +2,7 @@ import type { BlogConfig } from '@/blog-config'
 
 export const blogConfig = {
   blog: {
-    author: 'Qing Shaner',
+    author: '青衫',
     site: 'https://beta.qingshaner.com',
     navbarLinks: [
       {
@@ -101,7 +101,7 @@ export const blogConfig = {
         {
           tag: 'gin-scheme',
           name: 'Gin 单体项目最佳实践探索',
-          icon: 'i-logos-gin  grayscale',
+          icon: 'i-logos-gin grayscale',
           description:
             '探索 Golang 服务端库 Gin 在单体项目中的最佳实践, 包括项目结构、中间件、错误处理等'
         },
@@ -148,6 +148,13 @@ export const blogConfig = {
           url: 'https://marvin.nz'
         }
       ]
+    }
+  },
+  rss: {
+    title: '青衫的个人博客',
+    description: '一个个人博客站点, 记录生活、技术、学习、工作等方面的内容',
+    customData: {
+      copyright: '青衫 2022-PRESENT CC BY-NC-SA 4.0'
     }
   }
 } satisfies BlogConfig
