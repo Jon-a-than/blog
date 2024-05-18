@@ -1,11 +1,11 @@
 ---
 import { getCollection } from 'astro:content'
-import { blogConfig } from '#'
 import PostContent from '@/layouts/PostContent.astro'
 import ContentTOC from '@/components/ContentTOC.astro'
 import PostCategory from '@/components/PostCategory.astro'
 import Comment from '@/components/Comment.astro'
 import { collectionDateMap } from '@/utils/auto-date'
+import ArticleHeader from '@/components/ArticleHeader.astro'
 
 export async function getStaticPaths() {
   const postEntries = await getCollection('posts')
@@ -31,16 +31,6 @@ export async function getStaticPaths() {
 }
 
 const { entry, date } = Astro.props
-
-const weatherIcon =
-  blogConfig.markdown.weathers[entry.data.weather as keyof typeof blogConfig.markdown.weathers]
-
-const pubDate = date.pubDate.toLocaleDateString('zh-CN', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric'
-})
-
 const { Content, headings } = await entry.render()
 ---
 
@@ -51,38 +41,12 @@ const { Content, headings } = await entry.render()
     <aside class="hidden xl:block"></aside>
 
     <main>
-      <header class="my-16 text-var-md-heading mx-xs lg:mx-0">
-        <h1>
-          <span>{entry.data.title}</span>
-        </h1>
-        <p class="text-lg font-normal flex flex-wrap items-center">
-          <i class={`${weatherIcon} text-xl`}></i>
-          <time title="创建日期" datetime={pubDate} class="mx-xs">
-            {pubDate}
-          </time>
-          {
-            date.pubDate.getTime() !== date.patchDate.getTime() && (
-              <>
-                <i class="i-uil-band-aid mr-1" />
-                <time
-                  id="patch-time"
-                  title="更新时间"
-                  class="mr-xs"
-                  datetime={date.patchDate.toUTCString()}
-                />
-              </>
-            )
-          }
-          <i class="i-uil-eye mr-1"></i>
-          <span
-            title="阅读量"
-            class="waline-pageview-count"
-            data-path={`/posts/${entry.slug}`}
-          >
-            -
-          </span>
-        </p>
-      </header>
+      <ArticleHeader
+        slug={entry.slug}
+        date={date}
+        title={entry.data.title}
+        weather={entry.data.weather}
+      />
 
       <article class="markdown">
         <Content />
@@ -106,17 +70,3 @@ const { Content, headings } = await entry.render()
     </aside>
   </div>
 </PostContent>
-<script>
-  import { hydrate } from '@/utils/hydrate'
-  import { getRelativeDate } from '@/utils/relative-time'
-
-  hydrate(() => {
-    const PATCH_TIME = document.getElementById(
-      'patch-time'
-    ) as HTMLTimeElement | null
-
-    if (PATCH_TIME !== null) {
-      PATCH_TIME.innerText = getRelativeDate(new Date(PATCH_TIME.dateTime))
-    }
-  })
-</script>

@@ -47,54 +47,35 @@ const themes = ['light', 'dark', 'spring', 'autumn']
 
 <script>
   import { hydrate } from '@/utils/hydrate'
-
-  const useViewTransitionAnimate = async (
-    transition: ViewTransition,
-    x: number,
-    y: number
-  ) => {
-    const endRadius = Math.hypot(
-      Math.max(x, innerWidth - x),
-      Math.max(y, innerHeight - y)
-    )
-
-    await transition.ready
-
-    const clipPath = [
-      `circle(0px at ${x}px ${y}px)`,
-      `circle(${endRadius}px at ${x}px ${y}px)`
-    ]
-    document.documentElement.animate(
-      { clipPath },
-      {
-        duration: 500,
-        easing: 'ease-in',
-        pseudoElement: '::view-transition-new(root)'
-      }
-    )
-  }
+  import {
+    applyViewTransition,
+    circleViewTransitionAnimate
+  } from '@/utils/view-transition'
 
   hydrate(() => {
     const THEME_SELECTOR = document.getElementById('theme-selector')!
     const THEME_OPTIONS = document.getElementById('theme-options')!
     const themes = ['light', 'dark', 'spring', 'autumn'] as const
+    let timer = 0 as unknown as ReturnType<typeof setTimeout>
+
+    const hiddenOptions = () => THEME_OPTIONS.classList.add('hidden')
     const toggleTheme = (theme: (typeof themes)[number]) => {
       document.documentElement.classList.remove(...themes)
       document.documentElement.classList.add(theme)
       document.documentElement.dataset.theme = theme
       localStorage.setItem('color-scheme', theme)
-      THEME_OPTIONS.classList.add('hidden')
+      hiddenOptions()
     }
-
-    let timer = 0 as unknown as ReturnType<typeof setTimeout>
-    THEME_SELECTOR.addEventListener('mouseenter', () => {
+    const showOptions = () => {
       clearTimeout(timer)
       THEME_OPTIONS.classList.remove('hidden')
-    })
+    }
 
+    THEME_SELECTOR.addEventListener('mouseenter', showOptions)
+    THEME_OPTIONS.addEventListener('click', showOptions)
     THEME_SELECTOR.addEventListener('mouseleave', () => {
       clearTimeout(timer)
-      timer = setTimeout(() => THEME_OPTIONS?.classList.add('hidden'), 800)
+      timer = setTimeout(hiddenOptions, 800)
     })
 
     THEME_OPTIONS.addEventListener(
@@ -103,16 +84,12 @@ const themes = ['light', 'dark', 'spring', 'autumn']
         const theme = (target as HTMLElement).dataset
           .value as (typeof themes)[number]
         if (!theme || theme === document.documentElement.dataset.theme) return
-        if (document.startViewTransition === undefined) {
-          toggleTheme(theme)
-          return
-        }
 
-        const transition = document.startViewTransition(() => {
-          toggleTheme(theme)
-        })
-
-        useViewTransitionAnimate(transition, clientX, clientY)
+        applyViewTransition(
+          () => toggleTheme(theme),
+          (transition) =>
+            circleViewTransitionAnimate(transition, clientX, clientY)
+        )
       }
     )
   })

@@ -1,5 +1,5 @@
 import { blogConfig } from '#'
-import { z, defineCollection } from 'astro:content'
+import { z, defineCollection, type ContentCollectionKey } from 'astro:content'
 
 const dateScheme = z.union([
   z
@@ -54,3 +54,5 @@ export const collections = {
     type: 'content'
   })
 }
+
+export const collectionKeys = Reflect.ownKeys(collections) as ContentCollectionKey[]
