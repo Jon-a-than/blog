@@ -1,0 +1,17 @@
+---
+interface Props {
+  date: Date
+  class: string
+}
+
+const { class: className, date } = Astro.props
+---
+
+<time class={className} datetime={date.toUTCString()}>{
+  date.toLocaleDateString('zh-CN', {
+    weekday: 'short',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+}</time>

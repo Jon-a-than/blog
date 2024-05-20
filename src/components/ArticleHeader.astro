@@ -1,7 +1,8 @@
 ---
-import { blogConfig } from '#'
+import WeatherIcon from './WeatherIcon.astro'
 
 interface Props {
+  previewCounter?: boolean
   title: string
   weather: string
   slug: string
@@ -11,10 +12,7 @@ interface Props {
   }
 }
 
-const { title, weather, date, slug } = Astro.props
-
-const weatherIcon =
-  blogConfig.markdown.weathers[weather as keyof typeof blogConfig.markdown.weathers]
+const { title, weather, date, slug, previewCounter = false } = Astro.props
 
 const pubDate = date.pubDate.toLocaleDateString('zh-CN', {
   year: 'numeric',
@@ -28,7 +26,7 @@ const pubDate = date.pubDate.toLocaleDateString('zh-CN', {
     <span>{title}</span>
   </h1>
   <p class="text-lg font-normal flex flex-wrap items-center">
-    <i class={`${weatherIcon} text-xl`}></i>
+    <WeatherIcon class="text-lg" weather={weather} />
     <time title="创建日期" datetime={pubDate} class="mx-xs">
       {pubDate}
     </time>
@@ -45,14 +43,12 @@ const pubDate = date.pubDate.toLocaleDateString('zh-CN', {
         </>
       )
     }
-    <i class="i-uil-eye mr-1"></i>
-    <span
-      title="阅读量"
-      class="waline-pageview-count"
-      data-path={`/posts/${slug}`}
-    >
-      -
-    </span>
+    {
+      previewCounter && (<>
+        <i class="i-uil-eye mr-1"></i>
+        <span title="阅读量" class="waline-pageview-count">-</span>
+      </>)
+    }
   </p>
 </header>
 

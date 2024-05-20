@@ -1,22 +1,15 @@
 ---
 import { getCollection } from 'astro:content'
 import PostContent from '@/layouts/PostContent.astro'
-import ContentTOC from '@/components/ContentTOC.astro'
 import PostCategory from '@/components/PostCategory.astro'
-import Comment from '@/components/Comment.astro'
-import { collectionDateMap } from '@/utils/auto-date'
-import ArticleHeader from '@/components/ArticleHeader.astro'
+import { createDateGetterForCollection } from '@/utils/auto-date'
 
 export async function getStaticPaths() {
   const postEntries = await getCollection('posts')
-  const dateMap = (await collectionDateMap).get('posts')
+  const dateGetter = await createDateGetterForCollection('posts')
 
   return postEntries.map((entry) => {
-    const now = new Date()
-    const autoDate = dateMap?.get(entry.id) ?? {
-      pubDate: now,
-      patchDate: now
-    }
+    const autoDate = dateGetter(entry.id)
 
     const date = {
       pubDate: entry.data.pubDate ?? autoDate.pubDate,
@@ -34,39 +27,20 @@ const { entry, date } = Astro.props
 const { Content, headings } = await entry.render()
 ---
 
-<PostContent title={entry.data.title}>
-  <div
-    class="mb-xs grid cols-1 md:mx-xs md:cols-[32rem_1fr] lg:cols-[48rem_1fr] xl:cols-[1fr_42rem_1fr] gap-xs"
-  >
-    <aside class="hidden xl:block"></aside>
+<PostContent
+  title={entry.data.title}
+  slug={entry.slug}
+  date={date}
+  weather={entry.data.weather}
+  headings={headings}
+  comment
+  previewCounter
+>
+  <Content />
 
-    <main>
-      <ArticleHeader
-        slug={entry.slug}
-        date={date}
-        title={entry.data.title}
-        weather={entry.data.weather}
-      />
-
-      <article class="markdown">
-        <Content />
-      </article>
-
-      <section
-        class="px-xs md:px-0 border-t-dashed border-var-primary border-1"
-      >
-        <ul class="pl-0 list-none text-var-font-primary/80">
-          <PostCategory category={entry.data.categories[0]} />
-        </ul>
-      </section>
-
-      <section class="px-xs md:px-0">
-        <Comment />
-      </section>
-    </main>
-
-    <aside class="hidden md:block">
-      <ContentTOC title={entry.data.title} headings={headings} />
-    </aside>
-  </div>
+  <section slot="after-article" class="px-xs md:px-0 border-t-dashed border-var-primary border-1">
+    <ul class="pl-0 list-none text-var-font-primary/80">
+      <PostCategory category={entry.data.categories[0]} />
+    </ul>
+  </section>
 </PostContent>

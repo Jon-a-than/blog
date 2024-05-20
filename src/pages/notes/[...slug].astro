@@ -1,57 +1,37 @@
 ---
 import { getCollection } from 'astro:content'
-import PostContent from '../../layouts/PostContent.astro'
-// import MarkdownPostLayout from '../../layouts/MarkdownPostLayout.astro';
+import PostContent from '@/layouts/PostContent.astro'
+import { createDateGetterForCollection } from '@/utils/auto-date'
 
 export async function getStaticPaths() {
-  const blogEntries = await getCollection('notes')
-  return blogEntries.map((entry) => ({
-    params: { slug: entry.slug },
-    props: { entry }
-  }))
+  const postEntries = await getCollection('notes')
+  const dateGetter = await createDateGetterForCollection('notes')
+
+  return postEntries.map((entry) => {
+    const autoDate = dateGetter(entry.id)
+
+    const date = {
+      pubDate: entry.data.pubDate ?? autoDate.pubDate,
+      patchDate: entry.data.patchDate ?? autoDate.patchDate
+    }
+
+    return {
+      params: { slug: entry.slug },
+      props: { entry, date }
+    }
+  })
 }
 
-const { entry } = Astro.props
-const { Content } = await entry.render()
+const { entry, date } = Astro.props
+const { Content, headings } = await entry.render()
 ---
 
-<PostContent>
-  <div
-    class="mb-xs grid cols-1 md:mx-xs md:cols-[1fr_20rem] lg:cols-[42rem_1fr] xl:cols-[1fr_42rem_1fr] gap-xs"
-  >
-    <aside class="hidden xl:block">
-      <ul>
-        <!-- <li>tests</li>
-        <li>tests</li>
-        <li>tests</li>
-        <li>tests</li>
-        <li>tests</li> -->
-      </ul>
-    </aside>
-    <main>
-      <header>
-        <h1 class="text-frost-4 text-center"><i class="i-uil-cloud-moon-rain"></i> title</h1>
-      </header>
-      <article
-        class="markdown"
-      >
-        <Content />
-      </article>
-
-      <footer>
-        <section class="text-base pa-xs rounded-lg bg-snow-4 dark:bg-night-4">
-          <h2 id="comments" class="text-lg font-bold my-0">comments</h2>
-        </section>
-      </footer>
-    </main>
-    <aside class="hidden md:block">
-      <ul>
-        <!-- <li>tests</li>
-        <li>tests</li>
-        <li>tests</li>
-        <li>tests</li>
-        <li>tests</li> -->
-      </ul>
-    </aside>
-  </div>
+<PostContent
+  title={entry.data.title}
+  slug={entry.slug}
+  date={date}
+  weather={entry.data.weather}
+  headings={headings}
+>
+  <Content />
 </PostContent>

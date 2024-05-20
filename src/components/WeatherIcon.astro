@@ -1,0 +1,14 @@
+---
+import { blogConfig } from '#'
+
+interface Props {
+  class?: string
+  weather: string
+}
+
+const { weather, class: className = '' } = Astro.props
+
+const weatherIcon = blogConfig.markdown.weathers[weather] ?? weather
+---
+
+<i class={`${weatherIcon} ${className}`}></i>
