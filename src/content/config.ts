@@ -19,7 +19,11 @@ const baseSchema = {
   title: z.string(),
   pubDate: z.optional(dateScheme),
   patchDate: z.optional(dateScheme),
-  description: z.string()
+  description: z.string(),
+  weather: z.enum(['i-uil-cloud-heart', ...Reflect.ownKeys(blogConfig.markdown.weathers)] as [
+    string,
+    ...string[]
+  ])
 }
 
 const blogCollection = defineCollection({
@@ -33,8 +37,7 @@ const postCollection = defineCollection({
     ...baseSchema,
     author: z.string(),
     categories: z.array(z.string()),
-    tags: z.array(z.string()),
-    weather: z.enum(Reflect.ownKeys(blogConfig.markdown.weathers) as [string, ...string[]])
+    tags: z.array(z.string())
   })
 })
 
