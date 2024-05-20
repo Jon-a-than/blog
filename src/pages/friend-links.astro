@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { blogConfig } from '#'
+import Comment from '@/components/Comment.astro'
 ---
 
 <BaseLayout title="Friend Links">
@@ -31,5 +32,7 @@ import { blogConfig } from '#'
         ))
       }
     </ul>
+
+    <Comment />
   </main>
 </BaseLayout>

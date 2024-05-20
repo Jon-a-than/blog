@@ -21,6 +21,25 @@ class GitExecError extends Error {
 
 export const collectionDateMap = buildCollectionsDateMap(collectionKeys)
 
+export async function createDateGetterForCollection(
+  collection: CollectionKey
+): Promise<(id: string) => ContentDate> {
+  const dateMap = (await collectionDateMap).get(collection)
+
+  return (id: string) => {
+    const date = dateMap?.get(id)
+    if (date) {
+      return date
+    }
+
+    const now = new Date()
+    return {
+      pubDate: now,
+      patchDate: now
+    }
+  }
+}
+
 async function buildCollectionsDateMap(collections: CollectionKey[]): Promise<CollectionDateMap> {
   const collectionsDateMapEntries = await Promise.all(
     collections.map(async (collection) => {

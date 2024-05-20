@@ -1,16 +1,69 @@
 ---
+import ArticleHeader from '@/components/ArticleHeader.astro'
+import Comment from '@/components/Comment.astro'
+import ContentTOC from '@/components/ContentTOC.astro'
+
 import BaseLayout from './BaseLayout.astro'
 
 interface Props {
+  slug: string
   title: string
+  weather: string
+  date: {
+    pubDate: Date
+    patchDate: Date
+  }
+  comment?: boolean
+  previewCounter?: boolean
+  headings?: {
+    depth: number
+    slug: string
+    text: string
+  }[]
 }
 
-const { title } = Astro.props
+const { title, date, comment, slug, previewCounter, headings, weather } = Astro.props
 ---
 
 <style is:global>
   @import url('../styles/markdown.css');
 </style>
 <BaseLayout title={title}>
-  <slot />
+  <div
+    class="mb-xs grid cols-1 md:mx-xs md:cols-[32rem_1fr] lg:cols-[48rem_1fr] xl:cols-[1fr_42rem_1fr] gap-xs"
+  >
+    <aside class="hidden xl:block">
+      <slot name="aside-left" />
+    </aside>
+
+    <main>
+      <ArticleHeader
+        slug={slug}
+        date={date}
+        title={title}
+        weather={weather}
+        previewCounter={comment && previewCounter}
+      />
+
+      <article class="markdown">
+        <slot />
+      </article>
+
+      <slot name="after-article" />
+
+      {
+        comment && (
+          <section class="px-xs md:px-0">
+            <Comment />
+          </section>
+        )
+      }
+    </main>
+
+    <aside class="hidden md:block">
+      <slot name="aside-right">
+        {headings && <ContentTOC title={title} headings={headings} />}
+      </slot>
+    </aside>
+  </div>
 </BaseLayout>

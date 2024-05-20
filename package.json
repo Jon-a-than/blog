@@ -29,8 +29,8 @@
     "@iconify-json/vscode-icons": "^1.1.34",
     "@unocss/reset": "^0.60.2",
     "@waline/client": "^3.2.0",
-    "@yulania/progress": "^0.1.3",
-    "astro": "^4.8.5",
+    "@yulania/progress": "^0.1.4",
+    "astro": "^4.8.6",
     "typescript": "^5.4.5",
     "unocss": "^0.60.2"
   },

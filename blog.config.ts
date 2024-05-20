@@ -1,6 +1,6 @@
 import type { BlogConfig } from '@/blog-config'
 
-export const blogConfig = {
+export const blogConfig: BlogConfig = {
   blog: {
     author: '青衫',
     site: 'https://beta.qingshaner.com',
@@ -39,6 +39,7 @@ export const blogConfig = {
     weathers: {
       sunny: 'i-uil-bright',
       cloudy: 'i-uil-clouds',
+      'cloud-sun': 'i-uil-cloud-sun',
       moonRain: 'i-uil-cloud-moon-rain',
       showers: 'i-uil-cloud-showers'
     }
@@ -157,4 +158,4 @@ export const blogConfig = {
       copyright: '青衫 2022-PRESENT CC BY-NC-SA 4.0'
     }
   }
-} satisfies BlogConfig
+} as const
