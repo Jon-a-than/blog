@@ -27,8 +27,8 @@ dependencies:
     specifier: ^3.2.0
     version: 3.2.0(typescript@5.4.5)
   '@yulania/progress':
-    specifier: ^0.1.3
-    version: 0.1.3
+    specifier: ^0.1.4
+    version: 0.1.4
   astro:
     specifier: ^4.8.5
     version: 4.8.6(@types/node@20.12.12)(lightningcss@1.25.0)(typescript@5.4.5)
@@ -2108,8 +2108,8 @@ packages:
       - typescript
     dev: false
 
-  /@yulania/progress@0.1.3:
-    resolution: {integrity: sha512-W3VkQyS4g4rEjV8KE+go6G+L60KOf9ng4QuvJnnxbDJHug+1EyeU74OxLa4Y9mE04coUOLBZj4QL1BnnwnGUGw==}
+  /@yulania/progress@0.1.4:
+    resolution: {integrity: sha512-ei5offNWzA44gRm94j7Y3sGme4JqahO6G7KvtfuhnA/YgBlfIlmYI3lcaTJCz9wsfY/FbwI/UH5PDdK+2nCtGA==}
     engines: {node: '>=18.17.0', pnpm: '>=9'}
     dev: false
 
