@@ -40,7 +40,7 @@
     "@iconify-json/logos": "^1.1.42",
     "@iconify-json/uil": "^1.1.8",
     "@types/node": "^20.12.12",
-    "lightningcss": "^1.25.0",
+    "lightningcss": "^1.25.1",
     "lint-staged": "^15.2.2",
     "simple-git-hooks": "^2.11.1"
   },
