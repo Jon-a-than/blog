@@ -26,7 +26,7 @@
     "@astrojs/markdown-remark": "^5.1.0",
     "@astrojs/mdx": "^3.1.0",
     "@astrojs/rss": "^4.0.6",
-    "@astrojs/sitemap": "^3.1.5",
+    "@astrojs/sitemap": "^3.1.6",
     "@iconify-json/vscode-icons": "^1.1.35",
     "@unocss/reset": "^0.61.0",
     "@waline/client": "^3.2.1",
