@@ -29,7 +29,7 @@
     "@astrojs/sitemap": "^3.1.5",
     "@iconify-json/vscode-icons": "^1.1.35",
     "@unocss/reset": "^0.61.0",
-    "@waline/client": "^3.2.1",
+    "@waline/client": "^3.3.0",
     "@yulania/progress": "^0.1.4",
     "astro": "^4.10.2",
     "typescript": "^5.4.5",
