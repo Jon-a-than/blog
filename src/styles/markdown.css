@@ -1,8 +1,13 @@
 @import url('./shiki-filename.css');
+@import url('./fonts.css');
 
 .markdown,
 .wl-content > div {
   --uno: 'text-base bg-transparent mx-xs lg:mx-0';
+
+  & code {
+    font-family: 'Fira Code', 'Courier New', Courier, monospace;
+  }
 
   & :not(.astro-code) > code {
     padding: 1px 0.3em;
