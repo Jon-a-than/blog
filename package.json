@@ -11,7 +11,7 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint": "biome lint . --apply",
+    "lint": "biome lint . --write",
     "format": "biome format . --write"
   },
   "prettier": {
@@ -22,26 +22,26 @@
     "trailingComma": "none"
   },
   "dependencies": {
-    "@astrojs/check": "^0.7.0",
-    "@astrojs/markdown-remark": "^5.2.0",
-    "@astrojs/mdx": "^3.1.5",
-    "@astrojs/rss": "^4.0.7",
-    "@astrojs/sitemap": "^3.1.6",
-    "@iconify-json/vscode-icons": "^1.2.0",
-    "@unocss/reset": "^0.62.3",
-    "@waline/client": "^3.3.0",
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/markdown-remark": "^5.3.0",
+    "@astrojs/mdx": "^3.1.8",
+    "@astrojs/rss": "^4.0.9",
+    "@astrojs/sitemap": "^3.2.1",
+    "@iconify-json/vscode-icons": "^1.2.2",
+    "@unocss/reset": "^0.62.4",
+    "@waline/client": "^3.3.2",
     "@yulania/progress": "^0.1.4",
-    "astro": "^4.15.2",
-    "typescript": "^5.5.4",
-    "unocss": "^0.62.3"
+    "astro": "^4.16.7",
+    "typescript": "^5.6.3",
+    "unocss": "^0.62.4"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.8.3",
+    "@biomejs/biome": "^1.9.4",
     "@iconify-json/file-icons": "^1.2.0",
-    "@iconify-json/logos": "^1.2.0",
-    "@iconify-json/uil": "^1.2.0",
-    "@types/node": "^22.5.3",
-    "lightningcss": "^1.26.0",
+    "@iconify-json/logos": "^1.2.3",
+    "@iconify-json/uil": "^1.2.1",
+    "@types/node": "^22.7.9",
+    "lightningcss": "^1.27.0",
     "lint-staged": "^15.2.10",
     "simple-git-hooks": "^2.11.1"
   },
