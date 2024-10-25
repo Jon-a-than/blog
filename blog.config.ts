@@ -54,8 +54,8 @@ export const blogConfig: BlogConfig = {
           description: '一个简单的页面切换进度条组件 (本站使用)'
         },
         {
-          name: '@qingshaner/nest',
-          description: '一系列用于 NestJS 的组件'
+          name: '@qingshaner/eslint-config',
+          description: 'ESLint 配置项助手, 支持多种项目类型'
         },
         {
           name: '@qingshaner/mojito',
@@ -107,11 +107,16 @@ export const blogConfig: BlogConfig = {
             '探索 Golang 服务端库 Gin 在单体项目中的最佳实践, 包括项目结构、中间件、错误处理等'
         },
         {
-          tag: 'nestjs-scheme',
-          name: 'Nestjs 单体项目最佳实践探索',
-          icon: 'i-file-icons-nestjs',
-          description:
-            '探索 TypeScript 服务端框架 Nestjs 在单体项目中的最佳实践, 包括项目结构、中间件、错误处理等'
+          tag: 'nodejs',
+          name: 'Node.js',
+          icon: 'i-vscode-icons-file-type-node?mask',
+          description: 'Node.js 相关内容模块'
+        },
+        {
+          tag: 'ui',
+          name: 'Web UI 设计',
+          icon: 'i-uil-flower',
+          description: '探索 UI 设计相关的内容, 包括 CSS、JavaScript、Vue3、React 等前端技术栈'
         },
         {
           tag: 'Vue-scheme',
