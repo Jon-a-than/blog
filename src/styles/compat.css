@@ -1,0 +1,83 @@
+yulania-wd-browser-compat {
+  --logo-size: 1rem;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+
+  border: dashed 1px rgb(var(--color-primary));
+  background-color: rgb(var(--color-paper-primary));
+  border-radius: 4px;
+  padding: 0.5rem;
+
+  &::part(root) {
+    margin: 0;
+  }
+
+  &::part(title-container) {
+    font-size: 1rem;
+    margin: 0 0 0.2rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &::part(list) {
+    list-style: none;
+    margin-block: 0;
+
+    font-size: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+  }
+
+  &::part(item) {
+    border-radius: 99999px;
+    display: inline-flex;
+    gap: 0.2em;
+    justify-content: center;
+    align-items: center;
+    padding: 0.3rem 0.5rem;
+    background-color: #e0f2f1;
+    color: #00796b;
+  }
+
+  &::part(not-support) {
+    border-radius: 99999px;
+    display: inline-flex;
+    gap: 0.2em;
+    justify-content: center;
+    align-items: center;
+    padding: 0.3rem 0.5rem;
+    background-color: #f4e8e8;
+    color: #7b0000;
+  }
+
+  &::part(source-link) {
+    font-size: 0.8rem;
+    color: #499cd7;
+    text-decoration: none;
+  }
+
+  &::part(chrome) {
+    --uno: "i-logos-chrome w-full h-full block";
+  }
+
+  &::part(firefox) {
+    --uno: "i-logos-firefox w-full h-full block";
+  }
+
+  &::part(edge) {
+    --uno: "i-logos-microsoft-edge w-full h-full block";
+  }
+
+  &::part(safari) {
+    --uno: "i-logos-safari w-full h-full block";
+  }
+}
+
+::part(platform-logo) {
+  display: block;
+  width: 1.2em;
+  height: 1.2em;
+}

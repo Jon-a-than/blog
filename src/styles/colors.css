@@ -33,11 +33,11 @@
   --color-spring-6: 70 137 87;
   --color-spring-7: 61 128 94;
 
-  --color-autumn-1 : 249 248 241;
-  --color-autumn-2 : 241 240 233;
-  --color-autumn-3 : 233 226 200;
-  --color-autumn-4 : 226 214 177;
-  --color-autumn-5 : 176 125 72;
+  --color-autumn-1: 249 248 241;
+  --color-autumn-2: 241 240 233;
+  --color-autumn-3: 233 226 200;
+  --color-autumn-4: 226 214 177;
+  --color-autumn-5: 176 125 72;
 
   --color-primary: var(--color-frost-4);
   --color-secondary: var(--color-frost-1);

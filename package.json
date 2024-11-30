@@ -24,15 +24,15 @@
   "dependencies": {
     "@astrojs/check": "^0.9.4",
     "@astrojs/markdown-remark": "^5.3.0",
-    "@astrojs/mdx": "^3.1.8",
+    "@astrojs/mdx": "^3.1.9",
     "@astrojs/rss": "^4.0.9",
     "@astrojs/sitemap": "^3.2.1",
-    "@iconify-json/vscode-icons": "^1.2.2",
+    "@iconify-json/vscode-icons": "^1.2.3",
     "@unocss/reset": "^0.62.4",
-    "@waline/client": "^3.3.2",
+    "@waline/client": "^3.4.1",
     "@yulania/progress": "^0.1.4",
-    "astro": "^4.16.7",
-    "typescript": "^5.6.3",
+    "astro": "^4.16.16",
+    "typescript": "^5.7.2",
     "unocss": "^0.62.4"
   },
   "devDependencies": {
@@ -40,8 +40,9 @@
     "@iconify-json/file-icons": "^1.2.0",
     "@iconify-json/logos": "^1.2.3",
     "@iconify-json/uil": "^1.2.1",
-    "@types/node": "^22.7.9",
-    "lightningcss": "^1.27.0",
+    "@types/node": "^22.10.1",
+    "@yulania/compatibility-panel": "^0.0.1",
+    "lightningcss": "^1.28.2",
     "lint-staged": "^15.2.10",
     "simple-git-hooks": "^2.11.1"
   },

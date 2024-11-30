@@ -1,18 +1,19 @@
-@import url('./shiki-filename.css');
-@import url('./fonts.css');
+@import url("./shiki-filename.css");
+@import url("./fonts.css");
+@import url("./compat.css");
 
 .markdown,
-.wl-content > div {
-  --uno: 'text-base bg-transparent mx-xs lg:mx-0';
+.wl-content>div {
+  --uno: "text-base bg-transparent mx-xs lg:mx-0";
 
   & code {
-    font-family: 'Fira Code', 'Courier New', Courier, monospace;
+    font-family: "Fira Code", "Courier New", Courier, monospace;
   }
 
-  & :not(.astro-code) > code {
+  & :not(.astro-code)>code {
     padding: 1px 0.3em;
     border: dashed 1px;
-    --uno: 'text-sm rounded transition-background-color bg-var-md-code';
+    --uno: "text-sm rounded transition-background-color bg-var-md-code";
   }
 
   & p {
@@ -21,20 +22,20 @@
   }
 
   & a {
-    --uno: 'text-var-link-base outline-animation';
+    --uno: "text-var-link-base outline-animation";
   }
 
   & ul {
-    --uno: 'text-base text-var-font-primary';
+    --uno: "text-base text-var-font-primary";
     line-height: 1.8;
   }
 
   & strong {
-    --uno: 'text-var-font-strong';
+    --uno: "text-var-font-strong";
   }
 
   & blockquote {
-    --uno: 'border-l-solid border-var-primary ml-xs pa-xs my-lg text-font-primary bg-var-md-pre rounded-r';
+    --uno: "border-l-solid border-var-primary ml-xs pa-xs my-lg mx-0 text-font-primary bg-var-md-pre rounded-r";
   }
 
   & hr {
@@ -45,16 +46,16 @@
     color: var(--color-snow-6);
   }
 
-  & > :is(h1, h2, h3, h4, h5, h6) {
-    --uno: 'text-var-md-heading cursor-pointer';
+  &> :is(h1, h2, h3, h4, h5, h6) {
+    --uno: "text-var-md-heading cursor-pointer";
 
     &::before {
-      content: '# ';
-      --uno: 'text-var-md-anchor -ml-1em opacity-0 transition-opacity';
+      content: "# ";
+      --uno: "text-var-md-anchor -ml-1em opacity-0 transition-opacity";
     }
 
     &:hover::before {
-      --uno: 'opacity-100';
+      --uno: "opacity-100";
     }
   }
 }
