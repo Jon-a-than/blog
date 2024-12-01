@@ -3,42 +3,42 @@
 @import url("./compat.css");
 
 .markdown,
-.wl-content>div {
+.wl-content > div {
   --uno: "text-base bg-transparent mx-xs lg:mx-0";
 
-  & code {
+  code {
     font-family: "Fira Code", "Courier New", Courier, monospace;
   }
 
-  & :not(.astro-code)>code {
+  :not(.astro-code) > code {
     padding: 1px 0.3em;
     border: dashed 1px;
     --uno: "text-sm rounded transition-background-color bg-var-md-code";
   }
 
-  & p {
+  p {
     --uno: text-var-font-primary;
     line-height: 1.8;
   }
 
-  & a {
+  a {
     --uno: "text-var-link-base outline-animation";
   }
 
-  & ul {
+  ul {
     --uno: "text-base text-var-font-primary";
     line-height: 1.8;
   }
 
-  & strong {
+  strong {
     --uno: "text-var-font-strong";
   }
 
-  & blockquote {
+  blockquote {
     --uno: "border-l-solid border-var-primary ml-xs pa-xs my-lg mx-0 text-font-primary bg-var-md-pre rounded-r";
   }
 
-  & hr {
+  hr {
     --uno: divider;
   }
 
@@ -46,7 +46,7 @@
     color: var(--color-snow-6);
   }
 
-  &> :is(h1, h2, h3, h4, h5, h6) {
+  & > :is(h1, h2, h3, h4, h5, h6) {
     --uno: "text-var-md-heading cursor-pointer";
 
     &::before {
@@ -56,6 +56,57 @@
 
     &:hover::before {
       --uno: "opacity-100";
+    }
+  }
+
+  table {
+    --border-style: dotted;
+    --uno: "text-var-font-primary min-w-full border-separate";
+    border-spacing: 0;
+    margin-block: 1em;
+
+    thead {
+      --uno: "bg-var-md-pre/80 font-bold";
+
+      & > tr:first-child > th {
+        border-top-style: var(--border-style);
+
+        &:first-child {
+          --uno: "rounded-tl";
+        }
+
+        &:last-child {
+          --uno: "rounded-tr";
+        }
+      }
+    }
+
+    tbody > tr:last-child > td {
+      &:first-child {
+        --uno: "rounded-bl";
+      }
+
+      &:last-child {
+        --uno: "rounded-br";
+      }
+    }
+
+    tr {
+      & > :is(th, td):first-child {
+        border-left-style: var(--border-style);
+      }
+
+      &:nth-child(2n) {
+        --uno: "bg-var-md-pre/30";
+      }
+    }
+
+    th,
+    td {
+      border-right-style: var(--border-style);
+      border-bottom-style: var(--border-style);
+      --uno: "border-2 border-var-primary/20";
+      padding: 0.5em 1em;
     }
   }
 }
