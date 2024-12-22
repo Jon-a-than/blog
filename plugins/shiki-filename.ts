@@ -12,24 +12,45 @@ const specialFilenameReg = [
   }
 ]
 
-export function filenameTransformer(): Required<ShikiConfig>['transformers'][number] {
+type ShikiTransformer = Required<ShikiConfig>['transformers'][number]
+// type Element = Parameters<Required<ShikiTransformer>['code']>[0]
+// type Root = Parameters<Required<ShikiTransformer>['root']>[0]
+
+export function filenameTransformer(): ShikiTransformer {
   return {
-    postprocess(html, options) {
+    root() {
       const filename = this.options.meta?.__raw?.match(shikiFilenameReg)?.[1] || ''
+      const specialFilenameLang = specialFilenameReg.find(({ reg }) => reg.test(filename))?.lang
 
-      const specialFilenameLang = specialFilenameReg.find(({ reg }) => {
-        return reg.test(filename)
-      })?.lang
-
-      return `<div class="shiki-code-block">
-        <span
-          data-lang="${specialFilenameLang ?? options.lang}"
-          class="shiki-filename${filename === '' ? ' no-filename' : ''}"
-        >
-          ${filename}
-        </span>
-        ${html}
-      </div>`
+      return {
+        type: 'root',
+        children: [
+          {
+            properties: {
+              class: 'shiki-code-block'
+            },
+            type: 'element',
+            tagName: 'div',
+            children: [
+              {
+                type: 'element',
+                tagName: 'span',
+                properties: {
+                  'data-lang': specialFilenameLang ?? this.options.lang,
+                  class: `shiki-filename${filename === '' ? ' no-filename' : ''}`
+                },
+                children: [
+                  {
+                    type: 'text',
+                    value: 'filename.ts'
+                  }
+                ]
+              },
+              this.pre
+            ]
+          }
+        ]
+      }
     }
   }
 }
