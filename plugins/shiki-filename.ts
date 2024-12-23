@@ -37,14 +37,17 @@ export function filenameTransformer(): ShikiTransformer {
                 tagName: 'span',
                 properties: {
                   'data-lang': specialFilenameLang ?? this.options.lang,
-                  class: `shiki-filename${filename === '' ? ' no-filename' : ''}`
+                  class: `shiki-filename ${filename === '' ? ' no-filename' : ''}`
                 },
-                children: [
-                  {
-                    type: 'text',
-                    value: 'filename.ts'
-                  }
-                ]
+                children:
+                  filename === ''
+                    ? []
+                    : [
+                        {
+                          type: 'text',
+                          value: filename.replaceAll('/', ' / ')
+                        }
+                      ]
               },
               this.pre
             ]
