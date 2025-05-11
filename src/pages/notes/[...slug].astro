@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content'
+import { getCollection, render } from 'astro:content'
 import PostContent from '@/layouts/PostContent.astro'
 import { createDateGetterForCollection } from '@/utils/auto-date'
 
@@ -23,7 +23,7 @@ export async function getStaticPaths() {
 }
 
 const { entry, date } = Astro.props
-const { Content, headings } = await entry.render()
+const { Content, headings } = await render(entry)
 ---
 
 <PostContent

@@ -1,4 +1,8 @@
-/** this file modify the waline theme */
+/*
+ * cspell:words: waline
+ *
+ * this file modify the waline theme
+ */
 
 :root {
   --waline-font-size: 1rem;
@@ -116,6 +120,9 @@
   display: inline-block;
   vertical-align: middle;
   margin-top: -2px;
+}
+.wl-reaction-title {
+  color: rgb(var(--color-md-heading));
 }
 .wl-btn {
   display: inline-block;

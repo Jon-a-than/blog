@@ -1,5 +1,6 @@
 import { blogConfig } from '#'
 import { z, defineCollection, type ContentCollectionKey } from 'astro:content'
+import { glob } from 'astro/loaders'
 
 const dateScheme = z.union([
   z
@@ -32,7 +33,7 @@ const blogCollection = defineCollection({
 })
 
 const postCollection = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/posts' }),
   schema: z.object({
     ...baseSchema,
     author: z.string(),

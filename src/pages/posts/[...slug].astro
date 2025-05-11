@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content'
+import { getCollection, render } from 'astro:content'
 import PostContent from '@/layouts/PostContent.astro'
 import PostCategory from '@/components/PostCategory.astro'
 import { createDateGetterForCollection } from '@/utils/auto-date'
@@ -9,36 +9,42 @@ export async function getStaticPaths() {
   const dateGetter = await createDateGetterForCollection('posts')
 
   return postEntries.map((entry) => {
-    const autoDate = dateGetter(entry.id)
+    const { id, data } = entry
+
+    const autoDate = dateGetter(id)
 
     const date = {
-      pubDate: entry.data.pubDate ?? autoDate.pubDate,
-      patchDate: entry.data.patchDate ?? autoDate.patchDate
+      pubDate: data.pubDate ?? autoDate.pubDate,
+      patchDate: data.patchDate ?? autoDate.patchDate
     }
 
     return {
-      params: { slug: entry.slug },
+      params: { slug: id },
       props: { entry, date }
     }
   })
 }
 
+const { slug } = Astro.params
 const { entry, date } = Astro.props
-const { Content, headings } = await entry.render()
+const { Content, headings } = await render(entry)
 ---
 
 <PostContent
   title={entry.data.title}
-  slug={entry.slug}
+  slug={slug}
   date={date}
   weather={entry.data.weather}
   headings={headings}
   comment
   previewCounter
 >
-  <Content />
+  <Content set:html={entry.rendered?.html} />
 
-  <section slot="after-article" class="px-xs md:px-0 border-t-dashed border-var-primary border-1">
+  <section
+    slot="after-article"
+    class="px-xs md:px-0 border-t-dashed border-var-primary border-1"
+  >
     <ul class="pl-0 list-none text-var-font-primary/80">
       <PostCategory category={entry.data.categories[0]} />
     </ul>

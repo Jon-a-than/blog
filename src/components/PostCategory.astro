@@ -24,12 +24,12 @@ const posts = groupedPosts.get(category)
       <p>{categoryInfo.description}</p>
       <ul class="text-sm opacity-80 pl-0 mb-xs list-none">
         {posts?.map((post, i) => {
-          const { data, slug } = post
+          const { data, id } = post
           return (
             <li class="text-lg before:content-[''] before:i-uil-angle-double-right ">
               <a
                 class="current:text-var-link-base text-inherit hover:text-var-link-base decoration-none transition-color"
-                href={`/${post.collection}/${slug}`}
+                href={`/${post.collection}/${id}`}
               >
                 <span
                   style={`animation-delay: ${(postAnimateDelay + i) * 50}ms;`}
