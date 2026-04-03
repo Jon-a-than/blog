@@ -1,6 +1,6 @@
 import { exec, type ExecException } from 'node:child_process'
 import { getCollection, type CollectionKey } from 'astro:content'
-import { collectionKeys } from '@/content/config'
+import { collectionKeys } from '@/content.config'
 
 interface ContentDate {
   pubDate: Date

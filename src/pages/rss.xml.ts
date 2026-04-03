@@ -1,7 +1,7 @@
 import rss, { type RSSFeedItem } from '@astrojs/rss'
 import { blogConfig } from '#'
 import { getCollection } from 'astro:content'
-import { collectionKeys } from '@/content/config'
+import { collectionKeys } from '@/content.config'
 import { collectionDateMap } from '@/utils/auto-date'
 
 export async function GET(context: Request) {
@@ -11,11 +11,13 @@ export async function GET(context: Request) {
       const date = dateMap.get(collection)
       const contents = await getCollection(collection)
 
-      return contents.map<RSSFeedItem>((content) => ({
+      return (
+        contents as Array<{ id: string; data: { title: string; description: string } }>
+      ).map<RSSFeedItem>((content) => ({
         title: content.data.title,
         pubDate: date?.get(content.id)?.patchDate ?? new Date(),
         description: content.data.description,
-        link: `/${collection}/${content.slug}`
+        link: `/${collection}/${content.id}`
       }))
     })
   )

@@ -1,6 +1,7 @@
 import { blogConfig } from '#'
-import { z, defineCollection, type ContentCollectionKey } from 'astro:content'
+import { defineCollection, type ContentCollectionKey } from 'astro:content'
 import { glob } from 'astro/loaders'
+import { z } from 'astro/zod'
 
 const dateScheme = z.union([
   z
@@ -28,7 +29,7 @@ const baseSchema = {
 }
 
 const blogCollection = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blogs' }),
   schema: z.object(baseSchema)
 })
 
@@ -43,7 +44,7 @@ const postCollection = defineCollection({
 })
 
 const noteCollection = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/notes' }),
   schema: z.object({
     ...baseSchema,
     tags: z.array(z.string())
@@ -55,7 +56,7 @@ export const collections = {
   posts: postCollection,
   notes: noteCollection,
   index: defineCollection({
-    type: 'content'
+    loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/index' })
   })
 }
 

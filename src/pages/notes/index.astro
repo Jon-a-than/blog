@@ -15,21 +15,21 @@ const dateGetter = await createDateGetterForCollection('notes')
     <PostCategoriesHeader />
     <ul class="list-none px-sm">
       {
-        posts.map(({ collection, data, slug, body, id }, i) => (
+        posts.map(({ collection, data, id, body }, i) => (
           <li
             class="opacity-0 animate-fade-in-up animate-fill-forwards animate-duration-300"
             style={`animation-delay: ${i * 50}ms;`}
           >
             <a
               class="text-var-font-primary/80 hover:text-var-link-base decoration-none transition-color"
-              href={`/${collection}/${slug}`}
+              href={`/${collection}/${id}`}
             >
               <h3 class="flex flex-col lg:flex-row justify-between flex-wrap text-lg mb-0 lg:mb-lg font-normal">
                 <span>
                   <WeatherIcon weather={data.weather} />
                   {data.title}
                   <sup class="text-sm opacity-70 font-mono">
-                    {~~(body.length / 200)}m
+                    {~~((body?.length ?? 0) / 200)}m
                   </sup>
                 </span>
                 <DateTime

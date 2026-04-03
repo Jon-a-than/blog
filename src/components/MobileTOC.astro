@@ -1,0 +1,177 @@
+---
+interface Props {
+  title: string
+  headings: { depth: number; slug: string; text: string }[]
+}
+
+const { title, headings } = Astro.props
+---
+
+<div class="md:hidden fixed right-4 bottom-6 z-50" id="mobile-toc-container">
+  <!-- 悬浮按钮 -->
+  <button
+    id="mobile-toc-toggle"
+    class="w-12 h-12 rounded-full bg-var-primary text-white shadow-lg shadow-var-primary/30 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 border-none cursor-pointer"
+    aria-label="打开目录"
+  >
+    <span class="i-uil-list-ul text-xl"></span>
+  </button>
+
+  <!-- 目录抽屉 -->
+  <div
+    id="mobile-toc-drawer"
+    class="fixed inset-x-0 bottom-0 z-50 translate-y-full transition-transform duration-300 ease-out"
+  >
+    <!-- 遮罩 -->
+    <div
+      id="mobile-toc-overlay"
+      class="fixed inset-0 bg-black/30 backdrop-blur-sm opacity-0 transition-opacity duration-300 -z-10"
+    ></div>
+
+    <!-- 抽屉内容 -->
+    <div
+      class="bg-var-paper-primary rounded-t-2xl shadow-2xl max-h-[70vh] flex flex-col"
+    >
+      <!-- 抽屉头部 -->
+      <div
+        class="flex items-center justify-between px-4 py-3 border-b border-var-primary/20"
+      >
+        <h3 class="text-var-font-primary font-medium flex items-center gap-2">
+          <span class="i-uil-list-ul text-var-primary"></span>
+          <span>目录</span>
+        </h3>
+        <button
+          id="mobile-toc-close"
+          class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-var-paper-secondary transition-colors border-none cursor-pointer bg-transparent"
+          aria-label="关闭目录"
+        >
+          <span class="i-uil-times text-var-font-secondary"></span>
+        </button>
+      </div>
+
+      <!-- 目录列表 -->
+      <div class="overflow-y-auto scrollbar-slim" style="max-height: calc(70vh - 60px);">
+        <ul id="mobile-toc-list" class="pb-safe list-none pl-0 py-2">
+          {
+            headings.map(({ depth, slug, text }) => (
+              <li
+                class="mobile-toc-item list-none"
+              >
+                <a
+                  href={`#${slug}`}
+                  class="mobile-toc-link block py-3 px-4 text-var-font-secondary hover:text-var-primary hover:bg-var-paper-secondary transition-colors text-sm no-underline"
+                  style={`padding-left: calc(1rem + ${(depth - 2) * 1}rem)`}
+                  data-slug={slug}
+                >
+                  {text}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { hydrate } from '@/utils/hydrate'
+
+  hydrate(() => {
+    const toggle = document.getElementById('mobile-toc-toggle')
+    const drawer = document.getElementById('mobile-toc-drawer')
+    const overlay = document.getElementById('mobile-toc-overlay')
+    const close = document.getElementById('mobile-toc-close')
+    const links = document.querySelectorAll<HTMLAnchorElement>('.mobile-toc-link')
+
+    let isOpen = false
+
+    function openDrawer() {
+      isOpen = true
+      drawer?.classList.remove('translate-y-full')
+      overlay?.classList.remove('opacity-0')
+      document.body.style.overflow = 'hidden'
+    }
+
+    function closeDrawer() {
+      isOpen = false
+      drawer?.classList.add('translate-y-full')
+      overlay?.classList.add('opacity-0')
+      document.body.style.overflow = ''
+    }
+
+    toggle?.addEventListener('click', openDrawer)
+    close?.addEventListener('click', closeDrawer)
+    overlay?.addEventListener('click', closeDrawer)
+
+    // 点击链接后关闭抽屉并平滑滚动
+    links.forEach((link) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault()
+        const slug = link.getAttribute('data-slug')
+        if (slug) {
+          const target = document.getElementById(slug)
+          if (target) {
+            closeDrawer()
+            setTimeout(() => {
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+            }, 300)
+          }
+        }
+      })
+    })
+
+    // 高亮当前章节
+    const headingsMap = new Map<string, HTMLAnchorElement>()
+    let currentHeading: HTMLAnchorElement | null = null
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries
+          .filter((entry) => entry.isIntersecting)
+          .forEach(({ target }) => {
+            if (currentHeading !== null) {
+              if (currentHeading.dataset.slug === target.id) {
+                return
+              }
+              currentHeading.classList.remove(
+                'text-var-primary',
+                'bg-var-paper-secondary',
+                'font-medium'
+              )
+              currentHeading.classList.add('text-var-font-secondary')
+            }
+
+            currentHeading = headingsMap.get(target.id)!
+            if (currentHeading) {
+              currentHeading.classList.remove('text-var-font-secondary')
+              currentHeading.classList.add(
+                'text-var-primary',
+                'bg-var-paper-secondary',
+                'font-medium'
+              )
+            }
+          })
+      },
+      { threshold: 1 }
+    )
+
+    const headings = document.querySelectorAll('.markdown>:is(h2,h3,h4)')
+    headings.forEach((el) => {
+      const link = document.querySelector<HTMLAnchorElement>(
+        `.mobile-toc-link[data-slug="${el.id}"]`
+      )
+      if (link) {
+        headingsMap.set(el.id, link)
+        observer.observe(el)
+      }
+    })
+
+    // ESC 键关闭抽屉
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen) {
+        closeDrawer()
+      }
+    })
+  })
+</script>

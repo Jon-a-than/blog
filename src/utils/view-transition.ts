@@ -3,11 +3,15 @@ export function applyViewTransition(
   animateFn: (transition: ViewTransition) => void
 ) {
   if (document.startViewTransition === undefined) {
-    callback()
+    if (typeof callback === 'function') {
+      callback()
+    }
     return
   }
 
-  const transition = document.startViewTransition(callback)
+  const transition = document.startViewTransition(
+    typeof callback === 'function' ? callback : undefined
+  )
   animateFn(transition)
 }
 

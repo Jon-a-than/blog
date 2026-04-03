@@ -16,7 +16,7 @@ export async function getStaticPaths() {
     }
 
     return {
-      params: { slug: entry.slug },
+      params: { slug: entry.id },
       props: { entry, date }
     }
   })
@@ -28,7 +28,7 @@ const { Content, headings } = await render(entry)
 
 <PostContent
   title={entry.data.title}
-  slug={entry.slug}
+  slug={entry.id}
   date={date}
   weather={entry.data.weather}
   headings={headings}

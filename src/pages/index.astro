@@ -1,10 +1,10 @@
 ---
 import { blogConfig } from '#'
 import Home from '@/layouts/Home.astro'
-import { getEntry } from 'astro:content'
+import { getEntry, render } from 'astro:content'
 
 const about = await getEntry('index', 'index')
-const { Content } = about ? await about.render() : { Content: () => null }
+const { Content } = about ? await render(about) : { Content: () => null }
 
 const npmPackages = blogConfig.pages.index.npmPackages.map(({ name, description }) => ({
   name,

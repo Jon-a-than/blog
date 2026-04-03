@@ -2,6 +2,7 @@
 import ArticleHeader from '@/components/ArticleHeader.astro'
 import Comment from '@/components/Comment.astro'
 import ContentTOC from '@/components/ContentTOC.astro'
+import MobileTOC from '@/components/MobileTOC.astro'
 
 import BaseLayout from './BaseLayout.astro'
 
@@ -66,4 +67,6 @@ const { title, date, comment, slug, previewCounter, headings, weather } = Astro.
       </slot>
     </aside>
   </div>
+
+  {headings && <MobileTOC title={title} headings={headings} />}
 </BaseLayout>
