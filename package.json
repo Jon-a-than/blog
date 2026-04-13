@@ -28,7 +28,7 @@
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.2",
     "@iconify-json/vscode-icons": "^1.2.45",
-    "@unocss/reset": "^66.1.1",
+    "@unocss/reset": "^66.6.8",
     "@waline/client": "^3.13.0",
     "@yulania/progress": "^0.1.4",
     "astro": "^6.1.3",
