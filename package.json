@@ -36,7 +36,7 @@
     "unocss": "^66.1.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.10",
+    "@biomejs/biome": "^2.4.11",
     "@iconify-json/file-icons": "^1.2.2",
     "@iconify-json/logos": "^1.2.11",
     "@iconify-json/uil": "^1.2.3",
